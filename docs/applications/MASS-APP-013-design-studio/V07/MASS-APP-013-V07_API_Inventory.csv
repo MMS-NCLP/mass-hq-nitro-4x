@@ -1,0 +1,35 @@
+Method,Path,Description,Minimum Role
+GET,/visualizations,List visualizations (paginated; filterable),Viewer
+GET,/visualizations/{id},Get visualization with current revision,Viewer
+POST,/visualizations,Create visualization,Editor
+PATCH,/visualizations/{id},Update visualization metadata,Editor
+DELETE,/visualizations/{id},Soft-delete visualization,Admin
+POST,/visualizations/{id}/duplicate,Duplicate visualization,Editor
+POST,/visualizations/{id}/submit-review,Submit for review,Editor
+POST,/visualizations/{id}/approve,Approve (reviewer only),Editor
+POST,/visualizations/{id}/reject,Reject (reviewer only),Editor
+POST,/visualizations/{id}/return-to-draft,Return rejected to draft,Editor
+POST,/visualizations/{id}/archive,Archive,Admin
+POST,/visualizations/{id}/restore,Restore (creates new revision),Admin
+GET,/visualizations/{id}/revisions,List all revisions,Viewer
+POST,/visualizations/{id}/revisions,Create new revision,Editor
+GET,/visualizations/{id}/nodes,List nodes for current revision,Viewer
+POST,/visualizations/{id}/nodes,Create node,Editor
+PATCH,/visualizations/{id}/nodes/{nodeId},Update node,Editor
+DELETE,/visualizations/{id}/nodes/{nodeId},Delete node,Editor
+GET,/visualizations/{id}/connections,List connections for current revision,Viewer
+POST,/visualizations/{id}/connections,Create connection,Editor
+PATCH,/visualizations/{id}/connections/{connectionId},Update connection,Editor
+DELETE,/visualizations/{id}/connections/{connectionId},Delete connection,Editor
+GET,/visualizations/{id}/reviews,List reviews,Viewer
+POST,/visualizations/{id}/reviews/{reviewId}/comments,Add review comment,Editor
+GET,/visualization-types,List visualization types,Viewer
+GET,/visualizations/{id}/source-references,List source references,Viewer
+POST,/visualizations/{id}/source-references,Create source reference,Editor
+DELETE,/visualizations/{id}/source-references/{referenceId},Remove source reference,Editor
+POST,/visualizations/{id}/favorite,Favorite,Viewer
+DELETE,/visualizations/{id}/favorite,Unfavorite,Viewer
+POST,/visualizations/{id}/publish-handoffs,Initiate publishing handoff,Admin
+GET,/visualizations/{id}/publish-handoffs,List handoffs,Viewer
+GET,/visualizations/{id}/groups,List groups for current revision,Viewer
+POST,/visualizations/{id}/groups,Create group,Editor

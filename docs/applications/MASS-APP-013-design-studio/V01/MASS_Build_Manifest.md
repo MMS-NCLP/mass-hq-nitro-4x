@@ -5,4 +5,4 @@ APP-013
 [X] V04 — Templates & Publishing
 [X] V05 — Asset Stewardship & Media Management
 [X] V06 — Communications & Content Creation
-[ ] V07
+[X] V07 — Enterprise Knowledge Visualization (SERIES COMPLETE)

@@ -1,0 +1,14 @@
+Entity,Primary Key,Key Relationships,Description
+Visualization,id (UUID),"tenant_id → tenants; viz_type_id + tenant_id → visualization_type (composite FK); owner_id → users; project_id → projects (optional)",Governed visualization document with lifecycle and revision history. Tenant-scoped.
+VisualizationType,id (UUID),tenant_id → tenants,Visualization taxonomy. Standard + custom types with advisory default node types.
+VisualizationRevision,id (UUID),"visualization_id → visualization; created_by → users; approved_by → users (optional)",Immutable revision record with canvas metadata. Approved revisions cannot be modified (database trigger enforced).
+VisualizationNode,id (UUID),"revision_id → visualization_revision; source_ref_id → visualization_source_reference (optional); group_id → visualization_group (optional); layer_id → visualization_layer (optional)",Positioned visual element on canvas. Immutable on approved revisions (database trigger enforced).
+VisualizationConnection,id (UUID),"revision_id → visualization_revision; source_node_id → visualization_node; target_node_id → visualization_node",Visual relationship between nodes. Cross-revision connections prohibited (database trigger enforced). Immutable on approved revisions.
+VisualizationGroup,id (UUID),"revision_id → visualization_revision; parent_group_id → visualization_group (optional; max depth 3)",Logical and visual node grouping. Immutable on approved revisions (database trigger enforced).
+VisualizationLayer,id (UUID),revision_id → visualization_revision,Visual ordering and visibility control. Immutable on approved revisions (database trigger enforced).
+VisualizationSourceReference,id (UUID),"revision_id → visualization_revision; created_by → users",Enterprise entity reference tracking. Polymorphic entity_id validated at application layer. context NOT NULL DEFAULT ''.
+VisualizationReview,id (UUID),"revision_id → visualization_revision; reviewer_id → users",Review assignment and decision record. Self-review prohibited by database trigger.
+VisualizationReviewComment,id (UUID),"review_id → visualization_review; author_id → users; node_id → visualization_node (optional)",Reviewer comment attached to a review. Optionally anchored to a specific node.
+VisualizationFavorite,user_id + visualization_id,"user_id → users; visualization_id → visualization",User-level visualization quick access.
+VisualizationPublishHandoff,id (UUID),"visualization_id → visualization; revision_id → visualization_revision; requested_by → users",Publishing handoff to V04. Idempotent via unique idempotency_key. Does not represent publication output.
+VisualizationTag,id (UUID),visualization_id → visualization,Freeform tagging for visualization discovery.

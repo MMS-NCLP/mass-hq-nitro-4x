@@ -1,0 +1,98 @@
+apps/design-studio/
+├── src/
+│   ├── app/
+│   │   ├── (projects)/                        # V02 routes
+│   │   ├── (design-system)/                   # V03 routes
+│   │   ├── (templates)/                       # V04 routes
+│   │   ├── (publications)/                    # V04 routes
+│   │   ├── (assets)/                          # V05 routes
+│   │   ├── (content)/                         # V06 routes
+│   │   ├── (visualizations)/
+│   │   │   ├── page.tsx                       # Visualization library
+│   │   │   ├── new/
+│   │   │   │   └── page.tsx                   # Create visualization
+│   │   │   └── [vizId]/
+│   │   │       ├── page.tsx                   # Visualization canvas/editor
+│   │   │       ├── preview/
+│   │   │       │   └── page.tsx               # Preview
+│   │   │       ├── revisions/
+│   │   │       │   └── page.tsx               # Revision history
+│   │   │       ├── reviews/
+│   │   │       │   └── page.tsx               # Review history
+│   │   │       └── publish/
+│   │   │           └── page.tsx               # Publishing handoffs
+│   │   └── layout.tsx
+│   ├── features/
+│   │   ├── projects/                          # V02
+│   │   ├── components/                        # V03
+│   │   ├── design-tokens/                     # V03
+│   │   ├── templates/                         # V04
+│   │   ├── publications/                      # V04
+│   │   ├── assets/                            # V05
+│   │   ├── content/                           # V06
+│   │   └── visualizations/
+│   │       ├── api/
+│   │       │   ├── visualizations.ts
+│   │       │   ├── visualization-types.ts
+│   │       │   ├── revisions.ts
+│   │       │   ├── nodes.ts
+│   │       │   ├── connections.ts
+│   │       │   ├── groups.ts
+│   │       │   ├── layers.ts
+│   │       │   ├── source-references.ts
+│   │       │   ├── reviews.ts
+│   │       │   └── publish-handoffs.ts
+│   │       ├── components/
+│   │       │   ├── VisualizationList.tsx
+│   │       │   ├── VisualizationCard.tsx
+│   │       │   ├── VisualizationCanvas.tsx
+│   │       │   ├── VisualizationPreview.tsx
+│   │       │   ├── NodeEditor.tsx
+│   │       │   ├── NodeRenderer.tsx
+│   │       │   ├── ConnectionEditor.tsx
+│   │       │   ├── ConnectionRenderer.tsx
+│   │       │   ├── GroupPanel.tsx
+│   │       │   ├── LayerPanel.tsx
+│   │       │   ├── SourceReferencePanel.tsx
+│   │       │   ├── RevisionHistory.tsx
+│   │       │   ├── ReviewPanel.tsx
+│   │       │   ├── ReviewCommentThread.tsx
+│   │       │   ├── PublishHandoffDialog.tsx
+│   │       │   └── ToolPalette.tsx
+│   │       ├── hooks/
+│   │       │   ├── useVisualization.ts
+│   │       │   ├── useVisualizationList.ts
+│   │       │   ├── useNodes.ts
+│   │       │   ├── useConnections.ts
+│   │       │   ├── useGroups.ts
+│   │       │   ├── useLayers.ts
+│   │       │   ├── useSourceReferences.ts
+│   │       │   ├── useRevisions.ts
+│   │       │   ├── useReviews.ts
+│   │       │   ├── usePublishHandoffs.ts
+│   │       │   └── useVisualizationTypes.ts
+│   │       └── types/
+│   │           └── visualization.ts
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── ...                                # V02-V06 (001-049)
+│       ├── 050_create_visualization_types.sql
+│       ├── 051_create_visualizations.sql
+│       ├── 052_create_visualization_revisions.sql
+│       ├── 053_create_visualization_groups.sql
+│       ├── 054_create_visualization_layers.sql
+│       ├── 055_create_visualization_nodes.sql
+│       ├── 056_create_visualization_connections.sql
+│       ├── 057_create_visualization_source_references.sql
+│       ├── 058_create_visualization_reviews.sql
+│       ├── 059_create_visualization_review_comments.sql
+│       ├── 060_create_visualization_favorites.sql
+│       ├── 061_create_visualization_publish_handoffs.sql
+│       ├── 062_create_visualization_tags.sql
+│       ├── 063_seed_visualization_types.sql
+│       ├── 064_create_v07_rls_policies.sql
+│       └── 065_create_v07_enforcement_triggers.sql
+└── package.json
