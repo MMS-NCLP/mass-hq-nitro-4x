@@ -1,0 +1,7 @@
+# MASS HQ Nitro 4x — Code Owners
+# Constitutional and engineering artifacts require review
+
+docs/constitution/    @davonlevant
+docs/engineering/     @davonlevant
+docs/standards/       @davonlevant
+docs/applications/    @davonlevant

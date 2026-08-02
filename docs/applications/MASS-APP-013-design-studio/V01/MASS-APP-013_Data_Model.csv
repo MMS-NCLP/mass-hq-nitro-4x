@@ -1,0 +1,6 @@
+Entity,Key Relationships
+Workspace,contains Projects
+Project,contains Pages
+Page,contains Components
+Component,uses Assets
+Publication,targets Project Revision

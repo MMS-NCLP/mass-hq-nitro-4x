@@ -1,0 +1,8 @@
+Service,Endpoint
+Workspace,/api/workspaces
+Projects,/api/projects
+Pages,/api/pages
+Components,/api/components
+Assets,/api/assets
+Reviews,/api/reviews
+Publications,/api/publications
