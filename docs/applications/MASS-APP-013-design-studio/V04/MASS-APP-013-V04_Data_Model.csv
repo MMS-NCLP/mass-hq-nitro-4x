@@ -1,0 +1,9 @@
+Entity,Primary Key,Key Relationships,Description
+Template,id (UUID),tenant_id → tenants; category_id → template_category; author_id → users,Reusable structural definition for standardized deliverables. Tenant-scoped.
+TemplateCategory,id (UUID),tenant_id → tenants,Template taxonomy. Standard + custom categories per tenant.
+TemplateSection,id (UUID),template_id → template,Ordered section within a template. Types: text/table/diagram/metadata.
+Publication,id (UUID),project_id → project; template_id → template; tenant_id → tenants,Project deliverable generated from a template. Immutable once published.
+PublicationVersion,id (UUID),publication_id → publication; published_by → users,Immutable content snapshot. Sequential versioning.
+OutputDefinition,id (UUID),tenant_id → tenants,Output format configuration (markdown/pdf/html/json) with styling tokens.
+PublishJob,id (UUID),publication_version_id → publication_version; output_definition_id → output_definition,Async job for generating output files. Max 3 retries.
+UserTemplateFavorite,user_id + template_id,user_id → users; template_id → template,User-level template quick access.

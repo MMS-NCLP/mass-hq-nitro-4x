@@ -1,0 +1,80 @@
+apps/design-studio/
+├── src/
+│   ├── app/
+│   │   ├── (projects)/                        # V02 routes
+│   │   │   └── ...
+│   │   ├── (design-system)/                   # V03 routes
+│   │   │   └── ...
+│   │   ├── (templates)/
+│   │   │   ├── page.tsx                       # Template library browser
+│   │   │   └── [templateId]/
+│   │   │       ├── page.tsx                   # Template editor
+│   │   │       └── sections/
+│   │   │           └── page.tsx               # Section management
+│   │   ├── (publications)/
+│   │   │   ├── page.tsx                       # Publication list
+│   │   │   └── [publicationId]/
+│   │   │       ├── page.tsx                   # Publication detail
+│   │   │       ├── preview/
+│   │   │       │   └── page.tsx               # Publication preview
+│   │   │       └── versions/
+│   │   │           └── page.tsx               # Version history
+│   │   └── layout.tsx
+│   ├── features/
+│   │   ├── projects/                          # V02
+│   │   ├── components/                        # V03
+│   │   ├── design-tokens/                     # V03
+│   │   ├── templates/
+│   │   │   ├── api/
+│   │   │   │   ├── templates.ts
+│   │   │   │   ├── sections.ts
+│   │   │   │   └── categories.ts
+│   │   │   ├── components/
+│   │   │   │   ├── TemplateBrowser.tsx
+│   │   │   │   ├── TemplateCard.tsx
+│   │   │   │   ├── TemplateEditor.tsx
+│   │   │   │   ├── TemplateCreateDialog.tsx
+│   │   │   │   ├── SectionList.tsx
+│   │   │   │   └── SectionEditor.tsx
+│   │   │   ├── hooks/
+│   │   │   │   ├── useTemplates.ts
+│   │   │   │   ├── useTemplate.ts
+│   │   │   │   └── useCategories.ts
+│   │   │   └── types/
+│   │   │       └── template.ts
+│   │   └── publications/
+│   │       ├── api/
+│   │       │   ├── publications.ts
+│   │       │   ├── versions.ts
+│   │       │   ├── jobs.ts
+│   │       │   └── output-definitions.ts
+│   │       ├── components/
+│   │       │   ├── PublicationList.tsx
+│   │       │   ├── PublicationDetail.tsx
+│   │       │   ├── PublicationPreview.tsx
+│   │       │   ├── PublishDialog.tsx
+│   │       │   ├── VersionTimeline.tsx
+│   │       │   └── JobStatusPanel.tsx
+│   │       ├── hooks/
+│   │       │   ├── usePublications.ts
+│   │       │   ├── usePublication.ts
+│   │       │   └── usePublishJobs.ts
+│   │       └── types/
+│   │           └── publication.ts
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── ...                                # V02 (001-007), V03 (008-016)
+│       ├── 017_create_template_categories.sql
+│       ├── 018_create_templates.sql
+│       ├── 019_create_template_sections.sql
+│       ├── 020_create_output_definitions.sql
+│       ├── 021_create_publications.sql
+│       ├── 022_create_publication_versions.sql
+│       ├── 023_create_publish_jobs.sql
+│       ├── 024_create_template_favorites.sql
+│       ├── 025_seed_template_categories.sql
+│       └── 026_create_v04_rls_policies.sql
+└── package.json

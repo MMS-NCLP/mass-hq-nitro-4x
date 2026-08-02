@@ -1,0 +1,28 @@
+Method,Path,Description,Auth,Minimum Role
+GET,/templates,List templates (paginated filterable),Yes,Viewer
+GET,/templates/{id},Get template with sections,Yes,Viewer
+POST,/templates,Create new template,Yes,Editor
+PATCH,/templates/{id},Update template metadata,Yes,Editor
+DELETE,/templates/{id},Archive template,Yes,Admin
+POST,/templates/{id}/restore,Restore archived template,Yes,Admin
+POST,/templates/{id}/duplicate,Create copy as new Draft,Yes,Editor
+GET,/templates/{id}/sections,List template sections,Yes,Viewer
+POST,/templates/{id}/sections,Add section to template,Yes,Editor
+PATCH,/templates/{id}/sections/{sectionId},Update section,Yes,Editor
+DELETE,/templates/{id}/sections/{sectionId},Remove section,Yes,Editor
+PUT,/templates/{id}/sections/reorder,Reorder sections,Yes,Editor
+GET,/template-categories,List all categories,Yes,Viewer
+POST,/template-categories,Create custom category,Yes,Admin
+GET,/publications,List publications,Yes,Viewer
+GET,/publications/{id},Get publication with current version,Yes,Viewer
+POST,/publications,Create draft publication from project + template,Yes,Editor
+POST,/publications/{id}/preview,Generate preview,Yes,Editor
+POST,/publications/{id}/publish,Finalize and publish,Yes,Editor
+POST,/publications/{id}/regenerate,Create new version,Yes,Editor
+DELETE,/publications/{id},Archive publication,Yes,Admin
+GET,/publications/{id}/versions,List publication versions,Yes,Viewer
+GET,/publications/{id}/versions/{versionId},Get specific version,Yes,Viewer
+GET,/publications/{id}/jobs,List publish jobs,Yes,Viewer
+GET,/output-definitions,List output definitions,Yes,Viewer
+POST,/output-definitions,Create output definition,Yes,Admin
+PATCH,/output-definitions/{id},Update output definition,Yes,Admin
