@@ -1,0 +1,12 @@
+Entity,Primary Key,Key Relationships,Description
+CreativeSession,id (UUID),"tenant_id → tenants; workspace_id → intelligence_workspace (optional); owner_id → users",Governed creative intelligence session with lifecycle. Tenant-scoped. Advisory only.
+SessionContext,id (UUID),session_id → creative_session (UNIQUE),Session working state with APP-013 entity references. UUID arrays bounded to max 20 per field (database trigger enforced).
+KnowledgeReference,id (UUID),"session_id → creative_session; created_by → users",Enterprise knowledge reference tracking. Polymorphic reference_id validated at application layer. context NOT NULL DEFAULT ''.
+PromptLayer,id (UUID),"tenant_id → tenants; created_by → users",Governance prompt layer (organizational/workspace/session). Composed in fixed order before ENG-009 execution.
+PromptComposition,id (UUID),session_id → creative_session,Frozen snapshot of assembled prompt layers and context. Persisted for auditability.
+AssistanceRequest,id (UUID),"session_id → creative_session; composition_id → prompt_composition",Creative assistance request. Types: review/refine/organize/write/recommend/document. Advisory only.
+AssistanceResponse,id (UUID),request_id → assistance_request (UNIQUE),Structured response from ENG-009. One response per request.
+SessionHistory,id (UUID),"session_id → creative_session; request_id → assistance_request (optional); response_id → assistance_response (optional)",Append-only session history. Database trigger prevents modification or deletion.
+IntelligenceWorkspace,id (UUID),"tenant_id → tenants; owner_id → users",Organizational container for creative sessions. Distinct from APP-013 project workspaces.
+SessionTag,id (UUID),session_id → creative_session,Freeform tagging for session discovery.
+SessionFavorite,user_id + session_id,"user_id → users; session_id → creative_session",User-level session quick access.

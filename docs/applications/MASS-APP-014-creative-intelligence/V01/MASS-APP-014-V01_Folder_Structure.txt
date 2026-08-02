@@ -1,0 +1,110 @@
+apps/creative-intelligence/
+├── src/
+│   ├── app/
+│   │   ├── (sessions)/
+│   │   │   ├── page.tsx                       # Session library
+│   │   │   ├── new/
+│   │   │   │   └── page.tsx                   # Create session
+│   │   │   └── [sessionId]/
+│   │   │       ├── page.tsx                   # Session workspace
+│   │   │       ├── history/
+│   │   │       │   └── page.tsx               # Session history
+│   │   │       └── references/
+│   │   │           └── page.tsx               # Knowledge references
+│   │   ├── (workspaces)/
+│   │   │   ├── page.tsx                       # Workspace listing
+│   │   │   └── [workspaceId]/
+│   │   │       └── page.tsx                   # Workspace detail
+│   │   ├── (prompt-governance)/
+│   │   │   └── page.tsx                       # Prompt layer management
+│   │   └── layout.tsx
+│   ├── features/
+│   │   ├── sessions/
+│   │   │   ├── api/
+│   │   │   │   ├── sessions.ts
+│   │   │   │   ├── context.ts
+│   │   │   │   └── history.ts
+│   │   │   ├── components/
+│   │   │   │   ├── SessionList.tsx
+│   │   │   │   ├── SessionCard.tsx
+│   │   │   │   ├── SessionWorkspace.tsx
+│   │   │   │   ├── ContextPanel.tsx
+│   │   │   │   ├── HistoryTimeline.tsx
+│   │   │   │   └── PurposeSelector.tsx
+│   │   │   ├── hooks/
+│   │   │   │   ├── useSession.ts
+│   │   │   │   ├── useSessionList.ts
+│   │   │   │   ├── useContext.ts
+│   │   │   │   └── useHistory.ts
+│   │   │   └── types/
+│   │   │       └── session.ts
+│   │   ├── knowledge/
+│   │   │   ├── api/
+│   │   │   │   ├── references.ts
+│   │   │   │   └── search.ts
+│   │   │   ├── components/
+│   │   │   │   ├── ReferenceList.tsx
+│   │   │   │   ├── ReferenceCard.tsx
+│   │   │   │   └── KnowledgeSearch.tsx
+│   │   │   ├── hooks/
+│   │   │   │   ├── useReferences.ts
+│   │   │   │   └── useKnowledgeSearch.ts
+│   │   │   └── types/
+│   │   │       └── knowledge.ts
+│   │   ├── prompts/
+│   │   │   ├── api/
+│   │   │   │   ├── layers.ts
+│   │   │   │   └── composition.ts
+│   │   │   ├── components/
+│   │   │   │   ├── PromptLayerList.tsx
+│   │   │   │   ├── PromptLayerEditor.tsx
+│   │   │   │   └── CompositionPreview.tsx
+│   │   │   ├── hooks/
+│   │   │   │   ├── usePromptLayers.ts
+│   │   │   │   └── useComposition.ts
+│   │   │   └── types/
+│   │   │       └── prompt.ts
+│   │   ├── assistance/
+│   │   │   ├── api/
+│   │   │   │   └── assistance.ts
+│   │   │   ├── components/
+│   │   │   │   ├── AssistancePanel.tsx
+│   │   │   │   ├── ReviewResult.tsx
+│   │   │   │   ├── RefinementResult.tsx
+│   │   │   │   ├── OrganizationResult.tsx
+│   │   │   │   ├── WritingResult.tsx
+│   │   │   │   ├── RecommendationResult.tsx
+│   │   │   │   └── DocumentationResult.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useAssistance.ts
+│   │   │   └── types/
+│   │   │       └── assistance.ts
+│   │   └── workspaces/
+│   │       ├── api/
+│   │       │   └── workspaces.ts
+│   │       ├── components/
+│   │       │   ├── WorkspaceList.tsx
+│   │       │   └── WorkspaceCard.tsx
+│   │       ├── hooks/
+│   │       │   └── useWorkspaces.ts
+│   │       └── types/
+│   │           └── workspace.ts
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── 001_create_intelligence_workspaces.sql
+│       ├── 002_create_creative_sessions.sql
+│       ├── 003_create_session_contexts.sql
+│       ├── 004_create_knowledge_references.sql
+│       ├── 005_create_prompt_layers.sql
+│       ├── 006_create_prompt_compositions.sql
+│       ├── 007_create_assistance_requests.sql
+│       ├── 008_create_assistance_responses.sql
+│       ├── 009_create_session_history.sql
+│       ├── 010_create_session_tags.sql
+│       ├── 011_create_session_favorites.sql
+│       ├── 012_create_v01_rls_policies.sql
+│       └── 013_create_v01_enforcement_triggers.sql
+└── package.json

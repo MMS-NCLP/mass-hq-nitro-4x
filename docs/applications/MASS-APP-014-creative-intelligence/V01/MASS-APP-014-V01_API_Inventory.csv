@@ -1,0 +1,35 @@
+Method,Path,Description,Minimum Role
+GET,/creative-sessions,List sessions (paginated; filterable),Viewer
+GET,/creative-sessions/{id},Get session with context,Viewer
+POST,/creative-sessions,Create session,Editor
+PATCH,/creative-sessions/{id},Update session metadata,Editor
+DELETE,/creative-sessions/{id},Soft-delete session,Admin
+POST,/creative-sessions/{id}/archive,Archive session,Editor
+POST,/creative-sessions/{id}/restore,Restore session,Editor
+GET,/creative-sessions/{id}/context,Get session context,Viewer
+PATCH,/creative-sessions/{id}/context,Update session context,Editor
+GET,/creative-sessions/{id}/knowledge-references,List references for session,Viewer
+POST,/creative-sessions/{id}/knowledge-references,Add knowledge reference,Editor
+DELETE,/creative-sessions/{id}/knowledge-references/{refId},Remove knowledge reference,Editor
+POST,/knowledge-references/search,Search available knowledge,Viewer
+GET,/prompt-layers,List prompt layers for tenant,Viewer
+GET,/prompt-layers/{id},Get prompt layer,Viewer
+POST,/prompt-layers,Create prompt layer,Admin
+PATCH,/prompt-layers/{id},Update prompt layer,Admin
+DELETE,/prompt-layers/{id},Delete prompt layer,Admin
+POST,/creative-sessions/{id}/compose,Compose prompt for session,Editor
+GET,/creative-sessions/{id}/compositions,List past compositions,Viewer
+POST,/creative-sessions/{id}/assist/review,Request content review,Editor
+POST,/creative-sessions/{id}/assist/refine,Request content refinement,Editor
+POST,/creative-sessions/{id}/assist/organize,Request organization guidance,Editor
+POST,/creative-sessions/{id}/assist/write,Request writing assistance,Editor
+POST,/creative-sessions/{id}/assist/recommend,Request recommendations,Editor
+POST,/creative-sessions/{id}/assist/document,Request documentation assistance,Editor
+GET,/creative-sessions/{id}/history,Get session history,Viewer
+GET,/intelligence-workspaces,List workspaces,Viewer
+GET,/intelligence-workspaces/{id},Get workspace,Viewer
+POST,/intelligence-workspaces,Create workspace,Editor
+PATCH,/intelligence-workspaces/{id},Update workspace,Editor
+DELETE,/intelligence-workspaces/{id},Archive workspace,Admin
+POST,/creative-sessions/{id}/favorite,Favorite,Viewer
+DELETE,/creative-sessions/{id}/favorite,Unfavorite,Viewer
