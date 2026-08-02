@@ -1,0 +1,25 @@
+Method,Path,Description,Auth,Minimum Role
+GET,/components,List components (paginated filterable),Yes,Viewer
+GET,/components/{id},Get component with current version,Yes,Viewer
+POST,/components,Create new component,Yes,Editor
+PATCH,/components/{id},Update component metadata,Yes,Editor
+DELETE,/components/{id},Archive component,Yes,Admin
+POST,/components/{id}/deprecate,Deprecate component,Yes,Admin
+POST,/components/{id}/restore,Restore archived or deprecated component,Yes,Admin
+GET,/components/{id}/versions,List component versions,Yes,Viewer
+POST,/components/{id}/versions,Create new component version,Yes,Editor
+GET,/components/{id}/dependencies,List component dependencies,Yes,Viewer
+POST,/components/{id}/dependencies,Add dependency,Yes,Editor
+DELETE,/components/{id}/dependencies/{depId},Remove dependency,Yes,Editor
+GET,/component-categories,List all categories,Yes,Viewer
+POST,/component-categories,Create custom category,Yes,Admin
+PATCH,/component-categories/{id},Update category,Yes,Admin
+DELETE,/component-categories/{id},Delete category (only if empty),Yes,Admin
+GET,/design-tokens,List all tokens (grouped),Yes,Viewer
+GET,/design-tokens/{id},Get single token,Yes,Viewer
+POST,/design-tokens,Create token,Yes,Editor
+PATCH,/design-tokens/{id},Update token value or metadata,Yes,Editor
+DELETE,/design-tokens/{id},Delete token,Yes,Admin
+GET,/token-groups,List token groups,Yes,Viewer
+POST,/token-groups,Create token group,Yes,Admin
+PATCH,/token-groups/{id},Update token group,Yes,Admin

@@ -1,0 +1,8 @@
+Entity,Primary Key,Key Relationships,Description
+Component,id (UUID),tenant_id → tenants; category_id → component_category; author_id → users,Reusable design building block. Tenant-scoped.
+ComponentCategory,id (UUID),tenant_id → tenants,Component taxonomy. Standard + custom categories per tenant.
+ComponentVersion,id (UUID),component_id → component; author_id → users,Immutable version record with documentation and properties as JSONB.
+ComponentTag,id (UUID),component_id → component,Freeform tagging for component discovery.
+ComponentDependency,id (UUID),source_component_id → component; target_component_id → component,Directional dependency. Types: requires/optional/peer. No cycles.
+TokenGroup,id (UUID),tenant_id → tenants,Organizational grouping for design tokens (Colors/Typography/Spacing/etc).
+DesignToken,id (UUID),tenant_id → tenants; group_id → token_group; reference_token_id → design_token (self-ref),Single design decision value. Types: color/dimension/font/number/string.

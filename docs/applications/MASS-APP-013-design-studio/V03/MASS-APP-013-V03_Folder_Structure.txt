@@ -1,0 +1,69 @@
+apps/design-studio/
+├── src/
+│   ├── app/
+│   │   ├── (projects)/
+│   │   │   └── ...                           # V02 routes
+│   │   ├── (design-system)/
+│   │   │   ├── components/
+│   │   │   │   ├── page.tsx                   # Component library browser
+│   │   │   │   └── [componentId]/
+│   │   │   │       ├── page.tsx               # Component detail
+│   │   │   │       └── versions/
+│   │   │   │           └── page.tsx           # Version history
+│   │   │   └── tokens/
+│   │   │       └── page.tsx                   # Token management
+│   │   └── layout.tsx
+│   ├── features/
+│   │   ├── projects/                          # V02
+│   │   │   └── ...
+│   │   ├── components/
+│   │   │   ├── api/
+│   │   │   │   ├── components.ts
+│   │   │   │   ├── categories.ts
+│   │   │   │   ├── versions.ts
+│   │   │   │   └── dependencies.ts
+│   │   │   ├── components/
+│   │   │   │   ├── ComponentBrowser.tsx
+│   │   │   │   ├── ComponentCard.tsx
+│   │   │   │   ├── ComponentDetail.tsx
+│   │   │   │   ├── ComponentCreateDialog.tsx
+│   │   │   │   ├── ComponentDocumentation.tsx
+│   │   │   │   ├── DependencyGraph.tsx
+│   │   │   │   └── VersionTimeline.tsx
+│   │   │   ├── hooks/
+│   │   │   │   ├── useComponents.ts
+│   │   │   │   ├── useComponent.ts
+│   │   │   │   ├── useCategories.ts
+│   │   │   │   └── useDependencies.ts
+│   │   │   └── types/
+│   │   │       └── component.ts
+│   │   └── design-tokens/
+│   │       ├── api/
+│   │       │   ├── tokens.ts
+│   │       │   └── groups.ts
+│   │       ├── components/
+│   │       │   ├── TokenBrowser.tsx
+│   │       │   ├── TokenGroupPanel.tsx
+│   │       │   ├── TokenEditor.tsx
+│   │       │   └── TokenPreview.tsx
+│   │       ├── hooks/
+│   │       │   ├── useTokens.ts
+│   │       │   └── useTokenGroups.ts
+│   │       └── types/
+│   │           └── token.ts
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── ...                                # V02 migrations (001-007)
+│       ├── 008_create_component_categories.sql
+│       ├── 009_create_components.sql
+│       ├── 010_create_component_versions.sql
+│       ├── 011_create_component_tags.sql
+│       ├── 012_create_component_dependencies.sql
+│       ├── 013_create_token_groups.sql
+│       ├── 014_create_design_tokens.sql
+│       ├── 015_seed_standard_categories.sql
+│       └── 016_create_v03_rls_policies.sql
+└── package.json
