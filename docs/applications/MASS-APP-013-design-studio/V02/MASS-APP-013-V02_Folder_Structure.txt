@@ -1,0 +1,48 @@
+apps/design-studio/
+├── src/
+│   ├── app/
+│   │   ├── (projects)/
+│   │   │   ├── page.tsx                  # Project list view
+│   │   │   └── [projectId]/
+│   │   │       ├── page.tsx              # Project detail / workspace view
+│   │   │       ├── settings/
+│   │   │       │   └── page.tsx          # Project settings
+│   │   │       └── workspace/
+│   │   │           └── [folderId]/
+│   │   │               └── page.tsx      # Folder contents view
+│   │   └── layout.tsx
+│   ├── features/
+│   │   └── projects/
+│   │       ├── api/
+│   │       │   ├── projects.ts           # Project API client
+│   │       │   ├── members.ts            # Membership API client
+│   │       │   └── folders.ts            # Folder API client
+│   │       ├── components/
+│   │       │   ├── ProjectList.tsx
+│   │       │   ├── ProjectCard.tsx
+│   │       │   ├── ProjectCreateDialog.tsx
+│   │       │   ├── ProjectSettingsForm.tsx
+│   │       │   ├── WorkspaceView.tsx
+│   │       │   ├── FolderTree.tsx
+│   │       │   ├── MemberList.tsx
+│   │       │   └── MemberInviteDialog.tsx
+│   │       ├── hooks/
+│   │       │   ├── useProjects.ts
+│   │       │   ├── useProject.ts
+│   │       │   ├── useWorkspace.ts
+│   │       │   └── useProjectMembers.ts
+│   │       └── types/
+│   │           └── project.ts            # TypeScript type definitions
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── 001_create_projects.sql
+│       ├── 002_create_workspaces.sql
+│       ├── 003_create_project_members.sql
+│       ├── 004_create_project_tags.sql
+│       ├── 005_create_folders.sql
+│       ├── 006_create_user_pins_and_access.sql
+│       └── 007_create_rls_policies.sql
+└── package.json

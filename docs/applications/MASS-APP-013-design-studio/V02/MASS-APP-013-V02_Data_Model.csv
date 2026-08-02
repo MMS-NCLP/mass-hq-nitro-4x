@@ -1,0 +1,8 @@
+Entity,Primary Key,Key Relationships,Description
+Project,id (UUID),tenant_id → tenants; owner_id → users,Top-level organizational unit. Tenant-scoped.
+Workspace,id (UUID),project_id → project (1:1 unique),Project's internal working environment. Created with project.
+ProjectMember,id (UUID),project_id → project; user_id → users,Access control. Roles: owner/editor/contributor/viewer.
+ProjectTag,id (UUID),project_id → project,Freeform tagging for project categorization.
+Folder,id (UUID),workspace_id → workspace; parent_folder_id → folder (self-ref),Hierarchical organization within workspace. Max depth 5.
+UserProjectPin,user_id + project_id,user_id → users; project_id → project,User-level quick access pin.
+UserProjectAccess,user_id + project_id,user_id → users; project_id → project,Tracks last access time for recent projects.

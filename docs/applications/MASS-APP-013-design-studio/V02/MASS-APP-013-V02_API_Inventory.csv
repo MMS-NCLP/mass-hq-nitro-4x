@@ -1,0 +1,17 @@
+Method,Path,Description,Auth,Minimum Role
+GET,/projects,List projects for current user,Yes,Viewer
+GET,/projects/{id},Get project details,Yes,Viewer
+POST,/projects,Create new project,Yes,—
+PATCH,/projects/{id},Update project metadata,Yes,Editor
+DELETE,/projects/{id},Soft-delete project,Yes,Owner
+POST,/projects/{id}/archive,Archive project,Yes,Owner
+POST,/projects/{id}/restore,Restore archived project,Yes,Owner
+GET,/projects/{id}/workspace,Get project workspace,Yes,Viewer
+GET,/projects/{id}/members,List project members,Yes,Viewer
+POST,/projects/{id}/members,Add project member,Yes,Owner
+PATCH,/projects/{id}/members/{userId},Update member role,Yes,Owner
+DELETE,/projects/{id}/members/{userId},Remove project member,Yes,Owner
+GET,/projects/{id}/workspace/folders,List workspace folders,Yes,Viewer
+POST,/projects/{id}/workspace/folders,Create folder,Yes,Contributor
+PATCH,/projects/{id}/workspace/folders/{folderId},Update folder,Yes,Contributor
+DELETE,/projects/{id}/workspace/folders/{folderId},Delete folder,Yes,Editor
