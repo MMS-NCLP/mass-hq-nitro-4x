@@ -75,5 +75,6 @@ apps/design-studio/
 │       ├── 045_create_content_favorites.sql
 │       ├── 046_create_content_handoffs.sql
 │       ├── 047_seed_content_types.sql
-│       └── 048_create_v06_rls_policies.sql
+│       ├── 048_create_v06_rls_policies.sql
+│       └── 049_create_v06_enforcement_triggers.sql
 └── package.json

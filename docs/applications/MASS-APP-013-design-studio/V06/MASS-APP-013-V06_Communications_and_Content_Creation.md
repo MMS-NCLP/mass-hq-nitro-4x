@@ -7,7 +7,7 @@
 | Application | MASS-APP-013 — Design Studio |
 | Volume | V06 |
 | Title | Communications & Content Creation |
-| Version | 1.0 |
+| Version | 1.1 |
 | Status | Complete |
 | Work Order | WO-013-V06 |
 | Manufacturing Date | 2026-08-02 |
@@ -18,6 +18,7 @@
 | Version | Date | Summary |
 |---------|------|---------|
 | 1.0 | 2026-08-02 | Initial manufacturing under Production Reset doctrine |
+| 1.1 | 2026-08-02 | V06.1 revision — revision FK integrity, database-enforced immutability trigger, database-enforced self-review prevention trigger |
 
 ---
 
@@ -316,8 +317,7 @@ Content reviews are formal records of reviewer evaluation.
 | Field | Description |
 |-------|-------------|
 | Review ID | Unique identifier |
-| Content Item ID | Content being reviewed |
-| Revision Number | Which revision is under review |
+| Revision ID | FK to content_revision — the specific revision under review |
 | Reviewer ID | Assigned reviewer |
 | Decision | pending, approved, rejected |
 | Rejection Reason | Required when decision is rejected |
@@ -390,7 +390,7 @@ An approved content revision may be handed off to a downstream delivery system. 
 ContentHandoff
 ├── id                    (handoff record ID)
 ├── content_id            (content item)
-├── revision_number       (which approved revision)
+├── revision_id           (FK to the approved revision)
 ├── intended_channel      (email, sms, social, web, etc.)
 ├── destination_system    (identifier for the downstream system)
 ├── status                (pending | accepted | rejected | failed)
@@ -557,8 +557,7 @@ When a downstream system rejects a handoff:
 | Column | Type | Nullable | Default | Description |
 |--------|------|----------|---------|-------------|
 | id | UUID | No | gen_random_uuid() | Primary key |
-| content_id | UUID | No | — | Content being reviewed (FK) |
-| revision_number | INTEGER | No | — | Which revision |
+| revision_id | UUID | No | — | Revision under review (FK → content_revision) |
 | reviewer_id | UUID | No | — | Assigned reviewer (FK) |
 | decision | VARCHAR(20) | No | 'pending' | pending, approved, rejected |
 | rejection_reason | TEXT | Yes | NULL | Required when rejected |
@@ -611,7 +610,7 @@ When a downstream system rejects a handoff:
 |--------|------|----------|---------|-------------|
 | id | UUID | No | gen_random_uuid() | Primary key |
 | content_id | UUID | No | — | Content item (FK) |
-| revision_number | INTEGER | No | — | Approved revision handed off |
+| revision_id | UUID | No | — | Approved revision (FK → content_revision) |
 | intended_channel | VARCHAR(50) | No | — | Target channel |
 | destination_system | VARCHAR(100) | No | — | Downstream system identifier |
 | status | VARCHAR(20) | No | 'pending' | pending, accepted, rejected, failed |
@@ -672,7 +671,7 @@ When a downstream system rejects a handoff:
 - `content_item.content_type_id` + `content_item.tenant_id` references `content_type(id, tenant_id)` — tenant-safe composite FK
 - `content_revision.content_id` + `content_revision.revision_number` is unique
 - `content_section.revision_id` + `content_section.position` is unique
-- `content_review.content_id` + `content_review.revision_number` + `content_review.reviewer_id` is unique (one review per reviewer per revision)
+- `content_review.revision_id` + `content_review.reviewer_id` is unique (one review per reviewer per revision)
 - `content_tag.content_id` + `content_tag.tag` is unique
 - `content_reference.content_id` + `content_reference.entity_type` + `content_reference.entity_id` + `content_reference.context` is unique
 - `content_favorite.user_id` + `content_favorite.content_id` is primary key
@@ -689,7 +688,7 @@ When a downstream system rejects a handoff:
 | content_item | idx_ci_channel | intended_channel | Channel filtering |
 | content_revision | idx_cr_content | content_id | Revision history |
 | content_section | idx_cs_revision | revision_id, position | Section ordering |
-| content_review | idx_crv_content | content_id, revision_number | Reviews for content |
+| content_review | idx_crv_revision | revision_id | Reviews for revision |
 | content_review | idx_crv_reviewer | reviewer_id, decision | Reviewer workload |
 | content_review_comment | idx_crc_review | review_id | Comments for review |
 | content_tag | idx_ctag_value | tag | Tag search |
@@ -996,7 +995,8 @@ apps/design-studio/
 │       ├── 045_create_content_favorites.sql
 │       ├── 046_create_content_handoffs.sql
 │       ├── 047_seed_content_types.sql
-│       └── 048_create_v06_rls_policies.sql
+│       ├── 048_create_v06_rls_policies.sql
+│       └── 049_create_v06_enforcement_triggers.sql
 └── package.json
 ```
 
@@ -1095,18 +1095,17 @@ CREATE INDEX idx_cs_revision ON content_section(revision_id, position);
 -- 041_create_content_reviews.sql
 CREATE TABLE content_review (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  content_id UUID NOT NULL REFERENCES content_item(id) ON DELETE CASCADE,
-  revision_number INTEGER NOT NULL,
+  revision_id UUID NOT NULL REFERENCES content_revision(id) ON DELETE CASCADE,
   reviewer_id UUID NOT NULL REFERENCES users(id),
   decision VARCHAR(20) NOT NULL DEFAULT 'pending'
     CHECK (decision IN ('pending', 'approved', 'rejected')),
   rejection_reason TEXT,
   decided_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (content_id, revision_number, reviewer_id)
+  UNIQUE (revision_id, reviewer_id)
 );
 
-CREATE INDEX idx_crv_content ON content_review(content_id, revision_number);
+CREATE INDEX idx_crv_revision ON content_review(revision_id);
 CREATE INDEX idx_crv_reviewer ON content_review(reviewer_id, decision);
 
 -- 042_create_content_review_comments.sql
@@ -1160,7 +1159,7 @@ CREATE TABLE content_favorite (
 CREATE TABLE content_handoff (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   content_id UUID NOT NULL REFERENCES content_item(id) ON DELETE CASCADE,
-  revision_number INTEGER NOT NULL,
+  revision_id UUID NOT NULL REFERENCES content_revision(id),
   intended_channel VARCHAR(50) NOT NULL,
   destination_system VARCHAR(100) NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'pending'
@@ -1216,14 +1215,17 @@ CREATE POLICY tenant_isolation ON content_section
   ));
 
 CREATE POLICY tenant_isolation ON content_review
-  USING (content_id IN (
-    SELECT id FROM content_item WHERE tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
+  USING (revision_id IN (
+    SELECT cr.id FROM content_revision cr
+    JOIN content_item ci ON cr.content_id = ci.id
+    WHERE ci.tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
   ));
 
 CREATE POLICY tenant_isolation ON content_review_comment
   USING (review_id IN (
     SELECT crv.id FROM content_review crv
-    JOIN content_item ci ON crv.content_id = ci.id
+    JOIN content_revision cr ON crv.revision_id = cr.id
+    JOIN content_item ci ON cr.content_id = ci.id
     WHERE ci.tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
   ));
 
@@ -1246,6 +1248,87 @@ CREATE POLICY tenant_isolation ON content_handoff
   USING (content_id IN (
     SELECT id FROM content_item WHERE tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
   ));
+
+-- 049_create_v06_enforcement_triggers.sql
+
+-- Finding 2: Database-enforced approved-revision immutability.
+-- Prevents UPDATE or DELETE on content_revision rows with status = 'approved'.
+CREATE OR REPLACE FUNCTION prevent_approved_revision_mutation()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF TG_OP = 'DELETE' THEN
+    IF OLD.status = 'approved' THEN
+      RAISE EXCEPTION 'Cannot delete an approved revision (revision_id: %)', OLD.id;
+    END IF;
+    RETURN OLD;
+  END IF;
+  IF TG_OP = 'UPDATE' THEN
+    IF OLD.status = 'approved' THEN
+      RAISE EXCEPTION 'Cannot modify an approved revision (revision_id: %)', OLD.id;
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_approved_revision_immutable
+  BEFORE UPDATE OR DELETE ON content_revision
+  FOR EACH ROW
+  EXECUTE FUNCTION prevent_approved_revision_mutation();
+
+-- Prevents UPDATE or DELETE on content_section rows belonging to an approved revision.
+CREATE OR REPLACE FUNCTION prevent_approved_section_mutation()
+RETURNS TRIGGER AS $$
+DECLARE
+  rev_status VARCHAR(20);
+BEGIN
+  IF TG_OP = 'DELETE' THEN
+    SELECT status INTO rev_status FROM content_revision WHERE id = OLD.revision_id;
+  ELSE
+    SELECT status INTO rev_status FROM content_revision WHERE id = OLD.revision_id;
+  END IF;
+
+  IF rev_status = 'approved' THEN
+    RAISE EXCEPTION 'Cannot modify sections of an approved revision (revision_id: %)',
+      COALESCE(OLD.revision_id, NEW.revision_id);
+  END IF;
+
+  IF TG_OP = 'DELETE' THEN
+    RETURN OLD;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_approved_section_immutable
+  BEFORE UPDATE OR DELETE ON content_section
+  FOR EACH ROW
+  EXECUTE FUNCTION prevent_approved_section_mutation();
+
+-- Finding 3: Database-enforced self-review prevention.
+-- Prevents assigning a reviewer who is the owner of the content item.
+CREATE OR REPLACE FUNCTION prevent_self_review()
+RETURNS TRIGGER AS $$
+DECLARE
+  content_owner_id UUID;
+  rev_content_id UUID;
+BEGIN
+  SELECT content_id INTO rev_content_id FROM content_revision WHERE id = NEW.revision_id;
+  SELECT owner_id INTO content_owner_id FROM content_item WHERE id = rev_content_id;
+
+  IF NEW.reviewer_id = content_owner_id THEN
+    RAISE EXCEPTION 'Self-review prohibited: content owner (%) cannot be assigned as reviewer',
+      content_owner_id;
+  END IF;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_prevent_self_review
+  BEFORE INSERT ON content_review
+  FOR EACH ROW
+  EXECUTE FUNCTION prevent_self_review();
 ```
 
 ## 17. Engineering Constraints
@@ -1258,8 +1341,8 @@ CREATE POLICY tenant_isolation ON content_handoff
 | Row Level Security | Mandatory on all tables — concrete policies defined |
 | Feature boundary | `features/content/` |
 | Migrations | Sequential, continue from V05 sequence (037+) |
-| Approved revisions | Immutable — no modification after approval |
-| Review authorization | Self-review prohibited; owner cannot approve own content |
+| Approved revisions | Immutable — database trigger + application layer enforcement |
+| Review authorization | Self-review prohibited — database trigger + application layer enforcement |
 | Handoff idempotency | Composite idempotency key prevents duplicate handoffs |
 | Content/delivery boundary | V06 creates and approves; ENG-023 delivers |
 | Polymorphic references | Application-layer tenant validation where composite FK is impossible |
@@ -1271,7 +1354,7 @@ CREATE POLICY tenant_isolation ON content_handoff
 
 ### 18.1 Immutable Approved Revisions
 
-Once a content revision reaches `approved` status, its record and all associated sections are immutable. The application layer rejects any UPDATE or DELETE operation on an approved revision or its sections. Any correction creates a new revision.
+Once a content revision reaches `approved` status, its record and all associated sections are immutable. Immutability is enforced at two layers: database triggers (`trg_approved_revision_immutable`, `trg_approved_section_immutable` in migration 049) reject any UPDATE or DELETE on approved revisions or their sections, and the application layer validates state before attempting writes. Any correction creates a new revision.
 
 ### 18.2 Tenant-Safe References
 
@@ -1281,7 +1364,7 @@ Once a content revision reaches `approved` status, its record and all associated
 
 ### 18.3 Review Authorization
 
-- The system checks `content_item.owner_id != content_review.reviewer_id` on review creation
+- Self-review prevention is enforced at two layers: a database trigger (`trg_prevent_self_review` in migration 049) rejects INSERT on `content_review` when the reviewer matches the content owner, and the application layer validates before attempting the insert
 - Admin users may approve content they did not author but cannot self-approve
 - Review assignment is explicit — only assigned reviewers may issue decisions
 
