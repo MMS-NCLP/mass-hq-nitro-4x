@@ -1,0 +1,63 @@
+apps/design-studio/
+├── src/
+│   ├── app/
+│   │   ├── (projects)/                        # V02 routes
+│   │   ├── (design-system)/                   # V03 routes
+│   │   ├── (templates)/                       # V04 routes
+│   │   ├── (publications)/                    # V04 routes
+│   │   ├── (assets)/
+│   │   │   ├── page.tsx                       # Asset library browser
+│   │   │   └── [assetId]/
+│   │   │       ├── page.tsx                   # Asset detail
+│   │   │       ├── versions/
+│   │   │       │   └── page.tsx               # Version history
+│   │   │       └── references/
+│   │   │           └── page.tsx               # Reference tracking
+│   │   └── layout.tsx
+│   ├── features/
+│   │   ├── projects/                          # V02
+│   │   ├── components/                        # V03
+│   │   ├── design-tokens/                     # V03
+│   │   ├── templates/                         # V04
+│   │   ├── publications/                      # V04
+│   │   └── assets/
+│   │       ├── api/
+│   │       │   ├── assets.ts
+│   │       │   ├── categories.ts
+│   │       │   ├── versions.ts
+│   │       │   ├── references.ts
+│   │       │   └── storage-locations.ts
+│   │       ├── components/
+│   │       │   ├── AssetBrowser.tsx
+│   │       │   ├── AssetCard.tsx
+│   │       │   ├── AssetDetail.tsx
+│   │       │   ├── AssetUploadDialog.tsx
+│   │       │   ├── AssetMetadataForm.tsx
+│   │       │   ├── VersionHistory.tsx
+│   │       │   ├── ReferenceList.tsx
+│   │       │   └── DuplicateWarning.tsx
+│   │       ├── hooks/
+│   │       │   ├── useAssets.ts
+│   │       │   ├── useAsset.ts
+│   │       │   ├── useAssetVersions.ts
+│   │       │   ├── useAssetReferences.ts
+│   │       │   └── useCategories.ts
+│   │       └── types/
+│   │           └── asset.ts
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── ...                                # V02-V04 (001-026)
+│       ├── 027_create_asset_categories.sql
+│       ├── 028_create_assets.sql
+│       ├── 029_create_asset_versions.sql
+│       ├── 030_create_asset_tags.sql
+│       ├── 031_create_asset_references.sql
+│       ├── 032_create_asset_checksums.sql
+│       ├── 033_create_storage_locations.sql
+│       ├── 034_create_asset_favorites.sql
+│       ├── 035_seed_asset_categories.sql
+│       └── 036_create_v05_rls_policies.sql
+└── package.json

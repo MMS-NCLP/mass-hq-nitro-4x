@@ -1,0 +1,9 @@
+Entity,Primary Key,Key Relationships,Description
+Asset,id (UUID),tenant_id → tenants; category_id → asset_category; owner_id → users,Governed digital file with structured metadata. Binary stored via ENG-008.
+AssetCategory,id (UUID),tenant_id → tenants,Asset taxonomy. Standard + custom categories with optional MIME type restrictions.
+AssetVersion,id (UUID),asset_id → asset; uploaded_by → users,Immutable version record. Each version has its own storage_ref and checksum.
+AssetTag,id (UUID),asset_id → asset,Freeform tagging for asset discovery.
+AssetReference,id (UUID),asset_id → asset; created_by → users,Cross-entity reference tracking. Entity types: project/component/template/publication.
+UserAssetFavorite,user_id + asset_id,user_id → users; asset_id → asset,User-level asset quick access.
+StorageLocation,id (UUID),tenant_id → tenants,Configured binary storage destination. Operations delegated to ENG-008.
+AssetChecksum,tenant_id + checksum,tenant_id → tenants; asset_id → asset,SHA-256 duplicate detection index. One asset per checksum per tenant.

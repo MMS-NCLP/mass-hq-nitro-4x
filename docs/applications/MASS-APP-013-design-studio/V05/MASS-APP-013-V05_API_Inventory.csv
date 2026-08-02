@@ -1,0 +1,25 @@
+Method,Path,Description,Auth,Minimum Role
+GET,/assets,List assets (paginated filterable),Yes,Viewer
+GET,/assets/{id},Get asset with current version,Yes,Viewer
+POST,/assets,Upload and create asset,Yes,Editor
+PATCH,/assets/{id},Update asset metadata,Yes,Editor
+DELETE,/assets/{id},Soft-delete asset,Yes,Admin
+POST,/assets/{id}/archive,Archive asset,Yes,Admin
+POST,/assets/{id}/restore,Restore archived or deprecated asset,Yes,Admin
+POST,/assets/{id}/deprecate,Deprecate asset,Yes,Admin
+GET,/assets/{id}/versions,List asset versions,Yes,Viewer
+POST,/assets/{id}/versions,Upload new version,Yes,Editor
+GET,/assets/{id}/versions/{versionId},Get specific version,Yes,Viewer
+GET,/assets/{id}/references,List asset references,Yes,Viewer
+POST,/assets/{id}/references,Create asset reference,Yes,Editor
+DELETE,/assets/{id}/references/{refId},Remove asset reference,Yes,Editor
+POST,/assets/{id}/favorite,Favorite asset,Yes,Viewer
+DELETE,/assets/{id}/favorite,Unfavorite asset,Yes,Viewer
+GET,/assets/search,Advanced asset search,Yes,Viewer
+GET,/asset-categories,List all categories,Yes,Viewer
+POST,/asset-categories,Create custom category,Yes,Admin
+PATCH,/asset-categories/{id},Update category,Yes,Admin
+DELETE,/asset-categories/{id},Delete category (only if empty),Yes,Admin
+GET,/storage-locations,List storage locations,Yes,Admin
+POST,/storage-locations,Register storage location,Yes,Admin
+PATCH,/storage-locations/{id},Update storage location,Yes,Admin
