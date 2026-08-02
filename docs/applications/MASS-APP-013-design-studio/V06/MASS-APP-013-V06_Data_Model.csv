@@ -1,0 +1,11 @@
+Entity,Primary Key,Key Relationships,Description
+ContentItem,id (UUID),"tenant_id → tenants; content_type_id + tenant_id → content_type (composite FK); owner_id → users; project_id → projects (optional)",Governed communication content with lifecycle and revision history. Tenant-scoped.
+ContentType,id (UUID),tenant_id → tenants,Content taxonomy. Standard + custom types with advisory section recommendations.
+ContentRevision,id (UUID),"content_id → content_item; created_by → users; approved_by → users (optional)",Immutable revision record. Approved revisions cannot be modified.
+ContentSection,id (UUID),"revision_id → content_revision; asset_id → asset (optional)",Ordered structured section within a revision. Types: heading/body/cta/quote/list/table/image_ref/asset_ref/legal/metadata.
+ContentReview,id (UUID),"content_id → content_item; reviewer_id → users",Review assignment and decision record. Self-review prohibited.
+ContentReviewComment,id (UUID),"review_id → content_review; author_id → users; section_id → content_section (optional)",Reviewer comment attached to a review.
+ContentTag,id (UUID),content_id → content_item,Freeform tagging for content discovery.
+ContentReference,id (UUID),"content_id → content_item; created_by → users",Cross-entity reference tracking. Entity types: project/template/asset/publication. Polymorphic entity_id validated at application layer.
+ContentFavorite,user_id + content_id,"user_id → users; content_id → content_item",User-level content quick access.
+ContentHandoff,id (UUID),"content_id → content_item; requested_by → users",Downstream delivery handoff record. Idempotent via unique idempotency_key. Does not represent delivery.

@@ -1,0 +1,79 @@
+apps/design-studio/
+├── src/
+│   ├── app/
+│   │   ├── (projects)/                        # V02 routes
+│   │   ├── (design-system)/                   # V03 routes
+│   │   ├── (templates)/                       # V04 routes
+│   │   ├── (publications)/                    # V04 routes
+│   │   ├── (assets)/                          # V05 routes
+│   │   ├── (content)/
+│   │   │   ├── page.tsx                       # Content library
+│   │   │   ├── new/
+│   │   │   │   └── page.tsx                   # Create content
+│   │   │   └── [contentId]/
+│   │   │       ├── page.tsx                   # Content detail / editor
+│   │   │       ├── preview/
+│   │   │       │   └── page.tsx               # Content preview
+│   │   │       ├── revisions/
+│   │   │       │   └── page.tsx               # Revision history
+│   │   │       ├── reviews/
+│   │   │       │   └── page.tsx               # Review history
+│   │   │       └── handoffs/
+│   │   │           └── page.tsx               # Handoff records
+│   │   └── layout.tsx
+│   ├── features/
+│   │   ├── projects/                          # V02
+│   │   ├── components/                        # V03
+│   │   ├── design-tokens/                     # V03
+│   │   ├── templates/                         # V04
+│   │   ├── publications/                      # V04
+│   │   ├── assets/                            # V05
+│   │   └── content/
+│   │       ├── api/
+│   │       │   ├── content.ts
+│   │       │   ├── content-types.ts
+│   │       │   ├── revisions.ts
+│   │       │   ├── sections.ts
+│   │       │   ├── reviews.ts
+│   │       │   ├── references.ts
+│   │       │   └── handoffs.ts
+│   │       ├── components/
+│   │       │   ├── ContentList.tsx
+│   │       │   ├── ContentCard.tsx
+│   │       │   ├── ContentEditor.tsx
+│   │       │   ├── ContentPreview.tsx
+│   │       │   ├── SectionEditor.tsx
+│   │       │   ├── SectionRenderer.tsx
+│   │       │   ├── RevisionHistory.tsx
+│   │       │   ├── ReviewPanel.tsx
+│   │       │   ├── ReviewCommentThread.tsx
+│   │       │   ├── HandoffDialog.tsx
+│   │       │   └── HandoffStatusBadge.tsx
+│   │       ├── hooks/
+│   │       │   ├── useContent.ts
+│   │       │   ├── useContentList.ts
+│   │       │   ├── useRevisions.ts
+│   │       │   ├── useReviews.ts
+│   │       │   ├── useHandoffs.ts
+│   │       │   └── useContentTypes.ts
+│   │       └── types/
+│   │           └── content.ts
+│   └── lib/
+│       └── supabase/
+│           └── client.ts
+├── supabase/
+│   └── migrations/
+│       ├── ...                                # V02-V05 (001-036)
+│       ├── 037_create_content_types.sql
+│       ├── 038_create_content_items.sql
+│       ├── 039_create_content_revisions.sql
+│       ├── 040_create_content_sections.sql
+│       ├── 041_create_content_reviews.sql
+│       ├── 042_create_content_review_comments.sql
+│       ├── 043_create_content_tags.sql
+│       ├── 044_create_content_references.sql
+│       ├── 045_create_content_favorites.sql
+│       ├── 046_create_content_handoffs.sql
+│       ├── 047_seed_content_types.sql
+│       └── 048_create_v06_rls_policies.sql
+└── package.json

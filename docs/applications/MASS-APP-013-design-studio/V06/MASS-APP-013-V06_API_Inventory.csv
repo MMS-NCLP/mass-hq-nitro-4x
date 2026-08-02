@@ -1,0 +1,25 @@
+Method,Path,Description,Auth,Minimum Role
+GET,/content,List content items (paginated filterable),Yes,Viewer
+GET,/content/{id},Get content item with current revision,Yes,Viewer
+POST,/content,Create content item,Yes,Editor
+PATCH,/content/{id},Update content metadata,Yes,Editor
+DELETE,/content/{id},Soft-delete content item,Yes,Admin
+POST,/content/{id}/duplicate,Duplicate content item,Yes,Editor
+POST,/content/{id}/submit-review,Submit for review,Yes,Editor
+POST,/content/{id}/approve,Approve content (reviewer only),Yes,Editor
+POST,/content/{id}/reject,Reject content (reviewer only),Yes,Editor
+POST,/content/{id}/return-to-draft,Return rejected content to draft,Yes,Editor
+POST,/content/{id}/archive,Archive content,Yes,Admin
+POST,/content/{id}/restore,Restore archived content (creates new revision),Yes,Admin
+GET,/content/{id}/revisions,List all revisions,Yes,Viewer
+POST,/content/{id}/revisions,Create new revision,Yes,Editor
+GET,/content/{id}/reviews,List reviews for content,Yes,Viewer
+POST,/content/{id}/reviews/{reviewId}/comments,Add review comment,Yes,Editor
+GET,/content-types,List all content types,Yes,Viewer
+GET,/content/{id}/references,List content references,Yes,Viewer
+POST,/content/{id}/references,Create content reference,Yes,Editor
+DELETE,/content/{id}/references/{referenceId},Remove content reference,Yes,Editor
+POST,/content/{id}/favorite,Favorite content,Yes,Viewer
+DELETE,/content/{id}/favorite,Unfavorite content,Yes,Viewer
+POST,/content/{id}/handoffs,Initiate downstream handoff,Yes,Admin
+GET,/content/{id}/handoffs,List handoffs for content,Yes,Viewer

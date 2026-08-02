@@ -4,5 +4,5 @@ APP-013
 [X] V03 — Component Library & Design System
 [X] V04 — Templates & Publishing
 [X] V05 — Asset Stewardship & Media Management
-[ ] V06
+[X] V06 — Communications & Content Creation
 [ ] V07
