@@ -7,7 +7,7 @@
 | Application | MASS-APP-013 — Design Studio |
 | Volume | V05 |
 | Title | Asset Stewardship & Media Management |
-| Version | 1.0 |
+| Version | 1.1 |
 | Status | Complete |
 | Work Order | WO-013-V05 |
 | Manufacturing Date | 2026-08-02 |
@@ -18,6 +18,7 @@
 | Version | Date | Summary |
 |---------|------|---------|
 | 1.0 | 2026-08-02 | Initial manufacturing under Production Reset doctrine |
+| 1.1 | 2026-08-02 | V05.1 revision — tenant-safe category FK, checksum boundary clarification, reference uniqueness fix, concrete RLS policies |
 
 ---
 
@@ -74,7 +75,7 @@ This volume does not define AI media generation, image editing, video editing, b
 - Asset search and discovery
 - Asset reference tracking across projects, templates, components, and publications
 - Media library organization
-- Checksum computation and integrity verification
+- Checksum computation from upload stream (pass-through hash) and integrity verification
 
 ### Responsibilities Delegated
 
@@ -141,7 +142,7 @@ V05 enforces a strict separation between asset metadata and binary storage:
 | Version history, reference tracking | V05 | PostgreSQL |
 | Binary file content | ENG-008 | ENG-008 managed storage |
 
-V05 stores a `storage_ref` — an opaque reference to the binary file managed by ENG-008. V05 never reads, writes, or streams binary content directly. All binary operations are delegated through the Document Engine interface.
+V05 stores a `storage_ref` — an opaque reference to the binary file managed by ENG-008. V05 never persists or retrieves binary content. During upload, V05 receives the incoming file stream for checksum computation (a pass-through hash of the stream), then delegates the stream to ENG-008 for persistence. After handoff, V05 retains only the computed checksum and the `storage_ref` returned by ENG-008. All binary storage and retrieval operations are delegated through the Document Engine interface.
 
 ### 5.3 Asset Lifecycle
 
@@ -239,16 +240,16 @@ Every asset carries the following metadata, managed entirely by V05:
 | File Type | System-detected | File extension (e.g., png, pdf, svg) |
 | MIME Type | System-detected | Standard MIME type (e.g., image/png) |
 | Size | System-detected | File size in bytes |
-| Checksum | System-computed | SHA-256 hash of the binary content |
+| Checksum | System-computed | SHA-256 hash computed from the upload stream during handoff |
 | Status | System-managed | Current lifecycle state |
 | Owner | System-assigned | User who uploaded the asset |
 | Tags | User-provided | Freeform labels for discovery |
 
 ### 7.2 Checksum Integrity
 
-On upload, V05 computes a SHA-256 checksum of the binary content before delegating storage to ENG-008. The checksum serves two purposes:
+On upload, V05 computes a SHA-256 checksum from the incoming file stream as a pass-through operation during the governed upload handoff. V05 hashes the stream, then delegates the stream to ENG-008 for binary persistence. V05 retains only the computed hash — it does not persist or later retrieve binary content. The checksum serves two purposes:
 1. **Duplicate detection** — If a file with the same checksum already exists in the tenant, the user is notified and may choose to reference the existing asset or upload as a new version
-2. **Integrity verification** — On retrieval, the checksum can be recomputed to verify the stored binary has not been corrupted
+2. **Integrity verification** — On retrieval, the checksum stored by V05 can be compared against the binary retrieved through ENG-008 to verify content has not been corrupted
 
 ## 8. Asset Versioning
 
@@ -286,7 +287,7 @@ AssetReference
 ├── asset_id          (the referenced asset)
 ├── entity_type       (project | component | template | publication)
 ├── entity_id         (ID of the referencing entity)
-├── context           (where within the entity: e.g., "hero-image", "icon")
+├── context           (where within the entity: e.g., "hero-image", "icon"; empty string if unspecified)
 ├── created_by        (who created the reference)
 └── created_at        (when the reference was created)
 ```
@@ -298,6 +299,7 @@ AssetReference
 - Deleting an entity removes its references but does not affect the asset
 - Asset reference counts are maintained for governance (identifying unused assets)
 - References track context to distinguish how an asset is used (e.g., a logo used as a header image vs. a footer watermark)
+- `entity_id` is polymorphic (references different tables depending on `entity_type`). Because PostgreSQL cannot enforce a foreign key across multiple target tables, tenant isolation for referenced entities is enforced by RLS policies and application-layer validation. The application must verify that the referenced entity exists, belongs to the same tenant, and is in a valid lifecycle state before creating a reference.
 
 ### 9.3 Orphan Detection
 
@@ -343,7 +345,7 @@ Assets with zero references for a configurable period (default: 90 days) are fla
 | tenant_id | UUID | No | — | Tenant scope (FK) |
 | name | VARCHAR(255) | No | — | Asset display name |
 | description | TEXT | Yes | NULL | Asset description |
-| category_id | UUID | No | — | Category (FK) |
+| category_id | UUID | No | — | Category (composite FK with tenant_id → asset_category) |
 | file_type | VARCHAR(20) | No | — | File extension |
 | mime_type | VARCHAR(100) | No | — | MIME type |
 | size_bytes | BIGINT | No | — | File size in bytes |
@@ -405,7 +407,7 @@ Assets with zero references for a configurable period (default: 90 days) are fla
 | asset_id | UUID | No | — | Referenced asset (FK) |
 | entity_type | VARCHAR(20) | No | — | project, component, template, publication |
 | entity_id | UUID | No | — | ID of referencing entity |
-| context | VARCHAR(100) | Yes | NULL | Usage context within entity |
+| context | VARCHAR(100) | No | '' | Usage context within entity (empty string if unspecified) |
 | created_by | UUID | No | — | Who created reference (FK) |
 | created_at | TIMESTAMPTZ | No | now() | When referenced |
 
@@ -694,13 +696,15 @@ This ensures:
 ### 14.3 Upload Flow
 
 1. User submits file with metadata
-2. V05 computes SHA-256 checksum
+2. V05 receives the incoming file stream and computes SHA-256 checksum as a pass-through hash
 3. V05 checks for duplicate checksum within tenant
-4. If no duplicate: V05 delegates binary storage to ENG-008, receives storage_ref
-5. V05 creates Asset record with metadata and storage_ref
+4. If no duplicate: V05 delegates the file stream to ENG-008 for binary persistence, receives `storage_ref`
+5. V05 creates Asset record with metadata, `storage_ref`, and computed checksum
 6. V05 creates initial AssetVersion record
 7. V05 registers checksum in AssetChecksum table
 8. V05 publishes `asset.created` event
+
+V05 owns the upload pipeline orchestration and integrity verification. ENG-008 owns binary persistence. The file stream passes through V05 for checksum computation but is never stored by V05.
 
 ## 15. Folder Structure — Design Studio V05 Organization
 
@@ -783,7 +787,8 @@ CREATE TABLE asset_category (
   accepted_mime_types TEXT[],
   position INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (tenant_id, name)
+  UNIQUE (tenant_id, name),
+  UNIQUE (id, tenant_id)  -- enables composite FK from asset
 );
 
 -- 028_create_assets.sql
@@ -792,7 +797,8 @@ CREATE TABLE asset (
   tenant_id UUID NOT NULL REFERENCES tenants(id),
   name VARCHAR(255) NOT NULL,
   description TEXT,
-  category_id UUID NOT NULL REFERENCES asset_category(id),
+  category_id UUID NOT NULL,
+  FOREIGN KEY (category_id, tenant_id) REFERENCES asset_category(id, tenant_id),
   file_type VARCHAR(20) NOT NULL,
   mime_type VARCHAR(100) NOT NULL,
   size_bytes BIGINT NOT NULL,
@@ -853,7 +859,7 @@ CREATE TABLE asset_reference (
   entity_type VARCHAR(20) NOT NULL
     CHECK (entity_type IN ('project', 'component', 'template', 'publication')),
   entity_id UUID NOT NULL,
-  context VARCHAR(100),
+  context VARCHAR(100) NOT NULL DEFAULT '',
   created_by UUID NOT NULL REFERENCES users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (asset_id, entity_type, entity_id, context)
@@ -901,10 +907,50 @@ CREATE TABLE user_asset_favorite (
 -- Seeding logic runs as part of tenant provisioning.
 
 -- 036_create_v05_rls_policies.sql
--- All V05 tables enforce tenant isolation:
--- asset, asset_category, asset_version, asset_tag,
--- asset_reference, asset_checksum, storage_location,
--- user_asset_favorite
+
+ALTER TABLE asset ENABLE ROW LEVEL SECURITY;
+ALTER TABLE asset_category ENABLE ROW LEVEL SECURITY;
+ALTER TABLE asset_version ENABLE ROW LEVEL SECURITY;
+ALTER TABLE asset_tag ENABLE ROW LEVEL SECURITY;
+ALTER TABLE asset_reference ENABLE ROW LEVEL SECURITY;
+ALTER TABLE asset_checksum ENABLE ROW LEVEL SECURITY;
+ALTER TABLE storage_location ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_asset_favorite ENABLE ROW LEVEL SECURITY;
+
+-- Tenant isolation: users see only rows belonging to their tenant.
+-- auth.jwt() ->> 'tenant_id' returns the authenticated user's tenant.
+
+CREATE POLICY tenant_isolation ON asset
+  USING (tenant_id = (auth.jwt() ->> 'tenant_id')::uuid);
+
+CREATE POLICY tenant_isolation ON asset_category
+  USING (tenant_id = (auth.jwt() ->> 'tenant_id')::uuid);
+
+CREATE POLICY tenant_isolation ON asset_version
+  USING (asset_id IN (
+    SELECT id FROM asset WHERE tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
+  ));
+
+CREATE POLICY tenant_isolation ON asset_tag
+  USING (asset_id IN (
+    SELECT id FROM asset WHERE tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
+  ));
+
+CREATE POLICY tenant_isolation ON asset_reference
+  USING (asset_id IN (
+    SELECT id FROM asset WHERE tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
+  ));
+
+CREATE POLICY tenant_isolation ON asset_checksum
+  USING (tenant_id = (auth.jwt() ->> 'tenant_id')::uuid);
+
+CREATE POLICY tenant_isolation ON storage_location
+  USING (tenant_id = (auth.jwt() ->> 'tenant_id')::uuid);
+
+CREATE POLICY tenant_isolation ON user_asset_favorite
+  USING (asset_id IN (
+    SELECT id FROM asset WHERE tenant_id = (auth.jwt() ->> 'tenant_id')::uuid
+  ));
 ```
 
 ## 17. Engineering Constraints
@@ -940,3 +986,12 @@ No schema, API, or implementation is provided for these.
 ## Constitutional Boundary Statement
 
 MASS-APP-013-V05 owns asset metadata governance, media library organization, asset lifecycle, asset categorization, asset reference tracking, asset version history, checksum integrity, and storage location management within Design Studio. It does not own and shall not duplicate: binary file storage and retrieval (ENG-008), user authentication (ENG-003), security policy enforcement (ENG-004), event distribution (ENG-005), or API framework conventions (ENG-015). Design Studio governs creative stewardship; ENG-008 governs document persistence. All platform capabilities are consumed through the Engineering Library, never reimplemented.
+
+---
+
+## Packaging Debt
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Production PDF | Deferred | Current manufacturing environment cannot generate PDF. Markdown is canonical. |
+| Mermaid architecture diagram | Deferred | To be generated when tooling supports it. Entity relationships documented in Section 11.2. |

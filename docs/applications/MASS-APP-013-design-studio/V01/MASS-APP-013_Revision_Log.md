@@ -4,3 +4,4 @@
 - v1.0 V03 — Component Library & Design System manufactured under WO-013-V03 (2026-08-02).
 - v1.0 V04 — Templates & Publishing manufactured under WO-013-V04 (2026-08-02).
 - v1.0 V05 — Asset Stewardship & Media Management manufactured under WO-013-V05 (2026-08-02).
+- v1.1 V05 — Phase 3 spot review corrections: tenant-safe category FK, checksum boundary clarification, reference uniqueness, concrete RLS policies (2026-08-02).
