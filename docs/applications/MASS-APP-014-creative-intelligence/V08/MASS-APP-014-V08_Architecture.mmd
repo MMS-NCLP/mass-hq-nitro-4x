@@ -1,0 +1,14 @@
+flowchart LR
+    DEC["Approved Decision"] --> CASE["Communication Intelligence Case"]
+    MEM["V02 Memory"] --> CTX["Context Package"]
+    REL["Relationship Command Reference"] --> CTX
+    CASE --> CTX --> COLLAB["Human Collaboration"]
+    NREQ["NOVA Advisory Request"] --> AI["ENG-009"]
+    PREQ["POPS Advisory Request"] --> AI
+    AI --> COLLAB
+    COLLAB --> GATE["Human Approval"]
+    GATE --> BRIEF["APP-013-V06 Content Brief"]
+    BRIEF --> GOV["ENG-023 Governance Handoff"]
+    GOV --> DELIVERY["ENG-010 Delivery"]
+    DELIVERY --> FEEDBACK["Read-only Feedback"]
+    FEEDBACK --> CASE

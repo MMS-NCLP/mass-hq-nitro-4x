@@ -1,0 +1,14 @@
+Entity,Purpose,Key Integrity
+CommunicationCase,Stable intelligence container,Tenant lifecycle and owner
+CommunicationObjective,Revisioned objective,One active revision
+CommunicationContext,Authorized context package,Immutable when approved
+ContextReference,Read-only source reference,Tenant and source validation
+ResponsibilityAssignment,Accountable and contributing roles,Unique role assignment
+CommunicationPlan,Governed coordination plan,Case scoped
+MessageBrief,APP-013-V06 content brief,Approved plan reference
+CollaborationThread,Discussion boundary,Case scoped
+CollaborationContribution,Participant contribution,Append-only
+CollaborationResolution,Human conclusion,Immutable
+CommunicationApproval,Approval decision,Self-approval prohibited
+CommunicationHandoff,Downstream request,Idempotent
+CommunicationFeedback,Verified downstream outcome,Read-only ingestion

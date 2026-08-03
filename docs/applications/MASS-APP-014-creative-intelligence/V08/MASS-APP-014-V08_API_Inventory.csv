@@ -1,0 +1,27 @@
+Method,Route,Purpose,Minimum Role
+GET,/communication-cases,List cases,Viewer
+POST,/communication-cases,Create case,Contributor
+GET,/communication-cases/{id},Retrieve case,Viewer
+PATCH,/communication-cases/{id},Edit case,Communication Owner
+POST,/communication-cases/{id}/archive,Archive case,Communication Owner
+GET,/communication-cases/{id}/objectives,List objectives,Viewer
+POST,/communication-cases/{id}/objectives,Revise objective,Communication Owner
+GET,/communication-cases/{id}/contexts,List contexts,Viewer
+POST,/communication-cases/{id}/contexts,Create context,Steward
+GET,/communication-cases/{id}/responsibilities,List responsibilities,Viewer
+POST,/communication-cases/{id}/responsibilities,Assign responsibility,Communication Owner
+GET,/communication-cases/{id}/plans,List plans,Viewer
+POST,/communication-cases/{id}/plans,Create plan,Communication Owner
+GET,/communication-cases/{id}/briefs,List briefs,Viewer
+POST,/communication-cases/{id}/briefs,Create brief,Contributor
+GET,/communication-cases/{id}/threads,List threads,Viewer
+POST,/communication-cases/{id}/threads,Create thread,Contributor
+POST,/threads/{id}/contributions,Add contribution,Contributor
+POST,/threads/{id}/resolve,Resolve thread,Communication Owner
+POST,/communication-cases/{id}/nova-advisory,Request NOVA,Contributor
+POST,/communication-cases/{id}/pops-advisory,Request POPS,Steward
+POST,/communication-cases/{id}/approve,Record approval,Communication Approver
+POST,/communication-cases/{id}/handoffs/content,Content handoff,Communication Owner
+POST,/communication-cases/{id}/handoffs/governance,Governance handoff,Communication Owner
+GET,/communication-cases/{id}/feedback,Retrieve feedback,Viewer
+POST,/communication-cases/{id}/close,Close case,Communication Owner

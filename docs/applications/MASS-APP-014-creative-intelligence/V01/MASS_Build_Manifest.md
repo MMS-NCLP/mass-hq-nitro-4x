@@ -5,6 +5,7 @@ Status: In Progress
 [X] V02 - Knowledge Capture & Organizational Memory
 [X] V03 - Reasoning, Insight & Decision Intelligence
 [X] V04 - Adaptive Intelligence, Agents & Plugin Orchestration
+[X] V08 - Organizational Communication & Collaboration Intelligence
 
 APP-014 Manufacturing Standard beginning with V05:
 - Every volume includes an explicit Role Mapping section mapped to the APP-014 baseline hierarchy.

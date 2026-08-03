@@ -1,0 +1,20 @@
+docs/applications/MASS-APP-014-creative-intelligence/V08/
+|-- MASS-APP-014-V08_Organizational_Communication_and_Collaboration_Intelligence.md
+|-- MASS-APP-014-V08_Organizational_Communication_and_Collaboration_Intelligence.pdf
+|-- MASS-APP-014-V08_Architecture.mmd
+|-- MASS-APP-014-V08_API_Inventory.csv
+|-- MASS-APP-014-V08_Data_Model.csv
+|-- MASS-APP-014-V08_Migration_Reference.sql
+|-- MASS-APP-014-V08_Folder_Structure.txt
++-- MASS-APP-014-V08_Manufacturing_Completion_Report.md
+
+apps/creative-intelligence/src/features/
+|-- communication-cases/
+|-- context/
+|-- responsibilities/
+|-- plans/
+|-- briefs/
+|-- collaboration/
+|-- approvals/
+|-- handoffs/
++-- feedback/
