@@ -1,0 +1,12 @@
+V11/
+|-- MASS-APP-014-V11_Executive_Awareness_Strategy_and_Organizational_Command.md
+|-- MASS-APP-014-V11_Executive_Awareness_Strategy_and_Organizational_Command.pdf
+|-- MASS-APP-014-V11_Architecture.mmd
+|-- MASS-APP-014-V11_API_Inventory.csv
+|-- MASS-APP-014-V11_Data_Model.csv
+|-- MASS-APP-014-V11_Migration_Reference.sql
+`-- MASS-APP-014-V11_Folder_Structure.txt
+
+src/features/executive-awareness/{api,application,domain,infrastructure}
+supabase/migrations/APP-014/V11/
+

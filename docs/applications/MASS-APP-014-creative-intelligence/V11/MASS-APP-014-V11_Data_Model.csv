@@ -1,0 +1,15 @@
+Entity,Purpose,Tenant Owned
+ExecutiveWorkspace,Executive context,Yes
+AwarenessSnapshot,Point-in-time state,Yes
+HealthIndicator,KPI observation,Yes
+OrganizationalPulse,Material change summary,Yes
+StrategicBriefing,Governed briefing,Yes
+BriefingSection,Ordered briefing evidence,Yes
+ExecutiveAlert,Risk or opportunity notice,Yes
+GoalReference,Authoritative goal link,Yes
+InitiativeObservation,Initiative state,Yes
+DecisionReadiness,Evidence sufficiency,Yes
+DependencyObservation,Dependency state,Yes
+ExecutiveTimelineEntry,Chronological record,Yes
+AdvisoryRequest,NOVA or POPS request,Yes
+

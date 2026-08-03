@@ -1,0 +1,15 @@
+Method,Path,Purpose,Minimum Role
+GET,/executive-awareness/current,Read current snapshot,Executive Observer
+POST,/executive-awareness/snapshots,Assemble snapshot,Executive Steward
+GET,/executive-pulse,Read pulse,Executive Observer
+GET,/executive-briefings,Browse briefings,Executive Observer
+POST,/executive-briefings,Create briefing,Executive Steward
+POST,/executive-briefings/{id}/issue,Issue briefing,Executive Authority
+GET,/executive-alerts,Browse alerts,Executive Observer
+POST,/executive-alerts/{id}/acknowledge,Acknowledge alert,Initiative Owner
+POST,/executive-alerts/{id}/resolve,Resolve alert,Initiative Owner
+GET,/initiatives/{id}/awareness,Read initiative awareness,Executive Observer
+POST,/decision-readiness,Assess readiness,Executive Steward
+GET,/executive-timeline,Read timeline,Executive Observer
+POST,/executive-advisory,Request advisory,Executive Authority
+
