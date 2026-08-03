@@ -1,0 +1,15 @@
+flowchart LR
+ U["Authorized Context Request"] --> Z["Purpose & Authorization"]
+ Z --> P["Assembly Plan"]
+ P --> A["ApplicationContextGateway"]
+ P --> K["Knowledge & Document Gateways"]
+ P --> X["IntegrationGateway"]
+ A --> R["Reference Resolution"]
+ K --> R
+ X --> R
+ R --> C["Contradiction / Freshness / Redaction"]
+ C --> S["Immutable Context Snapshot"]
+ S --> AI["ENG-009 NOVA/POPS Synthesis"]
+ AI --> H["Human Review"]
+ H --> B["Executive or Operational Packet"]
+

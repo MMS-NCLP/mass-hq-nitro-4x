@@ -1,0 +1,13 @@
+docs/applications/MASS-APP-014-creative-intelligence/V15/
+|-- MASS-APP-014-V15_Cross_Application_Context_Assembly_and_Enterprise_Synthesis.md
+|-- MASS-APP-014-V15_Cross_Application_Context_Assembly_and_Enterprise_Synthesis.pdf
+|-- MASS-APP-014-V15_Architecture.mmd
+|-- MASS-APP-014-V15_API_Inventory.csv
+|-- MASS-APP-014-V15_Data_Model.csv
+|-- MASS-APP-014-V15_Migration_Reference.sql
+`-- MASS-APP-014-V15_Folder_Structure.txt
+
+src/features/context-assembly/{api,application,domain,infrastructure}
+src/features/context-assembly/gateways/{identity,authorization,application-context,knowledge,document,ai-orchestration,analytics,lineage,integration,event,audit}-gateway.ts
+supabase/migrations/APP-014/V15/MASS-APP-014-V15_Migration_Reference.sql
+

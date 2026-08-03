@@ -1,0 +1,15 @@
+Method,Path,Purpose,Minimum Role
+POST,/context-requests,Request context,Context Requester
+GET,/context-requests,Browse requests,Context Viewer
+GET,/context-requests/{id},Read request,Context Viewer
+POST,/context-requests/{id}/authorize,Authorize purpose,Context Steward
+POST,/context-requests/{id}/assemble,Execute assembly,Context Steward
+GET,/context-snapshots/{id},Read snapshot,Context Viewer
+POST,/context-snapshots/{id}/refresh,Refresh snapshot,Context Requester
+GET,/context-snapshots/{id}/citations,Read citations,Context Viewer
+GET,/context-snapshots/{id}/contradictions,Read contradictions,Context Viewer
+POST,/context-contradictions/{id}/disposition,Dispose contradiction,Synthesis Approver
+POST,/context-snapshots/{id}/issue,Issue snapshot,Context Steward
+POST,/synthesis-packets/{id}/issue,Issue packet,Synthesis Approver
+POST,/context-advisory-requests,Request advisory,Context Steward
+

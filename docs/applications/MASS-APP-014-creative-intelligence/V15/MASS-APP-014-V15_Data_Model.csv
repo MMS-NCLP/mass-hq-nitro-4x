@@ -1,0 +1,15 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+ContextRequest,Purpose-bound request,Yes,After authorization
+ContextSourceProfile,Governed source contract,Yes,Versioned after activation
+ContextAssemblyPlan,Source assembly plan,Yes,After execution
+SourceEligibilityDecision,Authorization result,Yes,Always
+ContextReference,Resolved source reference,Yes,After issuance
+ContextSnapshot,Point-in-time assembly,Yes,After issuance
+ContextCitation,Evidence locator and lineage,Yes,After issuance
+ContextContradiction,Conflicting claims,Yes,After disposition
+ContextRedaction,Restricted-field action,Yes,Always
+ContextIndicator,Quality indicator,Yes,After issuance
+SynthesisPacket,Executive or operational view,Yes,After issuance
+ContextAdvisoryRequest,NOVA or POPS request,Yes,After completion
+ContextOutbox,Reliable event,Yes,After publication
+
