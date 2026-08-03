@@ -15,4 +15,5 @@
 - v1.0 V15 — Cross-Application Context Assembly & Enterprise Synthesis manufactured under EWO-MASS-APP-014-V15 (2026-08-03).
 - v1.0 V16 — Intelligence Quality, Evaluation & Model Governance manufactured under EWO-MASS-APP-014-V16 (2026-08-03).
 - v1.0 V17 — Application Integration, Responsibility Closure & Production Readiness manufactured as Closure Candidate under EWO-MASS-APP-014-V17 (2026-08-03).
+- v1.1 V08–V12 — Consolidated LCO-004/LCO-005/LCO-006 manufacturing corrections: complete gateway folder inventories; V10–V12 Document Control; UUID defaults; tenant uniqueness; and `auth.jwt()` RLS normalization (2026-08-03).
 - v1.0 V02 - IRO-002 review: role mapping, SQL migration reference, Mermaid correction applied by Codex. Accepted (2026-08-03).

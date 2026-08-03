@@ -5,10 +5,13 @@ docs/applications/MASS-APP-014-creative-intelligence/V08/
 |-- MASS-APP-014-V08_API_Inventory.csv
 |-- MASS-APP-014-V08_Data_Model.csv
 |-- MASS-APP-014-V08_Migration_Reference.sql
-|-- MASS-APP-014-V08_Folder_Structure.txt
-+-- MASS-APP-014-V08_Manufacturing_Completion_Report.md
+`-- MASS-APP-014-V08_Folder_Structure.txt
 
-apps/creative-intelligence/src/features/
+src/features/communication-intelligence/
+|-- api/
+|-- application/
+|-- domain/
+|-- infrastructure/
 |-- communication-cases/
 |-- context/
 |-- responsibilities/
@@ -17,4 +20,20 @@ apps/creative-intelligence/src/features/
 |-- collaboration/
 |-- approvals/
 |-- handoffs/
-+-- feedback/
+|-- feedback/
+`-- gateways/
+    |-- identity-gateway.ts
+    |-- authorization-gateway.ts
+    |-- event-gateway.ts
+    |-- knowledge-gateway.ts
+    |-- document-gateway.ts
+    |-- ai-orchestration-gateway.ts
+    |-- notification-gateway.ts
+    |-- observability-gateway.ts
+    |-- api-contract-gateway.ts
+    |-- communications-governance-gateway.ts
+    |-- relationship-context-gateway.ts
+    |-- customer-experience-gateway.ts
+    `-- design-studio-content-gateway.ts
+
+supabase/migrations/APP-014/V08/MASS-APP-014-V08_Migration_Reference.sql

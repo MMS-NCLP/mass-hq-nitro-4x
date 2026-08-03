@@ -1,8 +1,15 @@
 # MASS-APP-014-V10 — Knowledge Discovery & Enterprise Search
 
-Version: 1.0  
-Status: Production Baseline  
-Authority: EWO-MASS-APP-014-V10
+## Document Control
+
+| Field | Value |
+|---|---|
+| Document ID | MASS-APP-014-V10 |
+| Version | 1.1 |
+| Status | Production Baseline v1.0 — Localized Correction |
+| Authority | EWO-MASS-APP-014-V10; LCO-005; LCO-006 |
+| Manufacturing Date | 2026-08-03 |
+| Correction Date | 2026-08-03 |
 
 ## 1. Purpose
 
@@ -120,4 +127,3 @@ V1 implements tenant-scoped source registration, governed query execution, deter
 ## 12. Constitutional Boundary Statement
 
 V10 discovers and explains authorized enterprise knowledge. It does not own knowledge, documents, analytics, relationships, decisions, workflows, communication delivery, or source-system mutation. Human users retain interpretive and decision authority.
-

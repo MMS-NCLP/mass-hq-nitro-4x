@@ -1,4 +1,4 @@
-V12/
+docs/applications/MASS-APP-014-creative-intelligence/V12/
 |-- MASS-APP-014-V12_Trust_Reliability_and_Execution_Assurance.md
 |-- MASS-APP-014-V12_Trust_Reliability_and_Execution_Assurance.pdf
 |-- MASS-APP-014-V12_Architecture.mmd
@@ -8,5 +8,5 @@ V12/
 `-- MASS-APP-014-V12_Folder_Structure.txt
 
 src/features/execution-assurance/{api,application,domain,infrastructure}
-supabase/migrations/APP-014/V12/
-
+src/features/execution-assurance/gateways/{identity,authorization,event,workflow,knowledge,document,ai-orchestration,observability,error-framework,operations,dispatch,automation,analytics,decision-intelligence,intelligent-execution,executive-awareness}-gateway.ts
+supabase/migrations/APP-014/V12/MASS-APP-014-V12_Migration_Reference.sql

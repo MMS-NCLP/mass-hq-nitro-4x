@@ -1,8 +1,15 @@
 # MASS-APP-014-V11 — Executive Awareness, Strategy & Organizational Command
 
-Version: 1.0  
-Status: Production Baseline  
-Authority: EWO-MASS-APP-014-V11
+## Document Control
+
+| Field | Value |
+|---|---|
+| Document ID | MASS-APP-014-V11 |
+| Version | 1.1 |
+| Status | Production Baseline v1.0 — Localized Correction |
+| Authority | EWO-MASS-APP-014-V11; LCO-006 |
+| Manufacturing Date | 2026-08-03 |
+| Correction Date | 2026-08-03 |
 
 ## 1. Purpose
 
@@ -114,4 +121,3 @@ Adaptive thresholds, richer scenario support, and broader dependency intelligenc
 ## 12. Constitutional Boundary Statement
 
 V11 makes the enterprise understandable to authorized leaders. It does not govern departments, calculate domain truth, execute work, authorize expenditure, communicate externally, or replace executive judgment.
-

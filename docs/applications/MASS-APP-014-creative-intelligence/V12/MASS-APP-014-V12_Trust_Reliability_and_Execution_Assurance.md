@@ -1,8 +1,15 @@
 # MASS-APP-014-V12 — Trust, Reliability & Execution Assurance
 
-Version: 1.0  
-Status: Production Baseline  
-Authority: EWO-MASS-APP-014-V12
+## Document Control
+
+| Field | Value |
+|---|---|
+| Document ID | MASS-APP-014-V12 |
+| Version | 1.1 |
+| Status | Production Baseline v1.0 — Localized Correction |
+| Authority | EWO-MASS-APP-014-V12; LCO-006 |
+| Manufacturing Date | 2026-08-03 |
+| Correction Date | 2026-08-03 |
 
 ## 1. Purpose
 
@@ -126,4 +133,3 @@ Additional source adapters, richer statistical reliability models, and predictiv
 ## 12. Constitutional Boundary Statement
 
 V12 verifies execution; it does not own execution. It does not create operational truth, replace domain owners, mutate source systems, determine identity or relationships, or remove human accountability.
-

@@ -1,4 +1,4 @@
-V10/
+docs/applications/MASS-APP-014-creative-intelligence/V10/
 |-- MASS-APP-014-V10_Knowledge_Discovery_and_Enterprise_Search.md
 |-- MASS-APP-014-V10_Knowledge_Discovery_and_Enterprise_Search.pdf
 |-- MASS-APP-014-V10_Architecture.mmd
@@ -7,7 +7,6 @@ V10/
 |-- MASS-APP-014-V10_Migration_Reference.sql
 `-- MASS-APP-014-V10_Folder_Structure.txt
 
-Implementation feature boundary:
 src/features/knowledge-discovery/{api,application,domain,infrastructure}
-supabase/migrations/APP-014/V10/
-
+src/features/knowledge-discovery/gateways/{identity,authorization,event,knowledge,ai-orchestration,observability,api-contract,analytics,lineage,design-studio,app014-context}-gateway.ts
+supabase/migrations/APP-014/V10/MASS-APP-014-V10_Migration_Reference.sql

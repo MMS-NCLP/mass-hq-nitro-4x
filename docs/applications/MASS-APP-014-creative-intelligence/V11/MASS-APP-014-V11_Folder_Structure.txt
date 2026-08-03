@@ -1,4 +1,4 @@
-V11/
+docs/applications/MASS-APP-014-creative-intelligence/V11/
 |-- MASS-APP-014-V11_Executive_Awareness_Strategy_and_Organizational_Command.md
 |-- MASS-APP-014-V11_Executive_Awareness_Strategy_and_Organizational_Command.pdf
 |-- MASS-APP-014-V11_Architecture.mmd
@@ -8,5 +8,5 @@ V11/
 `-- MASS-APP-014-V11_Folder_Structure.txt
 
 src/features/executive-awareness/{api,application,domain,infrastructure}
-supabase/migrations/APP-014/V11/
-
+src/features/executive-awareness/gateways/{authorization,event,knowledge,ai-orchestration,observability,relationship,customer-experience,growth,operations,dispatch,finance,communications,analytics,planning,integration,executive-information,app014-memory,app014-decision,app014-execution,app014-discovery}-gateway.ts
+supabase/migrations/APP-014/V11/MASS-APP-014-V11_Migration_Reference.sql
