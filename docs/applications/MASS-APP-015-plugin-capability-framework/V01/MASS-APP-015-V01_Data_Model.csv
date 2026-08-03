@@ -1,0 +1,13 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+PluginPublisher,Publisher provenance,Yes,Verified evidence
+Plugin,Canonical plugin identity,Yes,Canonical name
+PluginVersion,Versioned manifest,Yes,After decision
+CapabilityDeclaration,Capability contract,Yes,After publication
+CapabilityCategory,Governed category,Yes,After activation
+PluginDependency,Dependency declaration,Yes,After publication
+PluginEntryPoint,Invocation reference,Yes,After publication
+ManifestSignature,Signing evidence,Yes,Always
+ValidationFinding,Validation result,Yes,After review
+InstallationEligibility,Tenant eligibility finding,Yes,After decision
+PluginAudit,Append-only audit,Yes,Always
+

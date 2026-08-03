@@ -1,0 +1,10 @@
+flowchart LR
+ P["Publisher"] --> M["Manifest Submission"]
+ M --> S["JSON Schema Validation"]
+ S --> C["Contract / Dependency Validation"]
+ C --> G["Security & Provenance Review"]
+ G --> H["Independent Human Approval"]
+ H --> R["Plugin & Capability Registry"]
+ R --> D["Tenant-Authorized Discovery"]
+ D --> E["Eligibility Finding Only"]
+

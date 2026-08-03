@@ -1,0 +1,11 @@
+Type,Purpose,Typical Side Effect,Execution Owner
+tool,Bounded callable operation,Declared per contract,Owning engine/application
+workflow,Governed orchestration definition,Operational,ENG-006/ENG-025
+agent,AI-assisted participant,Declared per tools,ENG-009
+template,Reusable artifact definition,None or document creation,APP-013
+knowledge,Knowledge contribution/query,None or governed contribution,ENG-007
+dashboard,Read-oriented visualization,None,Owning application
+form,Structured user input,Internal write,Owning application
+event,Published/consumed event contract,None by itself,ENG-005
+integration,External system contract,External write possible,APP-020/ENG-016
+

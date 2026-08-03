@@ -1,0 +1,16 @@
+docs/applications/MASS-APP-015-plugin-capability-framework/V01/
+|-- MASS-APP-015-V01_Plugin_Foundation_Manifest_and_Capability_Registration.md
+|-- MASS-APP-015-V01_Plugin_Foundation_Manifest_and_Capability_Registration.pdf
+|-- MASS-APP-015-V01_Architecture.mmd
+|-- MASS-APP-015-V01_API_Inventory.csv
+|-- MASS-APP-015-V01_Data_Model.csv
+|-- MASS-APP-015-V01_Migration_Reference.sql
+|-- MASS-APP-015-V01_Plugin_Manifest.schema.json
+|-- MASS-APP-015-V01_Capability_Type_Registry.csv
+|-- MASS_Build_Manifest.md
+`-- MASS-APP-015_Revision_Log.md
+
+src/features/plugin-registry/{api,application,domain,infrastructure}
+src/features/plugin-registry/gateways/{constitution,engineering-library,product-roadmap,design-studio,intelligence-contract,administration,security-governance,identity,authorization,event,audit,api-contract,lineage}-gateway.ts
+supabase/migrations/APP-015/V01/MASS-APP-015-V01_Migration_Reference.sql
+

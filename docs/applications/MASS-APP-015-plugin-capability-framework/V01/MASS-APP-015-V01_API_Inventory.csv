@@ -1,0 +1,13 @@
+Method,Path,Purpose,Minimum Role
+POST,/plugins,Create plugin identity,Publisher Contributor
+POST,/plugins/{id}/versions,Submit manifest version,Publisher Contributor
+POST,/plugin-versions/{id}/validate,Validate manifest,Registry Steward
+POST,/plugin-versions/{id}/publish,Publish version,Registry Approver
+POST,/plugin-versions/{id}/reject,Reject version,Registry Approver
+GET,/plugins,Discover plugins,Registry Viewer
+GET,/plugins/{id},Read plugin,Registry Viewer
+GET,/capabilities,Discover capabilities,Registry Viewer
+GET,/capabilities/{id},Read capability,Registry Viewer
+POST,/plugin-versions/{id}/eligibility,Assess eligibility,Registry Steward
+POST,/plugin-versions/{id}/deprecate,Deprecate version,Registry Approver
+
