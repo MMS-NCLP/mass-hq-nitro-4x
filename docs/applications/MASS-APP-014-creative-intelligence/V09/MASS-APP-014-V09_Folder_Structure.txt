@@ -1,0 +1,9 @@
+docs/applications/MASS-APP-014-creative-intelligence/V09/
+|-- MASS-APP-014-V09_Automation_Workflow_and_Intelligent_Execution.md
+|-- MASS-APP-014-V09_Automation_Workflow_and_Intelligent_Execution.pdf
+|-- MASS-APP-014-V09_Architecture.mmd
+|-- MASS-APP-014-V09_API_Inventory.csv
+|-- MASS-APP-014-V09_Data_Model.csv
+|-- MASS-APP-014-V09_Migration_Reference.sql
+|-- MASS-APP-014-V09_Folder_Structure.txt
++-- MASS-APP-014-V09_Manufacturing_Completion_Report.md

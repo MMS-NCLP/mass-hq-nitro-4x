@@ -1,0 +1,14 @@
+Entity,Purpose,Key Integrity
+ExecutionPlan,Stable execution container,Tenant and decision authority
+ExecutionPlanRevision,Immutable plan revision,Unique revision number
+WorkPackage,Bounded accountable work,Revision scoped
+WorkDependency,Package dependency,Cycle prevention
+ExecutionGate,Required condition or authority,Plan scoped
+ExecutionApproval,Human approval,Immutable and no self-approval
+ExecutionHandoff,Owning-system request,Destination idempotency
+ExecutionStatusReference,Read-only state observation,Source version and freshness
+ExecutionException,Governed blocker,Owning-system reference
+AmendmentProposal,Proposed plan change,Approval required
+ResourceRequirement,Required capacity,Package scoped
+ExecutionOutcome,Verified result,Human verification
+ExecutionAuditEvent,Lifecycle evidence,Append-only

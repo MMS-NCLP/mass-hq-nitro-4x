@@ -1,0 +1,16 @@
+flowchart LR
+ D["V03 Human Decision"] --> P["Execution Plan"]
+ P --> G["Human Approval Gates"]
+ G --> W["Work Packages and Dependencies"]
+ W --> WF["ENG-006 Workflow Handoff"]
+ W --> OP["ENG-020 Operations Handoff"]
+ W --> DI["ENG-021 Dispatch Handoff"]
+ W --> AU["ENG-025 Automation Handoff"]
+ WF --> S["Read-only Status"]
+ OP --> S
+ DI --> S
+ AU --> S
+ S --> X["Exception Intelligence"]
+ X --> A["Human-approved Amendment"]
+ S --> O["Verified Outcome"]
+ O --> M["V02 Memory Handoff"]

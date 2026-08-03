@@ -1,0 +1,27 @@
+Method,Route,Purpose,Minimum Role
+GET,/execution-plans,List plans,Viewer
+POST,/execution-plans,Create plan,Contributor
+GET,/execution-plans/{id},Retrieve plan,Viewer
+PATCH,/execution-plans/{id},Edit draft plan,Execution Owner
+GET,/execution-plans/{id}/revisions,List revisions,Viewer
+POST,/execution-plans/{id}/revisions,Create revision,Execution Owner
+GET,/execution-plans/{id}/work-packages,List packages,Viewer
+POST,/execution-plans/{id}/work-packages,Create package,Execution Owner
+POST,/execution-plans/{id}/dependencies,Create dependency,Execution Owner
+DELETE,/execution-plans/{id}/dependencies/{dependencyId},Remove dependency,Execution Owner
+GET,/execution-plans/{id}/gates,List gates,Viewer
+POST,/execution-plans/{id}/gates,Create gate,Steward
+POST,/execution-plans/{id}/approve,Record approval,Execution Approver
+POST,/execution-plans/{id}/handoffs/workflow,Workflow handoff,Execution Owner
+POST,/execution-plans/{id}/handoffs/operations,Operations handoff,Execution Owner
+POST,/execution-plans/{id}/handoffs/dispatch,Dispatch handoff,Execution Owner
+POST,/execution-plans/{id}/handoffs/automation,Automation handoff,Execution Owner
+GET,/execution-plans/{id}/status,Aggregate status,Viewer
+GET,/execution-plans/{id}/exceptions,List exceptions,Viewer
+POST,/execution-plans/{id}/exceptions/{exceptionId}/options,Request options,Steward
+GET,/execution-plans/{id}/amendments,List amendments,Viewer
+POST,/execution-plans/{id}/amendments,Propose amendment,Execution Owner
+POST,/amendments/{id}/approve,Approve amendment,Execution Approver
+POST,/execution-plans/{id}/outcomes,Record outcome,Steward
+POST,/execution-plans/{id}/complete,Complete plan,Execution Owner
+POST,/execution-plans/{id}/archive,Archive plan,Execution Owner
