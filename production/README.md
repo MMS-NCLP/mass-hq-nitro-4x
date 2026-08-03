@@ -4,30 +4,31 @@ This folder is the shared production queue for ChatGPT, Codex, Claude, and Davon
 
 ## Queue
 
-- `inbox/` — approved work orders ready for Codex
-- `active/` — the work order Codex is currently manufacturing
-- `review/` — completed work awaiting review or localized revision
-- `done/` — accepted work orders and completion reports
-- `backlog/` — future ideas and deferred work; never manufacture directly from here
+- inbox - approved work orders ready for Codex
+- active - work orders currently being manufactured
+- review - completed work awaiting review or localized revision
+- done - accepted work orders and completion reports
+- backlog - future ideas and deferred work; never manufacture directly
 
-## Operating Flow
+## Operating Flow - Version 1.1
 
-1. Davon and ChatGPT prepare and approve work orders.
-2. Approved work orders are placed in `production/inbox/`.
-3. Codex selects the next work order in filename order, moves or copies it to `active/`, manufactures it, validates it, commits it, and places the completion report in `review/`.
-4. ChatGPT and Davon review the result. Localized corrections return through `review/` without changing the approved objective.
-5. Accepted work and its completion report move to `done/`.
-6. Codex immediately selects the next item from `inbox/` without waiting for a new chat prompt.
-7. After every two newly completed volumes, Claude performs a checkpoint audit of those volumes and reports localized findings plus the next production frontier.
+1. Approved work orders are placed in production/inbox.
+2. Codex selects work orders in filename order.
+3. For each work order, Codex records it in active, manufactures it, validates it, commits it, and places its completion report in review.
+4. Codex immediately processes the second work order in filename order.
+5. After exactly two work orders are completed, Codex submits one combined two-work-order report.
+6. Codex pauses for revision approval before processing additional inbox items.
+7. Localized corrections return through review without changing the approved objective.
+8. Accepted work and reports move to done.
 
 ## Codex Instruction
 
-Continue through `production/inbox/` in filename order until it is empty or a concrete dependency blocks manufacturing. Do not manufacture from `backlog/`. Completion reports must identify files, validation, commits, repository state, and the next inbox item.
+Process production/inbox in filename order in batches of two. Build, validate, commit, and report each item to review. After the second completed work order, produce one combined report and stop for revision approval. Stop earlier only when the inbox is empty or a concrete dependency blocks manufacturing. Do not manufacture from backlog.
 
 ## Claude Instruction
 
-At each two-volume checkpoint, review only the two newly completed volumes, identify localized revisions, verify the repository frontier, and report the next target. Do not stop Codex unless a confirmed defect affects active production.
+At each two-work-order checkpoint, review only the two newly completed builds, log localized revisions, verify the production frontier, and identify the next target. Do not stop active production unless a confirmed defect blocks active work.
 
-## Current Practical Model
+## Batch Gate
 
-This is the most efficient available model under the current platform limitation that ChatGPT, Codex, and Claude cannot directly message one another. The repository carries the work; Davon supplies only approval and cross-system handoffs.
+The two-work-order review gate is mandatory. Once the combined report is submitted, the queue remains paused until revision approval is recorded.
