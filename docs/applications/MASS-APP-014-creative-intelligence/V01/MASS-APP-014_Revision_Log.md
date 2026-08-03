@@ -14,4 +14,5 @@
 - v1.0 V14 — Policy Intelligence, Governance Advisory & Compliance Reasoning manufactured under EWO-MASS-APP-014-V14 (2026-08-03).
 - v1.0 V15 — Cross-Application Context Assembly & Enterprise Synthesis manufactured under EWO-MASS-APP-014-V15 (2026-08-03).
 - v1.0 V16 — Intelligence Quality, Evaluation & Model Governance manufactured under EWO-MASS-APP-014-V16 (2026-08-03).
+- v1.0 V17 — Application Integration, Responsibility Closure & Production Readiness manufactured as Closure Candidate under EWO-MASS-APP-014-V17 (2026-08-03).
 - v1.0 V02 - IRO-002 review: role mapping, SQL migration reference, Mermaid correction applied by Codex. Accepted (2026-08-03).

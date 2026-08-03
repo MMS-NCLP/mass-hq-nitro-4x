@@ -1,0 +1,20 @@
+docs/applications/MASS-APP-014-creative-intelligence/V17/
+|-- MASS-APP-014-V17_Application_Integration_Responsibility_Closure_and_Production_Readiness.md
+|-- MASS-APP-014-V17_Application_Integration_Responsibility_Closure_and_Production_Readiness.pdf
+|-- MASS-APP-014-V17_Architecture.mmd
+|-- MASS-APP-014-V17_API_Inventory.csv
+|-- MASS-APP-014-V17_Data_Model.csv
+|-- MASS-APP-014-V17_Migration_Reference.sql
+|-- MASS-APP-014_Capability_Traceability_Matrix.csv
+|-- MASS-APP-014_Cross_Volume_Contract_Register.csv
+|-- MASS-APP-014_Event_and_Gateway_Register.csv
+|-- MASS-APP-014_Migration_Dependency_Register.csv
+|-- MASS-APP-014_Known_Debt_and_Deferral_Register.md
+|-- MASS-APP-014_Production_Readiness_Checklist.md
+|-- MASS-APP-014_Application_Closure_Report.md
+`-- MASS-APP-014_APP-015_Transition_Brief.md
+
+src/features/application-closure/{api,application,domain,infrastructure}
+src/features/application-closure/gateways/{constitution,engineering-library,product-roadmap,design-studio,app014-artifact,production-governance,repository,audit}-gateway.ts
+supabase/migrations/APP-014/V17/MASS-APP-014-V17_Migration_Reference.sql
+

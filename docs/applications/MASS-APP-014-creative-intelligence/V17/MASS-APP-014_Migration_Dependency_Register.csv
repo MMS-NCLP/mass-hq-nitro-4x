@@ -1,0 +1,17 @@
+Order,Volume,Dependency,Disposition
+1,V01,Foundation baseline,Existing
+2,V02,V01,Existing
+3,V03,V01-V02,Existing
+4,V04,V01-V03,Existing
+5,V05-V07,No canonical migration,Gap requires roadmap disposition
+6,V08,V01-V04,Existing with LCO pending
+7,V09,V01-V04 and V08,Existing with LCO pending
+8,V10,V01-V04 and V08-V09,Existing with LCO pending
+9,V11,V01-V10 evidenced volumes,Existing
+10,V12,V01-V11 evidenced volumes,Existing
+11,V13,V01-V12 evidenced volumes,Existing
+12,V14,V01-V13 evidenced volumes,Existing
+13,V15,V01-V14 evidenced volumes,Existing
+14,V16,V01-V15 evidenced volumes,Existing
+15,V17,All evidenced volumes and closure governance,Closure candidate
+

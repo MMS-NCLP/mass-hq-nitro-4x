@@ -1,0 +1,13 @@
+Producer,Consumer,Contract,Boundary
+APP-013,APP-014,Design artifact references,APP-013 owns artifacts
+ENG-007,APP-014,Knowledge retrieval and contribution,ENG-007 owns knowledge
+ENG-008,APP-014,Document persistence references,ENG-008 owns persistence
+ENG-009,APP-014,AI orchestration and advisory,ENG-009 owns orchestration
+ENG-024,APP-014,Analytical observations,ENG-024 owns analytics
+ENG-027,APP-014,Lineage and ontology,ENG-027 owns information governance
+APP-014 V02,APP-014 V03-V17,Organizational memory references,V02 owns memory
+APP-014 V03,APP-014 V09-V17,Decision evidence,V03 owns decisions
+APP-014 V12,APP-014 V13-V17,Verified outcome evidence,V12 owns assurance
+APP-014 V15,APP-014 V16-V17,Context snapshots,V15 owns assembly
+APP-014,APP-015,Intelligence advisory and extension contracts,APP-015 must not duplicate intelligence ownership
+

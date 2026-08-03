@@ -1,0 +1,13 @@
+Volume,Published Event or Gateway,Purpose
+V08,communication-intelligence events and communications gateways,Governed communication context
+V09,execution lifecycle events and workflow gateways,Execution handoff
+V10,discovery events and knowledge gateways,Enterprise discovery
+V11,executive briefing and alert events,Executive awareness
+V12,assurance and exception events,Execution verification
+V13,learning and recommendation events,Organizational learning
+V14,governance assessment and conflict events,Policy advisory
+V15,context snapshot and contradiction events,Context assembly
+V16,evaluation and regression events,Quality governance
+V17,closure submission and recommendation events,Closure evidence
+ALL,Identity Authorization Event Audit gateways,Platform contracts retained by ENG owners
+

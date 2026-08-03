@@ -14,6 +14,7 @@ Status: In Progress
 [X] V14 - Policy Intelligence, Governance Advisory & Compliance Reasoning
 [X] V15 - Cross-Application Context Assembly & Enterprise Synthesis
 [X] V16 - Intelligence Quality, Evaluation & Model Governance
+[X] V17 - Application Integration, Responsibility Closure & Production Readiness (Closure Candidate — Not Frozen)
 
 APP-014 Manufacturing Standard beginning with V05:
 - Every volume includes an explicit Role Mapping section mapped to the APP-014 baseline hierarchy.

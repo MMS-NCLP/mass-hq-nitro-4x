@@ -1,0 +1,11 @@
+Method,Path,Purpose,Minimum Role
+POST,/closure-runs,Create closure run,Closure Steward
+GET,/closure-runs/{id},Read closure status,Closure Viewer
+POST,/closure-runs/{id}/evidence,Register source evidence,Closure Contributor
+GET,/closure-runs/{id}/findings,Browse findings,Closure Viewer
+POST,/closure-findings/{id}/disposition,Record disposition,Closure Steward
+POST,/closure-runs/{id}/readiness-checks,Record readiness check,Closure Steward
+POST,/closure-runs/{id}/submit,Submit closure candidate,Closure Approver
+GET,/closure-runs/{id}/transition-package,Read handoff package,Closure Viewer
+POST,/closure-runs/{id}/freeze-recommendation,Issue recommendation,Closure Approver
+

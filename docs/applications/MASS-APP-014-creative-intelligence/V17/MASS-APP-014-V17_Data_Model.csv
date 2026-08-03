@@ -1,0 +1,10 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+ClosureRun,Closure assessment container,Yes,After submission
+ClosureEvidence,Canonical source reference,Yes,Always after validation
+ClosureFinding,Gap conflict or debt,Yes,After disposition
+FindingDisposition,Governed classification and owner,Yes,Always
+ReadinessCheck,Acceptance criterion result,Yes,After review
+TransitionConstraint,APP-015 consumption constraint,Yes,After submission
+FreezeRecommendation,Human-reviewed recommendation,Yes,After issuance
+ClosureAudit,Append-only audit evidence,Yes,Always
+
