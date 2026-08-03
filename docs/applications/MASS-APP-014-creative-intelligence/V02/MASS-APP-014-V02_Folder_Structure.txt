@@ -1,0 +1,43 @@
+docs/applications/MASS-APP-014-creative-intelligence/V02/
+|-- MASS-APP-014-V02_Knowledge_Capture_and_Organizational_Memory.md
+|-- MASS-APP-014-V02_Knowledge_Capture_and_Organizational_Memory.pdf
+|-- MASS-APP-014-V02_Architecture.mmd
+|-- MASS-APP-014-V02_API_Inventory.csv
+|-- MASS-APP-014-V02_Data_Model.csv
+|-- MASS-APP-014-V02_Folder_Structure.txt
++-- MASS-APP-014-V02_Manufacturing_Completion_Report.md
+
+apps/creative-intelligence/src/features/
+|-- capture/{api,services,repositories,validators,contracts}
+|-- memory/{api,services,repositories,lifecycle,contracts}
+|-- citations/
+|-- confidence/
+|-- inheritance/
+|-- search/
+|-- advisory/{nova,pops}
++-- shared/{authorization,events,errors}
+
+apps/creative-intelligence/src/gateways/
+|-- knowledge-engine.gateway.ts
+|-- document-engine.gateway.ts
+|-- ai-orchestration.gateway.ts
+|-- design-studio.gateway.ts
+|-- nova.gateway.ts
++-- pops.gateway.ts
+
+supabase/migrations/
+|-- 014_memory_collections.sql
+|-- 015_capture_records.sql
+|-- 016_capture_participants.sql
+|-- 017_capture_source_references.sql
+|-- 018_memory_records.sql
+|-- 019_memory_revisions.sql
+|-- 020_memory_citations.sql
+|-- 021_memory_relationships.sql
+|-- 022_memory_inheritance_rules.sql
+|-- 023_memory_confidence_assessments.sql
+|-- 024_memory_index_states.sql
+|-- 025_memory_tags.sql
+|-- 026_memory_constraints_and_indexes.sql
+|-- 027_memory_rls_policies.sql
++-- 028_memory_integrity_triggers.sql

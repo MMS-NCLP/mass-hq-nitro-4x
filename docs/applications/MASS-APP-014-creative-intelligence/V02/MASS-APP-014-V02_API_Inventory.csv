@@ -1,0 +1,31 @@
+Method,Route,Purpose,Authorization,Primary Entity
+GET,/memory-collections,List accessible collections,Viewer,MemoryCollection
+POST,/memory-collections,Create collection,Steward,MemoryCollection
+GET,/memory-collections/{id},Retrieve collection,Viewer,MemoryCollection
+PATCH,/memory-collections/{id},Update collection metadata,Steward,MemoryCollection
+GET,/captures,List captures,Contributor,CaptureRecord
+POST,/captures,Create typed capture,Contributor,CaptureRecord
+GET,/captures/{id},Retrieve capture,Contributor,CaptureRecord
+PATCH,/captures/{id},Edit eligible capture,Owner or Steward,CaptureRecord
+POST,/captures/{id}/validate,Validate source and structure,Steward,CaptureRecord
+POST,/captures/{id}/reject,Reject capture,Steward,CaptureRecord
+POST,/captures/{id}/preserve,Preserve memory revision,Steward,MemoryRevision
+POST,/captures/{id}/archive,Archive capture,Steward,CaptureRecord
+GET,/memories,List memories,Viewer,MemoryRecord
+GET,/memories/{id},Retrieve memory,Viewer,MemoryRecord
+POST,/memories/{id}/revisions,Create correction revision,Steward,MemoryRevision
+GET,/memories/{id}/revisions,List revisions,Viewer,MemoryRevision
+POST,/memories/{id}/archive,Archive memory,Steward,MemoryRecord
+POST,/memories/{id}/restore,Restore memory,Steward,MemoryRecord
+POST,/memory-search,Search through ENG-007,Viewer,MemoryIndexState
+GET,/memories/{id}/citations,Retrieve citations,Viewer,MemoryCitation
+POST,/memories/{id}/relationships,Create relationship,Steward,MemoryRelationship
+DELETE,/memories/{id}/relationships/{relationshipId},Remove relationship,Steward,MemoryRelationship
+GET,/memories/{id}/confidence,Retrieve confidence history,Viewer,MemoryConfidenceAssessment
+POST,/memories/{id}/confidence-assessments,Record assessment,Steward,MemoryConfidenceAssessment
+GET,/memory-inheritance-rules,List rules,Viewer,MemoryInheritanceRule
+POST,/memory-inheritance-rules,Create rule,Administrator,MemoryInheritanceRule
+PATCH,/memory-inheritance-rules/{id},Update rule,Administrator,MemoryInheritanceRule
+DELETE,/memory-inheritance-rules/{id},Disable rule,Administrator,MemoryInheritanceRule
+POST,/memories/{id}/nova-advisory,Request NOVA advisory via ENG-009,Contributor,MemoryRecord
+POST,/memories/{id}/pops-review,Request POPS advisory via ENG-009,Steward,MemoryRecord

@@ -1,0 +1,27 @@
+flowchart LR
+    subgraph Sources["Authoritative Sources"]
+        DS["APP-013 Design Studio"]
+        DOC["ENG-008 Documents"]
+        CONV["Meetings and Conversations"]
+    end
+    subgraph V02["APP-014-V02 Organizational Memory"]
+        CAP["Capture Service"]
+        VAL["Validation Service"]
+        MEM["Memory Repository"]
+        CIT["Citation Service"]
+        CONF["Confidence Service"]
+        INH["Inheritance Service"]
+        RET["Retrieval Service"]
+    end
+    K["ENG-007 Knowledge Engine"]
+    AI["ENG-009 AI Orchestration"]
+    NOVA["NOVA Advisory"]
+    POPS["POPS Advisory"]
+    Sources --> CAP --> VAL --> MEM
+    MEM --> CIT
+    MEM --> CONF
+    MEM --> INH
+    MEM --> K --> RET
+    RET --> AI
+    AI --> NOVA
+    AI --> POPS

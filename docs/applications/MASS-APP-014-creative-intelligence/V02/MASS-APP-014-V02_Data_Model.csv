@@ -1,0 +1,13 @@
+Entity,Purpose,Key Fields,Relationships,Integrity Controls
+MemoryCollection,Tenant-bound organizational scope,"id; tenant_id; name; scope_type; scope_id; classification; status","has memories and inheritance rules","UNIQUE(id tenant_id); RLS; scope validation"
+CaptureRecord,Typed capture envelope,"id; tenant_id; collection_id; capture_type; status; payload; idempotency_key; captured_by; captured_at","has participants and sources; may produce memory","UNIQUE(tenant_id idempotency_key); composite collection FK; RLS"
+CaptureParticipant,Capture participant,"id; tenant_id; capture_id; participant_type; participant_id; role",belongs to capture,"composite capture FK; tenant validation; RLS"
+CaptureSourceReference,Authoritative source locator,"id; tenant_id; capture_id; source_type; source_id; source_revision; locator; context",belongs to capture,"context NOT NULL; source validation; RLS"
+MemoryRecord,Stable memory identity,"id; tenant_id; collection_id; source_capture_id; title; classification; status; current_revision_id","belongs to collection and capture; has revisions","composite tenant FKs; soft delete; RLS"
+MemoryRevision,Immutable snapshot,"id; tenant_id; memory_id; revision_number; body; summary; status; preserved_by; preserved_at; checksum","belongs to memory; has citations confidence and index state","UNIQUE(memory_id revision_number); immutability trigger; RLS"
+MemoryCitation,Revision-scoped evidence,"id; tenant_id; revision_id; source_type; source_id; source_revision; locator; excerpt; source_hash; verification_status",belongs to revision,"direct revision FK; immutability trigger; stale events; RLS"
+MemoryRelationship,Context between memories,"id; tenant_id; source_memory_id; target_memory_id; relationship_type; rationale",connects memories,"composite tenant FKs; no self-link; RLS"
+MemoryInheritanceRule,Parent-child visibility rule,"id; tenant_id; parent_collection_id; child_collection_id; classification; memory_id; mode; active",connects collections,"same-tenant FKs; cycle trigger; RLS"
+MemoryConfidenceAssessment,Reliability evidence,"id; tenant_id; revision_id; five dimensions; total_score; band; assessor; rationale",belongs to revision,"score checks; verified requires human evidence; immutable; RLS"
+MemoryIndexState,ENG-007 synchronization,"id; tenant_id; revision_id; knowledge_record_id; status; attempt_count; last_error; indexed_at",belongs to revision,"one current state per revision; retry-safe; RLS"
+MemoryTag,Tenant memory tag,"id; tenant_id; memory_id; value; normalized_value",belongs to memory,"UNIQUE(memory_id normalized_value); composite memory FK; RLS"
