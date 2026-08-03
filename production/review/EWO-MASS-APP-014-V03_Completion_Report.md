@@ -6,7 +6,7 @@ MASS-APP-014-V03 - Reasoning, Insight & Decision Intelligence is manufactured an
 
 ## Artifact Commit
 
-af0433e - Manufacture APP-014 V03 decision intelligence
+c47c0d7 - Manufacture APP-014 V03 decision intelligence
 
 ## Files Produced
 
