@@ -1,0 +1,17 @@
+Method,Path,Purpose,Minimum Role
+POST,/assurance-cases,Create case,Assurance Steward
+GET,/assurance-cases,Browse cases,Assurance Viewer
+GET,/assurance-cases/{id},Read case,Assurance Viewer
+POST,/responsibilities/{id}/accept,Accept responsibility,Responsibility Owner
+POST,/assurance-cases/{id}/evidence,Submit evidence,Responsibility Owner
+POST,/checkpoints/{id}/verify,Verify checkpoint,Assurance Steward
+GET,/execution-exceptions,Browse exceptions,Assurance Viewer
+POST,/execution-exceptions/{id}/assign,Assign exception,Assurance Steward
+POST,/execution-exceptions/{id}/recovery,Request recovery,Assurance Steward
+POST,/reconciliations,Run reconciliation,Assurance Steward
+GET,/reconciliations/{id}/findings,Read findings,Assurance Viewer
+GET,/reliability/{subjectType}/{subjectId},Read reliability,Assurance Viewer
+POST,/assurance-cases/{id}/close,Close case,Assurance Authority
+GET,/assurance-briefings,Browse briefings,Assurance Viewer
+POST,/assurance-advisory,Request advisory,Assurance Authority
+

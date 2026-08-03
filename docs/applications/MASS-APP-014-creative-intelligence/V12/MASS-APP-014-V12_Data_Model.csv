@@ -1,0 +1,15 @@
+Entity,Purpose,Tenant Owned
+AssuranceCase,Verification container,Yes
+ResponsibilityAcceptance,Accepted obligation,Yes
+VerificationCheckpoint,Completion condition,Yes
+CompletionEvidence,Immutable evidence reference,Yes
+CheckpointResult,Verification outcome,Yes
+ExecutionException,Failure or discrepancy,Yes
+RecoveryRequest,Idempotent recovery request,Yes
+ReconciliationRun,Cross-system comparison,Yes
+ReconciliationFinding,State difference,Yes
+ReliabilityObservation,Explainable score input,Yes
+TrustIndicator,Aggregated assurance signal,Yes
+AssuranceBriefing,Executive summary,Yes
+AdvisoryRequest,NOVA or POPS request,Yes
+

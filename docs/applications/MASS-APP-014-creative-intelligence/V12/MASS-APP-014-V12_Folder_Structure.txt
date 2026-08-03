@@ -1,0 +1,12 @@
+V12/
+|-- MASS-APP-014-V12_Trust_Reliability_and_Execution_Assurance.md
+|-- MASS-APP-014-V12_Trust_Reliability_and_Execution_Assurance.pdf
+|-- MASS-APP-014-V12_Architecture.mmd
+|-- MASS-APP-014-V12_API_Inventory.csv
+|-- MASS-APP-014-V12_Data_Model.csv
+|-- MASS-APP-014-V12_Migration_Reference.sql
+`-- MASS-APP-014-V12_Folder_Structure.txt
+
+src/features/execution-assurance/{api,application,domain,infrastructure}
+supabase/migrations/APP-014/V12/
+
