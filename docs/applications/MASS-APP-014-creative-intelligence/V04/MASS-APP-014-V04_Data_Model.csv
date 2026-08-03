@@ -1,0 +1,21 @@
+Entity,Purpose,Key Integrity
+IntelligencePlan,Orchestration container,Tenant lifecycle and human owner
+PlanObjective,Revisioned objective,One active revision
+AgentBinding,Approved ENG-009 profile,Version and permission approval
+DepartmentBinding,Domain intelligence gateway,Constitutional owner retained
+SkillDefinition,Required capability contract,Versioned schemas
+SkillRoute,Auditable participant selection,Candidates exclusions and selector
+PluginBinding,Approved catalog binding,Package version and scopes
+AssignmentNode,Bounded participant task,Plan dependency integrity
+AssignmentDependency,Directed plan edge,Cycle prevention
+ContextEnvelope,Immutable shared context,Sensitivity expiration and tenant
+ContextReference,Authorized source reference,Tenant and lifecycle validation
+ContributionRecord,Signed participant output,Execution reference and citations
+ApprovalGate,Required human checkpoint,Role and quorum policy
+ApprovalDecision,Immutable human response,Self-approval prohibited
+AdaptationProposal,Proposed plan change,Human approval required
+OrchestrationRun,Execution attempt,Idempotency and status
+InvocationRecord,Agent or plugin invocation,Input hash and output trace
+MemoryUtilization,V02 memory reference,Read-only
+IntegrationHandoff,Cockpit Dispatch or Design request,Idempotent contract
+PlanOutcome,Verified result,Human verification required

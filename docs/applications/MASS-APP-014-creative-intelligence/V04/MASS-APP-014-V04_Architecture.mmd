@@ -1,0 +1,20 @@
+flowchart LR
+    OBJ["Authorized Objective"] --> PLAN["Intelligence Plan"]
+    MEM["V02 Organizational Memory"] --> CTX["Context Envelope"]
+    PLAN --> CTX
+    CTX --> ROUTE["Skill Router"]
+    ROUTE --> AGENT["Approved Agent Binding"]
+    ROUTE --> DEPT["Department Intelligence Gateway"]
+    ROUTE --> PLUGIN["Approved Plugin Binding"]
+    AGENT --> EXEC["ENG-009 Execution"]
+    PLUGIN --> EXEC
+    DEPT --> CONTRIB["Signed Contributions"]
+    EXEC --> CONTRIB
+    NREQ["Advisory Request Type: NOVA"] --> EXEC
+    PREQ["Advisory Request Type: POPS"] --> EXEC
+    CONTRIB --> GATE["Human Approval Gate"]
+    GATE -->|"Approved"| HANDOFF["Governed Handoff"]
+    GATE -->|"Revision required"| PLAN
+    HANDOFF --> COCKPIT["Executive Cockpit Contract"]
+    HANDOFF --> DISPATCH["Dispatch Contract"]
+    HANDOFF --> DESIGN["Design Studio Contract"]

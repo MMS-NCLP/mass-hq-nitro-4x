@@ -1,0 +1,47 @@
+docs/applications/MASS-APP-014-creative-intelligence/V04/
+|-- MASS-APP-014-V04_Adaptive_Intelligence_Agents_and_Plugin_Orchestration.md
+|-- MASS-APP-014-V04_Adaptive_Intelligence_Agents_and_Plugin_Orchestration.pdf
+|-- MASS-APP-014-V04_Architecture.mmd
+|-- MASS-APP-014-V04_API_Inventory.csv
+|-- MASS-APP-014-V04_Data_Model.csv
+|-- MASS-APP-014-V04_Folder_Structure.txt
++-- MASS-APP-014-V04_Manufacturing_Completion_Report.md
+
+apps/creative-intelligence/src/features/
+|-- plans/
+|-- registry/{agents,departments,plugins}
+|-- skills/
+|-- routing/
+|-- assignments/
+|-- context/
+|-- contributions/
+|-- approvals/
+|-- adaptations/
+|-- runs/
+|-- memory/
++-- integrations/{cockpit,dispatch,design-studio}
+
+apps/creative-intelligence/src/gateways/
+|-- workflow-engine.gateway.ts
+|-- ai-orchestration.gateway.ts
+|-- organizational-memory.gateway.ts
+|-- department-intelligence.gateway.ts
+|-- plugin-library.gateway.ts
+|-- executive-cockpit.gateway.ts
+|-- dispatch.gateway.ts
++-- design-studio.gateway.ts
+
+supabase/migrations/
+|-- 042_create_intelligence_plans.sql
+|-- 043_create_agent_and_department_bindings.sql
+|-- 044_create_skill_definitions_and_routes.sql
+|-- 045_create_plugin_bindings.sql
+|-- 046_create_assignments.sql
+|-- 047_create_context_envelopes.sql
+|-- 048_create_contributions.sql
+|-- 049_create_approval_gates.sql
+|-- 050_create_adaptation_proposals.sql
+|-- 051_create_runs_and_invocations.sql
+|-- 052_create_handoffs_and_outcomes.sql
+|-- 053_create_v04_rls_policies.sql
++-- 054_create_v04_enforcement_triggers.sql

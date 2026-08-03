@@ -1,0 +1,43 @@
+Method,Route,Purpose,Minimum Role
+GET,/intelligence-plans,List plans,Viewer
+POST,/intelligence-plans,Create plan,Contributor
+GET,/intelligence-plans/{id},Retrieve plan,Viewer
+PATCH,/intelligence-plans/{id},Edit eligible plan,Plan Owner
+POST,/intelligence-plans/{id}/validate,Validate plan,Steward
+POST,/intelligence-plans/{id}/start,Start approved run,Plan Owner
+POST,/intelligence-plans/{id}/pause,Pause run,Plan Owner
+POST,/intelligence-plans/{id}/cancel,Cancel run,Plan Owner
+POST,/intelligence-plans/{id}/archive,Archive plan,Steward
+GET,/agent-bindings,List agent bindings,Viewer
+POST,/agent-bindings,Propose agent binding,Steward
+PATCH,/agent-bindings/{id},Update eligible binding,Steward
+POST,/agent-bindings/{id}/approve,Approve binding,Administrator
+POST,/agent-bindings/{id}/suspend,Suspend binding,Administrator
+POST,/agent-bindings/{id}/revoke,Revoke binding,Administrator
+GET,/department-bindings,List department gateways,Viewer
+GET,/skills,List skill contracts,Viewer
+POST,/skill-routes/evaluate,Evaluate routes,Contributor
+GET,/plugin-bindings,List plugin bindings,Viewer
+POST,/plugin-bindings,Propose plugin binding,Steward
+POST,/plugin-bindings/{id}/approve,Approve plugin binding,Administrator
+POST,/plugin-bindings/{id}/revoke,Revoke plugin binding,Administrator
+GET,/intelligence-plans/{id}/assignments,List assignments,Viewer
+POST,/intelligence-plans/{id}/assignments,Create assignment,Contributor
+POST,/intelligence-plans/{id}/assignments/{assignmentId}/invoke,Request execution,Plan Owner
+GET,/intelligence-plans/{id}/contributions,List contributions,Viewer
+GET,/intelligence-plans/{id}/approval-gates,List gates,Viewer
+POST,/intelligence-plans/{id}/approval-gates,Create gate,Steward
+POST,/approval-gates/{id}/decisions,Record human decision,Authorized Approver
+GET,/intelligence-plans/{id}/adaptations,List adaptations,Viewer
+POST,/intelligence-plans/{id}/adaptations,Propose adaptation,Steward
+POST,/adaptations/{id}/approve,Approve adaptation,Authorized Approver
+GET,/intelligence-plans/{id}/context-envelopes,List context envelopes,Viewer
+POST,/intelligence-plans/{id}/context-envelopes,Create context envelope,Steward
+POST,/intelligence-plans/{id}/memory-search,Retrieve memory,Contributor
+POST,/intelligence-plans/{id}/nova-advisory,Request NOVA,Contributor
+POST,/intelligence-plans/{id}/pops-advisory,Request POPS,Steward
+POST,/intelligence-plans/{id}/handoffs/executive-cockpit,Create Cockpit handoff,Plan Owner
+POST,/intelligence-plans/{id}/handoffs/dispatch,Create Dispatch handoff,Plan Owner
+POST,/intelligence-plans/{id}/handoffs/design-studio,Create Design handoff,Plan Owner
+POST,/intelligence-plans/{id}/outcomes,Record verified outcome,Steward
+GET,/intelligence-plans/{id}/audit,Retrieve audit,Steward
