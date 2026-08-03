@@ -6,7 +6,7 @@ PATCH,/memory-collections/{id},Update collection metadata,Steward,MemoryCollecti
 GET,/captures,List captures,Contributor,CaptureRecord
 POST,/captures,Create typed capture,Contributor,CaptureRecord
 GET,/captures/{id},Retrieve capture,Contributor,CaptureRecord
-PATCH,/captures/{id},Edit eligible capture,Owner or Steward,CaptureRecord
+PATCH,/captures/{id},Edit eligible capture,Contributor (own) or Steward,CaptureRecord
 POST,/captures/{id}/validate,Validate source and structure,Steward,CaptureRecord
 POST,/captures/{id}/reject,Reject capture,Steward,CaptureRecord
 POST,/captures/{id}/preserve,Preserve memory revision,Steward,MemoryRevision

@@ -46,6 +46,19 @@ Published events: knowledge.capture.created, knowledge.capture.validated, organi
 
 Consumed events: enterprise.document.archived, enterprise.document.deleted, design.publication.archived, design.content.archived, knowledge.index.completed, knowledge.index.failed.
 
+### V02 role mapping
+
+V02 roles extend the V01 role model; they do not replace it. V01 remains authoritative for application-level access.
+
+| V02 role | V01 role | Extension |
+|---|---|---|
+| Viewer | Viewer | Read accessible collections, captures, memories, citations, confidence history, and inheritance rules. |
+| Contributor | Editor | Adds capture creation, eligible capture editing, and advisory-request access. It cannot validate or preserve memory. |
+| Steward | Editor | Adds capture validation, rejection, preservation, correction revisions, confidence assessment, relationship stewardship, archival, and POPS review requests. |
+| Administrator | Admin | Adds tenant-wide collection, inheritance-rule, role-assignment, and memory-policy administration. |
+
+When a V01 authorization decision is required, Contributor and Steward both satisfy the V01 Editor baseline. Their V02 distinction is enforced by V02 endpoint authorization. Administrator satisfies V01 Admin. No V02 role grants access beyond the active tenant or bypasses ENG-004.
+
 ## 3. Architecture
 
 The Capture Service accepts typed evidence, verifies source access, and records a capture envelope. Validation prepares a memory candidate. Preservation creates an immutable revision, citations, and initial confidence evidence in one transaction. The Index Gateway submits the revision to ENG-007. Retrieval delegates ranking to ENG-007, reapplies APP-014 authorization, and returns citations and confidence with every result.
@@ -219,6 +232,8 @@ NOVA advisory: request citation-gap analysis; compose authorized context; execut
 V02 continues after V01: 014 memory collections; 015 capture records; 016 capture participants; 017 capture source references; 018 memory records; 019 memory revisions; 020 memory citations; 021 memory relationships; 022 memory inheritance rules; 023 confidence assessments; 024 index states; 025 memory tags; 026 composite constraints and indexes; 027 concrete RLS policies; 028 immutability and integrity triggers.
 
 Migrations are forward-only and repository-controlled.
+
+The implementation-grade PostgreSQL reference for all 12 entities, foreign keys, enforcement triggers, and concrete RLS policies is MASS-APP-014-V02_Migration_Reference.sql. It is the V02 migration contract and shall be split into migrations 014 through 028 during implementation without changing its constraints.
 
 ## 18. Acceptance Verification
 

@@ -15,13 +15,13 @@ flowchart LR
     end
     K["ENG-007 Knowledge Engine"]
     AI["ENG-009 AI Orchestration"]
-    NOVA["NOVA Advisory"]
-    POPS["POPS Advisory"]
+    NOVA["Advisory Request Type: NOVA"]
+    POPS["Advisory Request Type: POPS"]
     Sources --> CAP --> VAL --> MEM
     MEM --> CIT
     MEM --> CONF
     MEM --> INH
     MEM --> K --> RET
-    RET --> AI
-    AI --> NOVA
-    AI --> POPS
+    RET --> NOVA --> AI
+    RET --> POPS --> AI
+    AI -->|"Governed advisory response"| MEM
