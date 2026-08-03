@@ -1,0 +1,23 @@
+Method,Path,Purpose,Minimum Role,Idempotent
+POST,/learning/outcomes,Capture outcome observation,Learning Contributor,Yes
+GET,/learning/outcomes,Search authorized outcomes,Learning Viewer,N/A
+POST,/learning/evidence,Register evidence reference,Learning Contributor,Yes
+POST,/learning/records,Propose learning record,Learning Contributor,Yes
+GET,/learning/records/{id},Retrieve learning and versions,Learning Viewer,N/A
+POST,/learning/records/{id}/versions,Propose revised learning,Learning Contributor,Yes
+POST,/learning/versions/{id}/approve,Approve learning version,Learning Steward,Yes
+POST,/learning/versions/{id}/reject,Reject learning version,Learning Steward,Yes
+POST,/learning/patterns,Propose pattern,Learning Contributor,Yes
+POST,/learning/patterns/{id}/review,Review pattern,Learning Steward,Yes
+POST,/learning/contradictions,Record contradiction,Learning Contributor,Yes
+POST,/learning/contradictions/{id}/resolve,Resolve contradiction,Learning Steward,Yes
+POST,/improvement/recommendations,Prepare recommendation,Learning Steward,Yes
+POST,/improvement/recommendations/{id}/decide,Decide recommendation,Executive Learning Approver,Yes
+POST,/improvement/recommendations/{id}/backlog,Create backlog candidate,Improvement Owner,Yes
+GET,/improvement/backlog,Browse improvement candidates,Learning Viewer,N/A
+POST,/learning/maturity-assessments,Create maturity assessment,Learning Steward,Yes
+GET,/learning/maturity-assessments/latest,Retrieve current assessment,Learning Viewer,N/A
+POST,/learning/briefings,Prepare briefing,Learning Steward,Yes
+POST,/learning/briefings/{id}/issue,Issue briefing,Executive Learning Approver,Yes
+POST,/learning/advisory-requests,Request NOVA or POPS advisory,Learning Steward,Yes
+

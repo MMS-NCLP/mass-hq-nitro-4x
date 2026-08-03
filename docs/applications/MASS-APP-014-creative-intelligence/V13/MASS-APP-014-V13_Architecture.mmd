@@ -1,0 +1,19 @@
+flowchart LR
+  S["Authoritative Outcomes: APP-014 V01-V12"] --> G1["App014ContextGateway"]
+  D["APP-013 Design Artifacts"] --> G2["DesignStudioArtifactGateway"]
+  A["ENG-024 Analytics"] --> G3["AnalyticsGateway"]
+  L["ENG-027 Lineage"] --> G4["LineageGateway"]
+  G1 --> O["Outcome & Evidence Intake"]
+  G2 --> O
+  G3 --> O
+  G4 --> O
+  O --> P["Pattern & Contradiction Analysis"]
+  P --> AI["ENG-009 AIOrchestrationGateway"]
+  AI --> H["Human Learning Review"]
+  H --> R["Approved Learning & Recommendations"]
+  R --> B["Improvement Backlog Candidates"]
+  R --> E["Executive Improvement Briefings"]
+  B --> X["Human Approval Before Owning-System Handoff"]
+  R --> K["ENG-007 Knowledge Contribution Request"]
+  O --> DB[("Tenant-Scoped Learning Records")]
+

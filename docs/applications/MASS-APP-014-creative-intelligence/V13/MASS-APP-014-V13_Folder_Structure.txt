@@ -1,0 +1,44 @@
+docs/applications/MASS-APP-014-creative-intelligence/V13/
+|-- MASS-APP-014-V13_Continuous_Organizational_Learning_and_Improvement_Intelligence.md
+|-- MASS-APP-014-V13_Continuous_Organizational_Learning_and_Improvement_Intelligence.pdf
+|-- MASS-APP-014-V13_Architecture.mmd
+|-- MASS-APP-014-V13_API_Inventory.csv
+|-- MASS-APP-014-V13_Data_Model.csv
+|-- MASS-APP-014-V13_Migration_Reference.sql
+`-- MASS-APP-014-V13_Folder_Structure.txt
+
+src/features/organizational-learning/
+|-- api/
+|   |-- learning-routes.ts
+|   `-- learning-contracts.ts
+|-- application/
+|   |-- outcome-capture-service.ts
+|   |-- learning-review-service.ts
+|   |-- pattern-analysis-service.ts
+|   |-- recommendation-service.ts
+|   `-- briefing-service.ts
+|-- domain/
+|   |-- learning-record.ts
+|   |-- learning-version.ts
+|   |-- pattern-hypothesis.ts
+|   |-- improvement-recommendation.ts
+|   `-- learning-policies.ts
+|-- gateways/
+|   |-- app014-context-gateway.ts
+|   |-- design-studio-artifact-gateway.ts
+|   |-- knowledge-gateway.ts
+|   |-- document-gateway.ts
+|   |-- ai-orchestration-gateway.ts
+|   |-- analytics-gateway.ts
+|   |-- lineage-gateway.ts
+|   |-- event-gateway.ts
+|   `-- audit-gateway.ts
+|-- infrastructure/
+|   |-- learning-repository.ts
+|   |-- learning-outbox-repository.ts
+|   `-- gateway-adapters/
+`-- index.ts
+
+supabase/migrations/APP-014/V13/
+`-- MASS-APP-014-V13_Migration_Reference.sql
+

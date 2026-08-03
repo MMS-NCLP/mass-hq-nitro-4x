@@ -1,0 +1,17 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+LearningProgram,Tenant learning policy and scope,Yes,Versioned after activation
+OutcomeObservation,Reference to completed work,Yes,After verification
+EvidenceReference,Source evidence and lineage,Yes,After validation
+LearningRecord,Stable learning identity,Yes,Identity preserved
+LearningVersion,Versioned learning statement,Yes,After approval or rejection
+PatternHypothesis,Candidate recurring pattern,Yes,After review
+PatternEvidence,Supporting or contradicting association,Yes,After pattern review
+ContradictionRecord,Material conflicting evidence,Yes,After resolution
+ImprovementRecommendation,Evidence-backed option,Yes,After decision
+RecommendationReview,Human approval or rejection,Yes,Always
+ImprovementBacklogItem,Approved proposal for owning system,Yes,After handoff
+MaturityAssessment,Point-in-time maturity observation,Yes,After issuance
+ExecutiveImprovementBriefing,Cited executive summary,Yes,After issuance
+LearningAdvisoryRequest,NOVA or POPS request,Yes,After completion
+LearningOutbox,Reliable event publication,Yes,After publication
+

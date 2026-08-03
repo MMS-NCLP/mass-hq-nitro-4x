@@ -10,4 +10,5 @@
 - v1.0 V10 — Knowledge Discovery & Enterprise Search manufactured under EWO-MASS-APP-014-V10 (2026-08-03).
 - v1.0 V11 — Executive Awareness, Strategy & Organizational Command manufactured under EWO-MASS-APP-014-V11 (2026-08-03).
 - v1.0 V12 — Trust, Reliability & Execution Assurance manufactured under EWO-MASS-APP-014-V12 (2026-08-03).
+- v1.0 V13 — Continuous Organizational Learning & Improvement Intelligence manufactured under EWO-MASS-APP-014-V13 (2026-08-03).
 - v1.0 V02 - IRO-002 review: role mapping, SQL migration reference, Mermaid correction applied by Codex. Accepted (2026-08-03).
