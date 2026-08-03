@@ -1,0 +1,15 @@
+Method,Path,Purpose,Minimum Role
+GET,/governance/policy-sources,Browse policy sources,Governance Viewer
+POST,/governance/policy-sources,Register source,Policy Contributor
+GET,/governance/policies/{id}/versions,Read versions,Governance Viewer
+POST,/governance/assessments,Request assessment,Policy Contributor
+GET,/governance/assessments/{id},Read assessment,Governance Viewer
+POST,/governance/assessments/{id}/issue,Issue assessment,Governance Steward
+GET,/governance/findings,Browse findings,Governance Viewer
+POST,/governance/conflicts/{id}/disposition,Dispose conflict,Executive Governance Approver
+POST,/governance/exceptions,Request exception,Exception Owner
+POST,/governance/exceptions/{id}/decide,Decide exception,Executive Governance Approver
+POST,/governance/recommendations,Prepare recommendation,Governance Steward
+POST,/governance/briefings/{id}/issue,Issue briefing,Executive Governance Approver
+POST,/governance/advisory-requests,Request advisory,Governance Steward
+

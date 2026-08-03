@@ -1,0 +1,16 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+PolicySource,Authoritative source registration,Yes,After activation
+PolicyVersionReference,Version checksum and dates,Yes,After validation
+PolicyApplicabilityRule,Applicability criteria,Yes,After activation
+PolicyPrecedence,Approved precedence relationship,Yes,After approval
+GovernanceAssessment,Interpretation case,Yes,After issuance
+AssessmentEvidence,Cited evidence,Yes,After validation
+ComplianceFinding,Governance finding,Yes,After review
+PolicyConflict,Contradictory authority record,Yes,After disposition
+ExceptionRequest,Requested deviation,Yes,After decision
+ExceptionDecision,Human disposition,Yes,Always
+GovernanceRecommendation,Advisory improvement,Yes,After decision
+GovernanceBriefing,Executive advisory brief,Yes,After issuance
+GovernanceAdvisoryRequest,NOVA or POPS advisory,Yes,After completion
+GovernanceOutbox,Reliable event record,Yes,After publication
+

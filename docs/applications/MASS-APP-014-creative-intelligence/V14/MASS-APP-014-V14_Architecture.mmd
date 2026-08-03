@@ -1,0 +1,15 @@
+flowchart LR
+ C["ConstitutionGateway"] --> S["Policy Source Registry"]
+ E["EngineeringLibraryGateway"] --> S
+ A["ApplicationRuleGateway"] --> S
+ O["OrganizationalPolicyGateway"] --> S
+ S --> P["Applicability & Precedence"]
+ P --> R["Governance Reasoning"]
+ R --> X["Conflict & Exception Analysis"]
+ R --> AI["ENG-009 Advisory"]
+ X --> H["Human Governance Review"]
+ AI --> H
+ H --> F["Findings & Recommendations"]
+ H --> B["Executive Governance Briefing"]
+ S --> DB[("Tenant Governance Records")]
+

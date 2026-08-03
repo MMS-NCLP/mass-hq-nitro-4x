@@ -11,6 +11,7 @@ Status: In Progress
 [X] V11 - Executive Awareness, Strategy & Organizational Command
 [X] V12 - Trust, Reliability & Execution Assurance
 [X] V13 - Continuous Organizational Learning & Improvement Intelligence
+[X] V14 - Policy Intelligence, Governance Advisory & Compliance Reasoning
 
 APP-014 Manufacturing Standard beginning with V05:
 - Every volume includes an explicit Role Mapping section mapped to the APP-014 baseline hierarchy.

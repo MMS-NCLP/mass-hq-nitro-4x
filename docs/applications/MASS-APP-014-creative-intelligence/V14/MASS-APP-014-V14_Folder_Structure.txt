@@ -1,0 +1,13 @@
+docs/applications/MASS-APP-014-creative-intelligence/V14/
+|-- MASS-APP-014-V14_Policy_Intelligence_Governance_Advisory_and_Compliance_Reasoning.md
+|-- MASS-APP-014-V14_Policy_Intelligence_Governance_Advisory_and_Compliance_Reasoning.pdf
+|-- MASS-APP-014-V14_Architecture.mmd
+|-- MASS-APP-014-V14_API_Inventory.csv
+|-- MASS-APP-014-V14_Data_Model.csv
+|-- MASS-APP-014-V14_Migration_Reference.sql
+`-- MASS-APP-014-V14_Folder_Structure.txt
+
+src/features/policy-intelligence/{api,application,domain,infrastructure}
+src/features/policy-intelligence/gateways/{constitution,engineering-library,application-rule,organizational-policy,knowledge,document,ai-orchestration,compliance,analytics,lineage,event,audit}-gateway.ts
+supabase/migrations/APP-014/V14/MASS-APP-014-V14_Migration_Reference.sql
+
