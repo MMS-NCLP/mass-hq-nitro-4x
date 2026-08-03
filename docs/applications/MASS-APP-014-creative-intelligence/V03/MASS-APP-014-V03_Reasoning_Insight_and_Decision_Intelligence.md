@@ -44,6 +44,17 @@ Published events: decision.case.created, decision.evidence.added, decision.insig
 
 Consumed events: organizational.memory.preserved, organizational.memory.source.stale, enterprise.analytics.updated, enterprise.risk.updated, enterprise.opportunity.updated, financial.forecast.updated, operational.state.changed.
 
+### V03 Role Mapping
+
+V03 roles extend the APP-014 role hierarchy; they do not replace it.
+
+| V03 role | APP-014 baseline | Relationship and authority |
+|---|---|---|
+| Decision Owner | Steward, which extends V01 Editor | Specializes Steward for assigned decision cases. May control eligible case lifecycle, freeze review packages, close cases, and request handoffs. Cannot record the final executive decision unless separately assigned Executive Approver. |
+| Executive Approver | Administrator, which maps to V01 Admin | Specializes Administrator for a defined decision scope. May record HumanDecision and DecisionAmendment records when ENG-004 confirms case-specific approval authority. It does not grant tenant-wide administration unless that baseline role is separately assigned. |
+
+Viewer, Contributor, Steward, and Administrator retain their V02 definitions. Case assignment narrows access; it never broadens tenant or source authorization.
+
 ## 4. Architecture and Lifecycle
 
 Authorized sources enter through typed gateways. Evidence is normalized into case-scoped references while retaining source ownership. Synthesis and analytic requests route to ENG-024 or ENG-009. The Reasoning Service assembles a structured, explainable trace. The Recommendation Service presents options. A human decision owner alone records the selected outcome.
@@ -219,6 +230,8 @@ Mutating requests require idempotency keys. Advisory, extension, and agent failu
 V03 adds decision-cases, evidence, synthesis, insights, recommendations, scoring, signals, scenarios, forecasts, patterns, reasoning, decisions, extensions, and agents. Gateways alone call V02, ENG-009, ENG-024, NOVA, POPS, or plugin contracts.
 
 Migrations continue from 029 through 041: decision cases, questions, evidence, chains, synthesis, insights, recommendations, scores, signals, scenarios, forecasts, patterns, reasoning, decisions, extensions, agents, RLS, and enforcement triggers.
+
+The implementation-grade PostgreSQL contract is MASS-APP-014-V03_Migration_Reference.sql. It defines all V03 tables, columns, foreign keys, indexes, constraints, triggers, and RLS policies and shall be split into migrations 029 through 041 without weakening those controls.
 
 ## 18. Failure Behavior
 

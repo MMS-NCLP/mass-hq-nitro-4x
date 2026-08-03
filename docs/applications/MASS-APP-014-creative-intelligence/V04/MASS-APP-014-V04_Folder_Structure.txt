@@ -4,6 +4,7 @@ docs/applications/MASS-APP-014-creative-intelligence/V04/
 |-- MASS-APP-014-V04_Architecture.mmd
 |-- MASS-APP-014-V04_API_Inventory.csv
 |-- MASS-APP-014-V04_Data_Model.csv
+|-- MASS-APP-014-V04_Migration_Reference.sql
 |-- MASS-APP-014-V04_Folder_Structure.txt
 +-- MASS-APP-014-V04_Manufacturing_Completion_Report.md
 

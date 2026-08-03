@@ -45,6 +45,17 @@ Published events: intelligence.plan.created, intelligence.assignment.requested, 
 
 Consumed events: agent.execution.completed, agent.execution.failed, plugin.catalog.updated, organizational.memory.preserved, decision.human.recorded, workflow.state.changed, dispatch.mission.updated, design.publication.created.
 
+### V04 Role Mapping
+
+V04 roles extend the APP-014 role hierarchy; they do not replace it.
+
+| V04 role | APP-014 baseline | Relationship and authority |
+|---|---|---|
+| Plan Owner | Steward, which extends V01 Editor | Specializes Steward for assigned IntelligencePlans. May validate, start, pause, cancel, archive, route, and create governed handoffs for those plans. It cannot approve its own contributions or gates. |
+| Authorized Approver | Administrator, which maps to V01 Admin | Specializes Administrator for explicitly assigned ApprovalGates. May record immutable ApprovalDecision and adaptation approvals when ENG-004 confirms gate-specific authority. It does not imply unrestricted tenant administration. |
+
+Viewer, Contributor, Steward, and Administrator retain their V02 definitions. Plan or gate assignment narrows authority and never bypasses tenant, source, or separation-of-duty policy.
+
 ## 4. Orchestration Model
 
 An IntelligencePlan defines an objective, owner, authorized context, participant assignments, dependency graph, approval gates, output contract, and completion criteria. V04 submits each bounded assignment to its owning execution system and records signed contributions.
@@ -233,6 +244,8 @@ All mutations use idempotency keys. Execution requests return platform execution
 V04 adds plans, registry, skills, routing, plugins, assignments, context, contributions, approvals, adaptations, runs, memory, and integrations. Gateways alone call ENG-006, ENG-009, V02, departments, plugins, Cockpit, Dispatch, or APP-013.
 
 Migrations continue from 042 through 054: plans, bindings, skills, routing, assignments, context, contributions, gates, adaptations, runs, handoffs, RLS, and enforcement triggers.
+
+The implementation-grade PostgreSQL contract is MASS-APP-014-V04_Migration_Reference.sql. It defines all V04 tables, columns, foreign keys, indexes, constraints, triggers, and RLS policies and shall be split into migrations 042 through 054 without weakening those controls.
 
 ## 19. Failure Behavior
 
