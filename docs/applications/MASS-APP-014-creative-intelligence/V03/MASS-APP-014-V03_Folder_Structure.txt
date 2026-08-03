@@ -1,0 +1,48 @@
+docs/applications/MASS-APP-014-creative-intelligence/V03/
+|-- MASS-APP-014-V03_Reasoning_Insight_and_Decision_Intelligence.md
+|-- MASS-APP-014-V03_Reasoning_Insight_and_Decision_Intelligence.pdf
+|-- MASS-APP-014-V03_Architecture.mmd
+|-- MASS-APP-014-V03_API_Inventory.csv
+|-- MASS-APP-014-V03_Data_Model.csv
+|-- MASS-APP-014-V03_Folder_Structure.txt
++-- MASS-APP-014-V03_Manufacturing_Completion_Report.md
+
+apps/creative-intelligence/src/features/
+|-- decision-cases/
+|-- evidence/
+|-- synthesis/
+|-- insights/
+|-- recommendations/
+|-- scoring/
+|-- signals/{risks,opportunities}
+|-- scenarios/
+|-- forecasts/
+|-- patterns/
+|-- reasoning/
+|-- decisions/
+|-- extensions/
++-- agents/
+
+apps/creative-intelligence/src/gateways/
+|-- organizational-memory.gateway.ts
+|-- knowledge-engine.gateway.ts
+|-- ai-orchestration.gateway.ts
+|-- analytics.gateway.ts
+|-- executive-intelligence.gateway.ts
+|-- domain-intelligence.gateway.ts
++-- extension-host.gateway.ts
+
+supabase/migrations/
+|-- 029_create_decision_cases.sql
+|-- 030_create_decision_questions.sql
+|-- 031_create_evidence_items.sql
+|-- 032_create_evidence_chains.sql
+|-- 033_create_syntheses_and_insights.sql
+|-- 034_create_recommendations_and_scores.sql
+|-- 035_create_signals.sql
+|-- 036_create_scenarios_and_forecasts.sql
+|-- 037_create_patterns_and_reasoning.sql
+|-- 038_create_human_decisions.sql
+|-- 039_create_extensions_and_agents.sql
+|-- 040_create_v03_rls_policies.sql
++-- 041_create_v03_enforcement_triggers.sql

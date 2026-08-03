@@ -1,0 +1,39 @@
+Method,Route,Purpose,Minimum Role
+GET,/decision-cases,List cases,Viewer
+POST,/decision-cases,Create case,Contributor
+GET,/decision-cases/{id},Retrieve case,Viewer
+PATCH,/decision-cases/{id},Edit eligible case,Decision Owner
+POST,/decision-cases/{id}/archive,Archive case,Steward
+GET,/decision-cases/{id}/questions,List questions,Viewer
+POST,/decision-cases/{id}/questions,Revise question,Contributor
+GET,/decision-cases/{id}/evidence,List evidence,Viewer
+POST,/decision-cases/{id}/evidence,Add evidence,Contributor
+DELETE,/decision-cases/{id}/evidence/{evidenceId},Remove evidence,Contributor
+GET,/decision-cases/{id}/evidence-chains,List chains,Viewer
+POST,/decision-cases/{id}/evidence-chains,Create chain,Contributor
+POST,/decision-cases/{id}/syntheses,Request synthesis,Contributor
+GET,/decision-cases/{id}/insights,List insights,Viewer
+POST,/decision-cases/{id}/insights,Record insight,Steward
+GET,/decision-cases/{id}/recommendations,List options,Viewer
+POST,/decision-cases/{id}/recommendations,Create option,Contributor
+POST,/recommendations/{id}/scores,Record score,Steward
+GET,/decision-cases/{id}/risk-signals,List risks,Viewer
+GET,/decision-cases/{id}/opportunity-signals,List opportunities,Viewer
+POST,/decision-cases/{id}/signals/detect,Detect signals,Contributor
+GET,/decision-cases/{id}/scenarios,List scenarios,Viewer
+POST,/decision-cases/{id}/scenarios,Create scenario,Contributor
+POST,/decision-cases/{id}/scenarios/compare,Compare scenarios,Contributor
+GET,/decision-cases/{id}/forecasts,List forecasts,Viewer
+POST,/decision-cases/{id}/forecasts,Attach forecast,Steward
+GET,/decision-cases/{id}/patterns,List patterns,Viewer
+POST,/decision-cases/{id}/patterns/detect,Detect patterns,Contributor
+GET,/decision-cases/{id}/reasoning-traces,List explanations,Viewer
+POST,/decision-cases/{id}/nova-advisory,Request NOVA,Contributor
+POST,/decision-cases/{id}/pops-advisory,Request POPS,Steward
+POST,/decision-cases/{id}/agent-tasks,Request bounded agent,Steward
+POST,/decision-cases/{id}/extensions/{extensionId},Invoke extension,Steward
+POST,/decision-cases/{id}/ready-for-review,Freeze package,Decision Owner
+POST,/decision-cases/{id}/decisions,Record decision,Executive Approver
+POST,/decisions/{id}/amendments,Record amendment,Executive Approver
+POST,/decision-cases/{id}/outcomes,Attach outcome,Steward
+POST,/decision-cases/{id}/close,Close case,Decision Owner

@@ -1,0 +1,21 @@
+Entity,Purpose,Key Integrity
+DecisionCase,Stable decision container,Tenant lifecycle and V01 workspace reference
+DecisionQuestion,Revisioned decision frame,One active revision per case
+EvidenceItem,Authorized source reference,Source tenant and lifecycle validation
+EvidenceChain,Revisioned claim network,Immutable when reviewed
+EvidenceChainLink,Claim-to-evidence link,Direct evidence and chain FKs
+Synthesis,Multi-source interpretation,Preserves sources omissions and conflicts
+Insight,Explainable observation,Evidence-backed or explicitly assumed
+Recommendation,Advisory option,Cannot approve or execute
+DecisionScore,Reproducible scoring,Values weights rationale and evidence
+RiskSignal,Candidate risk,Domain-owner handoff
+OpportunitySignal,Candidate opportunity,Domain-owner handoff
+Scenario,Assumptions and constraints,Case and option scoped
+ScenarioOutcome,Expected outcome range,Direct scenario reference
+ForecastReference,Consumed ENG-024 forecast,Immutable source version
+PatternCandidate,Historical pattern,Sample confidence and counterexamples
+ReasoningTrace,Structured explanation,No hidden chain-of-thought
+HumanDecision,Authorized decision,Database-immutable
+DecisionAmendment,Correction without overwrite,Original decision FK
+ExtensionInvocation,Plugin contribution,Idempotent and read-only
+AgentContribution,Specialist output,ENG-009 reference

@@ -1,0 +1,18 @@
+flowchart LR
+    SRC["Authorized Enterprise Sources"] --> EV["Evidence Gateway"]
+    MEM["APP-014-V02 Memory"] --> EV
+    EV --> CASE["Decision Case"]
+    CASE --> SYN["Synthesis and Evidence Chains"]
+    SYN --> ANA["ENG-024 Analytics Requests"]
+    SYN --> AI["ENG-009 AI Orchestration"]
+    ANA --> OPT["Options, Risks, Opportunities, Scenarios"]
+    AI --> TRACE["Structured Reasoning Trace"]
+    OPT --> REVIEW["Human Review Package"]
+    TRACE --> REVIEW
+    NREQ["Advisory Request Type: NOVA"] --> AI
+    PREQ["Advisory Request Type: POPS"] --> AI
+    PLUG["Approved Extension Contract"] --> OPT
+    AGENT["Bounded Agent Task"] --> AI
+    REVIEW --> HUMAN["Authorized Human Decision"]
+    HUMAN --> OUT["Verified Outcome"]
+    OUT --> MEM
