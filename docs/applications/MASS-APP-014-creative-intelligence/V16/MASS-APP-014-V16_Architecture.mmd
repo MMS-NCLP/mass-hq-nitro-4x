@@ -1,0 +1,13 @@
+flowchart LR
+ S["Versioned Evaluation Subject"] --> G["EvaluatedArtifactGateway"]
+ D["Approved Dataset & Cases"] --> R["Controlled Evaluation Run"]
+ G --> R
+ R --> O["Observed Measures"]
+ R --> H["Independent Human Evaluation"]
+ O --> F["Quality & Regression Findings"]
+ H --> F
+ F --> AI["ENG-009 Advisory Synthesis"]
+ AI --> A["Human Release Advisory Review"]
+ A --> W["Waiver or Release Advisory"]
+ A --> B["Executive Quality Briefing"]
+

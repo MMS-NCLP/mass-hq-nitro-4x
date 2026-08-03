@@ -1,0 +1,16 @@
+Method,Path,Purpose,Minimum Role
+GET,/evaluation/programs,Browse programs,Evaluation Viewer
+POST,/evaluation/programs,Create program,Quality Steward
+POST,/evaluation/datasets,Register dataset,Quality Steward
+POST,/evaluation/test-cases,Create test case,Evaluation Contributor
+POST,/evaluation/runs,Start run,Evaluation Contributor
+GET,/evaluation/runs/{id},Read run,Evaluation Viewer
+POST,/evaluation/runs/{id}/human-reviews,Record human review,Human Evaluator
+GET,/evaluation/findings,Browse findings,Evaluation Viewer
+POST,/evaluation/comparisons,Compare versions,Quality Steward
+POST,/evaluation/waivers,Request waiver,Quality Steward
+POST,/evaluation/waivers/{id}/decide,Decide waiver,Release Advisory Approver
+POST,/evaluation/release-advisories/{id}/issue,Issue advisory,Release Advisory Approver
+POST,/evaluation/briefings/{id}/issue,Issue briefing,Release Advisory Approver
+POST,/evaluation/advisory-requests,Request advisory,Quality Steward
+

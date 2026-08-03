@@ -1,0 +1,13 @@
+docs/applications/MASS-APP-014-creative-intelligence/V16/
+|-- MASS-APP-014-V16_Intelligence_Quality_Evaluation_and_Model_Governance.md
+|-- MASS-APP-014-V16_Intelligence_Quality_Evaluation_and_Model_Governance.pdf
+|-- MASS-APP-014-V16_Architecture.mmd
+|-- MASS-APP-014-V16_API_Inventory.csv
+|-- MASS-APP-014-V16_Data_Model.csv
+|-- MASS-APP-014-V16_Migration_Reference.sql
+`-- MASS-APP-014-V16_Folder_Structure.txt
+
+src/features/intelligence-evaluation/{api,application,domain,infrastructure}
+src/features/intelligence-evaluation/gateways/{evaluated-artifact,plugin-contract,workforce-contract,ai-orchestration,knowledge,observability,analytics,lineage,external-evaluation,event,audit}-gateway.ts
+supabase/migrations/APP-014/V16/MASS-APP-014-V16_Migration_Reference.sql
+

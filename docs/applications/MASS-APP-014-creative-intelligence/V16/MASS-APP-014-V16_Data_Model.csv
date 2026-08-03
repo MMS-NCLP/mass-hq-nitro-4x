@@ -1,0 +1,17 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+EvaluationProgram,Evaluation scope,Yes,After activation
+EvaluationDataset,Dataset version,Yes,After validation
+EvaluationScenario,Organizational scenario,Yes,After approval
+EvaluationTestCase,Input and criteria,Yes,After approval
+EvaluationSubject,Evaluated version reference,Yes,Always
+EvaluationRun,Executed evaluation,Yes,After completion
+EvaluationObservation,Raw metric,Yes,After capture
+HumanEvaluation,Reviewer judgment,Yes,Always
+QualityFinding,Failed or warning condition,Yes,After review
+RegressionComparison,Baseline comparison,Yes,After issuance
+EvaluationWaiver,Human exception decision,Yes,Always
+ReleaseAdvisory,Release recommendation,Yes,After issuance
+ExecutiveQualityBriefing,Cited quality summary,Yes,After issuance
+EvaluationAdvisoryRequest,NOVA or POPS request,Yes,After completion
+EvaluationOutbox,Reliable event,Yes,After publication
+
