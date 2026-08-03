@@ -1,0 +1,12 @@
+Entity,Purpose,Tenant Owned,Key Relationships
+DiscoverySession,Discovery context,Yes,User and optional APP-014 session
+SearchQuery,Immutable query,Yes,DiscoverySession
+SearchSource,Governed source profile,Yes,Tenant
+QuerySource,Selected query source,Yes,SearchQuery and SearchSource
+SearchResult,Ranked source reference,Yes,SearchQuery
+ResultCitation,Evidence lineage,Yes,SearchResult
+RankingExplanation,Ranking signals,Yes,SearchResult
+SavedSearch,Reusable query,Yes,Owner
+SearchFeedback,Relevance assessment,Yes,SearchResult and user
+SearchAudit,Audit history,Yes,SearchQuery
+

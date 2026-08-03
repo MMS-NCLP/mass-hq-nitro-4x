@@ -6,5 +6,6 @@
 - v1.1 V03 - LCO-003 added role mapping and implementation-grade Migration Reference SQL (2026-08-03).
 - v1.1 V04 - LCO-003 added role mapping and implementation-grade Migration Reference SQL (2026-08-03).
 - v1.0 V08 - Organizational Communication & Collaboration Intelligence manufactured under EWO-MASS-APP-014-V08 (2026-08-03).
-- v1.0 V09 - Automation, Workflow & Intelligent Execution manufactured under EWO-MASS-APP-014-V09 (2026-08-03).
+- v1.0 V09 — Automation, Workflow & Intelligent Execution manufactured under EWO-MASS-APP-014-V09 (2026-08-03).
+- v1.0 V10 — Knowledge Discovery & Enterprise Search manufactured under EWO-MASS-APP-014-V10 (2026-08-03).
 - v1.0 V02 - IRO-002 review: role mapping, SQL migration reference, Mermaid correction applied by Codex. Accepted (2026-08-03).

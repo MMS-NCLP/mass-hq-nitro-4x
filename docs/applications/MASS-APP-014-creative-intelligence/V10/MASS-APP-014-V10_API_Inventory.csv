@@ -1,0 +1,13 @@
+Method,Path,Purpose,Minimum Role
+POST,/discovery/search,Execute governed search,Search Viewer
+GET,/discovery/queries/{id},Read query status,Search Viewer
+GET,/discovery/queries/{id}/results,Read ranked results,Search Viewer
+GET,/discovery/results/{id}/citations,Read citations,Search Viewer
+GET,/discovery/sources,List authorized sources,Search Viewer
+POST,/saved-searches,Create saved search,Search Contributor
+GET,/saved-searches,List saved searches,Search Viewer
+PATCH,/saved-searches/{id},Update saved search,Search Contributor
+DELETE,/saved-searches/{id},Soft-delete saved search,Search Contributor
+POST,/discovery/results/{id}/feedback,Record feedback,Search Contributor
+GET,/discovery/audit/{queryId},Inspect audit,Discovery Steward
+

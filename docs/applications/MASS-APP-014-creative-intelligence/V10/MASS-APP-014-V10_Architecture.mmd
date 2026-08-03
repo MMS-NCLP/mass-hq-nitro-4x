@@ -1,0 +1,15 @@
+flowchart LR
+  U["Authorized User"] --> API["Discovery API"]
+  API --> Q["Query & Authorization Service"]
+  Q --> S["Source Resolution"]
+  S --> K["ENG-007 Knowledge"]
+  S --> A["APP-013 Artifacts"]
+  S --> N["Approved Enterprise Sources"]
+  K --> R["Retrieval & Ranking"]
+  A --> R
+  N --> R
+  R --> AI["ENG-009 Synthesis"]
+  AI --> C["Citations & Explanations"]
+  C --> U
+  API --> DB[("Tenant-Scoped Discovery Records")]
+

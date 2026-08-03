@@ -1,0 +1,13 @@
+V10/
+|-- MASS-APP-014-V10_Knowledge_Discovery_and_Enterprise_Search.md
+|-- MASS-APP-014-V10_Knowledge_Discovery_and_Enterprise_Search.pdf
+|-- MASS-APP-014-V10_Architecture.mmd
+|-- MASS-APP-014-V10_API_Inventory.csv
+|-- MASS-APP-014-V10_Data_Model.csv
+|-- MASS-APP-014-V10_Migration_Reference.sql
+`-- MASS-APP-014-V10_Folder_Structure.txt
+
+Implementation feature boundary:
+src/features/knowledge-discovery/{api,application,domain,infrastructure}
+supabase/migrations/APP-014/V10/
+
