@@ -322,6 +322,8 @@ The path to launch is governed by readiness, not document volume alone.
 - Approved work is more reliably completed
 - Evidence and learning improve future execution
 - Cost and value are tracked
+- The canonical TNGD operational-proof source is [MASS-TNGD-PILOT-001 — TNGD Dispatch User Portal Operational Pilot Charter](../docs/research/tngd-pilot/MASS-TNGD-PILOT-001_TNGD_Dispatch_User_Portal_Operational_Pilot_Charter.md).
+- Pilot manufacturing shall be sequenced through the [MASS-TNGD-PILOT-001 Implementation Backlog](../docs/research/tngd-pilot/MASS-TNGD-PILOT-001_Implementation_Backlog.md) and repository-authorized work orders.
 
 ### Stage E — Controlled Launch
 
