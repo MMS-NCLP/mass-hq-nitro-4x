@@ -6,7 +6,7 @@
 |---|---|
 | Authority | Executive Direction |
 | Priority | High |
-| Status | Implemented — Live Delivery Pending Rotated Secret Configuration |
+| Status | Operational |
 | Effective | 2026-08-04 |
 | Permanent Successor | APP-001 — Executive Command Center |
 
@@ -65,6 +65,16 @@ Executive Authority remains human and must act through canonical repository arti
 ## Lifecycle
 
 This bridge is temporary infrastructure. When APP-001 assumes production-state messaging and executive-decision routing, the workflow and external webhook shall be retired without changing the attention-request lifecycle.
+
+## Operational Acceptance
+
+A controlled live test completed successfully on 2026-08-04:
+
+- One genuine test file was added to the Executive Attention queue.
+- The GitHub Action executed and delivered one IFTTT notification.
+- Executive Authority confirmed receipt.
+- The test artifact was removed after confirmation.
+- Future notifications are restricted to genuine Executive Attention items.
 
 ## Security Decision
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented and locally validated. Live delivery is pending rotated-secret configuration and one controlled Executive Attention test.
+Operational. Local validation and the controlled live notification test have passed.
 
 ## Files and Contracts
 
@@ -28,12 +28,12 @@ Implemented and locally validated. Live delivery is pending rotated-secret confi
 - Added-file-only detection: Passed by static and local fixture validation.
 - Duplicate prevention for existing or edited files: Passed by event-diff design.
 - Secret reference and credential scan: Passed.
-- Live IFTTT push: Pending.
+- Live IFTTT push: Passed — one notification received and confirmed.
 
-## Required Executive Configuration
+## Operational Acceptance
 
-1. Rotate the webhook credential disclosed during briefing.
-2. Store the replacement full endpoint as the GitHub Actions secret `IFTTT_WEBHOOK_URL`.
-3. Add one controlled attention item to `production/executive/attention/` and confirm a single phone notification.
-
-No attention item was created automatically because configuration and live testing do not themselves grant or require an Executive policy decision.
+- GitHub secret configuration: Complete.
+- Controlled Executive Attention item: Complete.
+- Single phone notification: Received and confirmed.
+- Test artifact cleanup: Complete in the operational-acceptance commit.
+- Ongoing rule: only genuine Executive Attention items may enter `production/executive/attention/`.
