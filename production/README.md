@@ -41,3 +41,12 @@ The four-work-order review gate is mandatory. Once the consolidated report is su
 - Conveyor B — Operational Pilot Manufacturing uses the isolated `production/pilot/` queue.
 - The pilot charter and backlog are planning authority; individual pilot packages require explicit Executive Authority before entering the pilot inbox.
 - Neither conveyor pauses the other without Executive Authority.
+
+## Repository Messaging and Executive Attention
+
+[ENB-001](../governance/directives/ENB-001_Executive_Notification_Bridge_v1.0.md) governs temporary repository messaging and Executive Attention notification:
+
+- `messages/` carries governed AI-to-AI and production communications.
+- `executive/attention/` contains unresolved items requiring Executive judgment.
+- `executive/completed/` contains resolved attention records after a separate canonical Executive decision.
+- Notifications report attention only; they never grant authority or change repository state.

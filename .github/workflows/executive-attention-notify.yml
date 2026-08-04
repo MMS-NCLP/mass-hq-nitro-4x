@@ -1,0 +1,88 @@
+name: Executive Attention Notification
+
+on:
+  push:
+    paths:
+      - "production/executive/attention/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: executive-attention-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    name: Notify Executive of new attention items
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Notify for newly added attention files
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+          IFTTT_WEBHOOK_URL: ${{ secrets.IFTTT_WEBHOOK_URL }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${IFTTT_WEBHOOK_URL}" ]]; then
+            echo "Required secret IFTTT_WEBHOOK_URL is not configured." >&2
+            exit 1
+          fi
+
+          zero_sha="0000000000000000000000000000000000000000"
+          if [[ "${BEFORE_SHA}" == "${zero_sha}" ]]; then
+            mapfile -t added_files < <(
+              git show --pretty='' --name-only --diff-filter=A "${CURRENT_SHA}" -- \
+                'production/executive/attention/*.md'
+            )
+          else
+            mapfile -t added_files < <(
+              git diff --name-only --diff-filter=A "${BEFORE_SHA}" "${CURRENT_SHA}" -- \
+                'production/executive/attention/*.md'
+            )
+          fi
+
+          if [[ ${#added_files[@]} -eq 0 ]]; then
+            echo "No newly added Executive Attention Markdown files; no notification sent."
+            exit 0
+          fi
+
+          field_value() {
+            local field="$1"
+            local file="$2"
+            sed -n "s/^\\*\\*${field}:\\*\\*[[:space:]]*//p" "${file}" | head -n 1 | tr -d '\r'
+          }
+
+          for file in "${added_files[@]}"; do
+            [[ -f "${file}" ]] || continue
+
+            priority="$(field_value 'Priority' "${file}")"
+            subject="$(field_value 'Subject' "${file}")"
+            message_id="$(field_value 'Message ID' "${file}")"
+
+            [[ -n "${priority}" ]] || priority="High"
+            [[ -n "${subject}" ]] || subject="Executive attention required"
+            [[ -n "${message_id}" ]] || message_id="$(basename "${file}" .md)"
+
+            payload="$(jq -n \
+              --arg value1 "${priority}" \
+              --arg value2 "${subject}" \
+              --arg value3 "${message_id}" \
+              '{value1: $value1, value2: $value2, value3: $value3}')"
+
+            curl --fail --silent --show-error \
+              --request POST \
+              --header 'Content-Type: application/json' \
+              --data "${payload}" \
+              "${IFTTT_WEBHOOK_URL}" >/dev/null
+
+            echo "Notification sent for ${message_id}."
+          done
+
