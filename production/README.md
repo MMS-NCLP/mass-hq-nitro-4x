@@ -32,3 +32,12 @@ At each four-work-order checkpoint, review only the four newly completed builds,
 ## Batch Gate
 
 The four-work-order review gate is mandatory. Once the consolidated report is submitted, the queue remains paused until revision approval is recorded.
+
+## Dual Conveyor Authority
+
+[MPD-001](../governance/directives/MPD-001_Dual_Conveyor_Manufacturing_Strategy.md) governs two coordinated production streams:
+
+- Conveyor A — Platform Manufacturing uses the existing `production/inbox`, `active`, `review`, and `done` queues.
+- Conveyor B — Operational Pilot Manufacturing uses the isolated `production/pilot/` queue.
+- The pilot charter and backlog are planning authority; individual pilot packages require explicit Executive Authority before entering the pilot inbox.
+- Neither conveyor pauses the other without Executive Authority.

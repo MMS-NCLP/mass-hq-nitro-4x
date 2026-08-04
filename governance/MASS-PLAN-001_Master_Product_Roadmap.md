@@ -54,6 +54,7 @@ Authorized production continues until Executive Authority explicitly pauses it.
 | Production Conveyor | Active | Work-order movement through inbox, active manufacturing, review, correction, and acceptance |
 | Manufacturing Standards | Active / Evolving | Reusable quality rules applied without stopping production |
 | MASS-PLAN-001 | Active | Canonical roadmap and product inventory |
+| MPD-001 — Dual Conveyor Manufacturing Strategy | Active | Coordinates permanent platform manufacturing and the TNGD operational-pilot conveyor without allowing either to supersede or pause the other |
 | MASS-PLAN-002 — Platform Dependency Map | Planned | One-view dependency and manufacturing sequence map |
 
 ## 5. Application Library
