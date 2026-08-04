@@ -7,7 +7,7 @@
 | Document ID | MASS-TNGD-PILOT-001-BACKLOG |
 | Title | TNGD Dispatch User Portal — Itemized Implementation Backlog |
 | Version | 1.0 |
-| Status | Planning Baseline — Awaiting Architectural Review and Work-Order Authorization |
+| Status | Approved Planning Baseline — BP-001 Work Order Pending |
 | Source | [MASS-TNGD-PILOT-001 Operational Pilot Charter](MASS-TNGD-PILOT-001_TNGD_Dispatch_User_Portal_Operational_Pilot_Charter.md) |
 | Roadmap Authority | [MASS-PLAN-001](../../../governance/MASS-PLAN-001_Master_Product_Roadmap.md) |
 | Created | 2026-08-04 |
@@ -177,8 +177,9 @@ A package is complete only when repository artifacts, executable behavior, tests
 ## 7. Review State
 
 - Codex translation: Complete.
-- Architectural fit review: Pending Claude review.
-- Security-separation review: Pending Claude review.
-- Pilot-completeness review: Pending Claude review.
-- Launch-gate sufficiency review: Pending Claude review.
-- Manufacturing authority: Not yet issued.
+- Architectural fit review: Accepted as the planning baseline under Executive Confirmation.
+- Security-separation review: Accepted at the planning level; package-level evidence remains mandatory.
+- Pilot-completeness review: Accepted as the governing implementation sequence.
+- Launch-gate sufficiency review: Accepted as the planning baseline; operational evidence remains mandatory.
+- Conveyor authority: Adopted.
+- Package manufacturing authority: Not yet issued; BP-001 requires an approved Work Order in `production/pilot/inbox`.

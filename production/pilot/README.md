@@ -27,4 +27,4 @@ This queue is Conveyor B under [MPD-001 — Dual Conveyor Manufacturing Strategy
 
 ## Current Status
 
-Queue established. No pilot package is authorized or active.
+Operational Manufacturing is adopted and authorized to prepare. No pilot package is active. The next executive action is issuance of the BP-001 Work Order into `production/pilot/inbox/`.
