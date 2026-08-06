@@ -2,25 +2,30 @@
 
 **Message ID:** ATTENTION-20260805-MASS-PILOT-BP001-CONCURRENT-DUPLICATE  
 **Timestamp:** 2026-08-06T04:29:06Z  
+**Updated At:** 2026-08-06T04:32:00Z  
 **From:** Manufacturing  
 **To:** Executive Authority  
 **Priority:** High  
-**Subject:** Concurrent commits introduced a duplicate BP-001 security implementation after review submission  
+**Subject:** Concurrent commits altered the reviewed BP-001 security artifact set  
 **Related Work Order(s):** TNGD-BP-001, TNGD-BP-002  
 **Related IRO/LCO:** None  
-**Repository Commits:** `d18e66c6046ab86c3e25b730e78df3b919808485`, `328129c02e62b5dc248312641127e5fcdfa0bfe8`  
-**Requested Action:** Decide whether the post-review `src/secure-access.mjs` implementation should be removed, consolidated into, or replace the reviewed `src/security/` contract, then restore one canonical BP-001 artifact set and validation gate  
+**Repository Commits:** `d18e66c6046ab86c3e25b730e78df3b919808485`, `328129c02e62b5dc248312641127e5fcdfa0bfe8`, `7034e274fd16a6f7351b30f68ceefb73a889ea70`, `f45e8914a35ddee92dde62aef4bdd3171bdec5a8`  
+**Requested Action:** Restore the reviewed BP-001 baseline or explicitly consolidate the post-review implementation, then re-establish one canonical artifact set and rerun Independent Acceptance  
 **Status:** Attention Required
 
 ## Body
 
-TNGD-BP-000 and TNGD-BP-001 were manufactured and submitted separately to `production/pilot/review`. The BP-001 completion report was committed at `87a01ff032e3464b1c1f9ec7fd0b45f72c3eb9a8`.
+TNGD-BP-000 and TNGD-BP-001 were manufactured and submitted separately to `production/pilot/review`. The BP-001 completion report was committed at `87a01ff032e3464b1c1f9ec7fd0b45f72c3eb9a8` and declares artifact baseline `5c3c1cedbf98a3c4de991795c7144b37a1519d7e`.
 
-A final canonical-head check then found two newer commits not produced by this manufacturing sequence:
+A canonical-head audit found four later commits from a concurrent manufacturing sequence:
 
 - `d18e66c6046ab86c3e25b730e78df3b919808485` added `implementation/pilot/tngd-dispatch-portal/src/secure-access.mjs`.
 - `328129c02e62b5dc248312641127e5fcdfa0bfe8` added `implementation/pilot/tngd-dispatch-portal/tests/secure-access.test.mjs`.
+- `7034e274fd16a6f7351b30f68ceefb73a889ea70` replaced `implementation/pilot/tngd-dispatch-portal/src/foundation.mjs`.
+- `f45e8914a35ddee92dde62aef4bdd3171bdec5a8` replaced `implementation/pilot/tngd-dispatch-portal/tests/foundation.test.mjs`.
 
-These files overlap the reviewed BP-001 implementation under `src/security/` and `tests/security.test.mjs`. The post-review files are not included in the declared package test command, build module graph, repository validator, transition record, or BP-001 completion report. They also define a separate role and portal model rather than consuming the reviewed permission matrix and portal boundary.
+The added files overlap the reviewed BP-001 implementation under `src/security/` and `tests/security.test.mjs`, define a separate role and portal model, and are not included in the reviewed build module graph, repository validator, transition record, or completion report. The two replacements also changed reviewed foundation metadata and its tests after review submission. The current repository validator still targets the reviewed `src/security/` and `tests/security.test.mjs` artifact set and does not validate the added duplicate files.
 
-Manufacturing did not delete, overwrite, merge, or claim validation of the concurrent changes. BP-001 remains in review, active remains empty, and BP-002 remains in inbox. BP-002 must not begin until one canonical BP-001 implementation and complete validation set are restored by repository authority.
+A subsequent attempt to update the repository validation gate was rejected by the connector and was not retried. No local build, test, validation, deployment, rendering, or runtime result is claimed for the post-review commits.
+
+Manufacturing did not delete, merge, revert, or approve either implementation. BP-001 remains in review, active remains empty, and BP-002 remains in inbox. BP-002 must not begin until repository authority restores one canonical BP-001 artifact set and Independent Acceptance validates that exact state.
