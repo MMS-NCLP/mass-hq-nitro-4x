@@ -9,6 +9,12 @@ const requiredPaths = [
   "scripts/build.mjs",
   "scripts/validate-repository.mjs",
   "tests/foundation.test.mjs",
+  "tests/security.test.mjs",
+  "src/security/audit-log.mjs",
+  "src/security/index.mjs",
+  "src/security/passwords.mjs",
+  "src/security/portal-boundary.mjs",
+  "src/security/secure-access.mjs",
   "migrations/README.md",
   "deployment/README.md"
 ];
