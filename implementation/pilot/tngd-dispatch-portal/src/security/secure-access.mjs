@@ -49,7 +49,7 @@ export const ROLE_PERMISSIONS = Object.freeze({
 });
 
 function keyForIdentity(tenantId, email) {
-  return `${tenantId}:${email.trim().toLowerCase()}`;
+  return `${tenantId}:${String(email ?? "").trim().toLowerCase()}`;
 }
 
 function hashToken(token) {
