@@ -245,3 +245,55 @@ test("password recovery is single-use and revokes existing sessions", async () =
   });
   assert.equal(recovered.principal.email, "owner@example.com");
 });
+
+test("identity records are keyed by tenant and normalized email", async () => {
+  const access = new SecureAccess();
+
+  await access.bootstrapTenantAdmin({
+    tenantId: TENANT_A,
+    email: "OWNER@EXAMPLE.COM",
+    password: ADMIN_PASSWORD
+  });
+  await access.bootstrapTenantAdmin({
+    tenantId: TENANT_B,
+    email: "owner@example.com",
+    password: USER_PASSWORD
+  });
+
+  const tenantA = await access.authenticate({
+    tenantId: TENANT_A,
+    email: "owner@example.com",
+    password: ADMIN_PASSWORD
+  });
+  const tenantB = await access.authenticate({
+    tenantId: TENANT_B,
+    email: "OWNER@EXAMPLE.COM",
+    password: USER_PASSWORD
+  });
+
+  assert.equal(tenantA.principal.tenantId, TENANT_A);
+  assert.equal(tenantB.principal.tenantId, TENANT_B);
+  assert.notEqual(tenantA.principal.id, tenantB.principal.id);
+});
+
+test("default audit storage cannot silently discard security events", async () => {
+  const access = new SecureAccess();
+
+  await access.bootstrapTenantAdmin({
+    tenantId: TENANT_A,
+    email: "owner@example.com",
+    password: ADMIN_PASSWORD
+  });
+  await access.authenticate({
+    tenantId: TENANT_A,
+    email: "owner@example.com",
+    password: ADMIN_PASSWORD
+  });
+
+  const records = access.auditLog.list({ tenantId: TENANT_A });
+  assert.ok(records.length >= 2);
+  assert.ok(records.some((record) => record.type === "IdentityCreated"));
+  assert.ok(records.some((record) => record.type === "AuthenticationSucceeded"));
+  assert.equal(access.auditLog.verify(), true);
+});
+
