@@ -129,3 +129,30 @@ npm run check
 
 Independent Acceptance must execute that command against the exact correction commit before BP-001.1 is accepted or BP-002 begins.
 
+## Localized Correction TNGD-BP-001.2
+
+BP-001.2 closes two in-process concurrency windows without changing the reviewed architecture.
+
+### Atomic Tenant Bootstrap
+
+`SecureAccess.bootstrapTenantAdmin` now acquires a synchronous per-tenant reservation before password derivation or identity creation begins. A competing request for the same tenant is rejected and audited while the reservation is held. The reservation is released in `finally`, so a failed winning attempt does not permanently block a later authorized retry.
+
+This guarantees exactly one bootstrap winner per tenant within the canonical runtime process. Any future durable or multi-process identity adapter must preserve the same invariant with an authoritative unique constraint or transactional compare-and-set.
+
+### Atomic Password-Reset Consumption
+
+`SecureAccess.completePasswordReset` now marks a reset token as being consumed before deriving or installing the replacement credential. Concurrent uses observe that reservation and are rejected and audited. Successful consumption installs one replacement hash, marks the token used, clears the reservation, and revokes active sessions. Credential-derivation failure clears the reservation without replacing the existing password.
+
+Any future durable or multi-process reset-token adapter must preserve the same invariant transactionally.
+
+### Deterministic Evidence
+
+The canonical security test suite proves:
+
+- exactly one of two concurrent bootstrap requests succeeds for one tenant;
+- the winning administrator authenticates and the rejected identity cannot authenticate;
+- exactly one of two concurrent reset attempts succeeds for one token;
+- the winning password authenticates, the losing and original passwords do not, and the prior session is revoked;
+- one success and one rejection are present in the valid audit hash chain for each race.
+
+The repository validator requires both reservation controls and both named concurrency tests.
