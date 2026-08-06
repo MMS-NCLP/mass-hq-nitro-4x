@@ -4,8 +4,20 @@ function digest(value) {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
 }
 
+function deepFreeze(value) {
+  if (!value || typeof value !== "object" || Object.isFrozen(value)) {
+    return value;
+  }
+
+  Object.freeze(value);
+  for (const nested of Object.values(value)) {
+    deepFreeze(nested);
+  }
+  return value;
+}
+
 function freezeMetadata(metadata) {
-  return Object.freeze(structuredClone(metadata ?? {}));
+  return deepFreeze(structuredClone(metadata ?? {}));
 }
 
 export class AuditLog {
