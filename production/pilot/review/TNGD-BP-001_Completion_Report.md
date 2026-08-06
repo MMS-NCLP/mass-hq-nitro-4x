@@ -82,3 +82,10 @@ The original completion baseline remains historical evidence. The corrected comm
 
 BP-002 remains blocked until Independent Acceptance runs `npm run check` against the exact corrected commit and accepts BP-001.1.
 
+## TNGD-BP-001.2 Concurrency Correction Status
+
+BP-001 remains Manufactured — Pending Independent Acceptance.
+
+TNGD-BP-001.2 adds atomic per-tenant bootstrap reservation and atomic per-token password-reset consumption to the canonical `src/security/secure-access.mjs` implementation. Deterministic concurrency tests prove one winner and one safe rejection for each race and verify that rejected competitors do not corrupt valid identity, credential, session, or audit state.
+
+The exact correction commit and full `npm run check` result are recorded in `TNGD-BP-001.2_Localized_Correction_Report.md`. BP-002 remains blocked pending Independent Acceptance.
