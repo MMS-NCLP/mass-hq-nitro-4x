@@ -22,6 +22,7 @@ BP-001 adds reusable security modules under `src/security/` without selecting an
 - Minimum password length and maximum input bound.
 - Explicit one-time tenant-administrator bootstrap.
 - Failed and successful authentication audit events.
+- Enumeration-resistant password-reset requests with injected delivery, expiring single-use tokens, password re-derivation, and active-session revocation.
 
 Credential persistence remains behind the BP-000 persistence seam. The current executable module uses an in-memory repository so behavior can be independently tested without selecting a database provider.
 
@@ -79,7 +80,7 @@ npm run validate
 npm run check
 ```
 
-The BP-001 tests cover valid and invalid authentication, least-privilege enforcement, tenant mismatch denial, public/internal separation, session expiry and revocation, privileged-action auditing, and hash-chain verification.
+The BP-001 tests cover valid and invalid authentication, password recovery and token reuse rejection, least-privilege enforcement, tenant mismatch denial, public/internal separation, session expiry and revocation, privileged-action auditing, and hash-chain verification.
 
 ## Explicit Deferrals
 
