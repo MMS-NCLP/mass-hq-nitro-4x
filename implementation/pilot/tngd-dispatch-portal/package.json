@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Executable foundation boundary for the authorized TNGD operational pilot.",
+  "description": "Executable secure-access foundation for the authorized TNGD operational pilot.",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test tests/foundation.test.mjs",
+    "test": "node --test tests/foundation.test.mjs tests/security.test.mjs",
     "validate": "node scripts/validate-repository.mjs",
     "check": "npm run build && npm test && npm run validate",
     "start": "node src/foundation.mjs"
