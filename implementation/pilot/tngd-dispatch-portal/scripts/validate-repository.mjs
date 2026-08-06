@@ -12,6 +12,7 @@ const requiredPaths = [
   "tests/security.test.mjs",
   "src/security/audit-log.mjs",
   "src/security/index.mjs",
+  "src/security/manifest.mjs",
   "src/security/passwords.mjs",
   "src/security/portal-boundary.mjs",
   "src/security/secure-access.mjs",
