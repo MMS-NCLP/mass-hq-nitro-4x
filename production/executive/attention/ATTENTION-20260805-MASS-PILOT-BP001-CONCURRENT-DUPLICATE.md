@@ -2,7 +2,7 @@
 
 **Message ID:** ATTENTION-20260805-MASS-PILOT-BP001-CONCURRENT-DUPLICATE  
 **Timestamp:** 2026-08-06T04:29:06Z  
-**Updated At:** 2026-08-06T04:45:48Z  
+**Updated At:** 2026-08-06T05:20:18Z  
 **From:** Manufacturing  
 **To:** Executive Authority  
 **Priority:** High  
@@ -10,8 +10,8 @@
 **Related Work Order(s):** TNGD-BP-001, TNGD-BP-002  
 **Related IRO/LCO:** None  
 **Repository Commits:** `d18e66c6046ab86c3e25b730e78df3b919808485`, `328129c02e62b5dc248312641127e5fcdfa0bfe8`, `7034e274fd16a6f7351b30f68ceefb73a889ea70`, `f45e8914a35ddee92dde62aef4bdd3171bdec5a8`  
-**Requested Action:** Independently accept the corrected canonical BP-001.1 artifact at validated commit `ddec4663a4304aa4af0265f8b442fb8f7862bc8e` before BP-002 begins  
-**Status:** Correction Submitted — Independent Acceptance Required
+**Requested Action:** Independently accept TNGD-BP-001.2 at validated commit `95dcb8cf96e81058bd1173e0684be0662d3f572c` before BP-002 begins  
+**Status:** BP-001.2 Correction Submitted — Independent Acceptance Required  
 
 ## Body
 
@@ -36,3 +36,11 @@ Manufacturing did not delete, merge, revert, or approve either implementation. B
 Executive Authority issued a localized correction order retaining `src/security/*` and `tests/security.test.mjs` as canonical. The competing source and test files were removed, foundation metadata was corrected, validator and evidence were updated, and `npm.cmd run check` passed at exact corrected commit `ddec4663a4304aa4af0265f8b442fb8f7862bc8e` with 14 of 14 tests passing.
 
 The correction order and report are in `production/pilot/review`. This attention remains open only for Independent Acceptance. BP-002 remains blocked and no package was moved to done.
+
+## TNGD-BP-001.2 Correction Submission
+
+Independent review identified two concurrency defects after BP-001.1. TNGD-BP-001.2 added atomic per-tenant bootstrap reservation and atomic per-token reset consumption without changing BP-001 architecture or BP-002 scope.
+
+At exact corrected commit `95dcb8cf96e81058bd1173e0684be0662d3f572c`, `npm.cmd run check` completed with exit code 0: build passed, 16 of 16 tests passed, both deterministic concurrency tests passed, and canonical repository validation passed.
+
+The correction order and report are in `production/pilot/review`. This attention remains open only for Independent Acceptance of BP-001.2. BP-002 remains blocked and no package was moved to done.
