@@ -79,6 +79,7 @@ export class SecureAccess {
   #identities = new Map();
   #sessions = new Map();
   #passwordResets = new Map();
+  #tenantBootstrapReservations = new Set();
   #audit;
   #now;
   #sessionTtlMs;
@@ -104,28 +105,50 @@ export class SecureAccess {
   }
 
   async bootstrapTenantAdmin({ tenantId, email, password }) {
-    if ([...this.#users.values()].some((user) => user.memberships.has(tenantId))) {
-      throw new Error("Tenant bootstrap is already complete.");
+    if (!tenantId) {
+      throw new Error("Tenant is required.");
     }
 
-    const user = await this.#createUserRecord({
-      tenantId,
-      email,
-      password,
-      roles: ["tenant_admin"]
-    });
+    const bootstrapUnavailable =
+      this.#tenantBootstrapReservations.has(tenantId) ||
+      [...this.#users.values()].some((user) => user.memberships.has(tenantId));
 
-    this.#audit.append({
-      tenantId,
-      principalId: user.id,
-      type: "IdentityCreated",
-      resource: `identity:${user.id}`,
-      action: "identity.bootstrap",
-      outcome: "granted",
-      metadata: { roles: ["tenant_admin"] }
-    });
+    if (bootstrapUnavailable) {
+      this.#audit.append({
+        tenantId,
+        type: "IdentityBootstrapDenied",
+        resource: `tenant:${tenantId}`,
+        action: "identity.bootstrap",
+        outcome: "denied",
+        metadata: { reason: "tenant-bootstrap-unavailable" }
+      });
+      throw new Error("Tenant bootstrap is already complete or in progress.");
+    }
 
-    return publicPrincipal(user, tenantId);
+    this.#tenantBootstrapReservations.add(tenantId);
+
+    try {
+      const user = await this.#createUserRecord({
+        tenantId,
+        email,
+        password,
+        roles: ["tenant_admin"]
+      });
+
+      this.#audit.append({
+        tenantId,
+        principalId: user.id,
+        type: "IdentityCreated",
+        resource: `identity:${user.id}`,
+        action: "identity.bootstrap",
+        outcome: "granted",
+        metadata: { roles: ["tenant_admin"] }
+      });
+
+      return publicPrincipal(user, tenantId);
+    } finally {
+      this.#tenantBootstrapReservations.delete(tenantId);
+    }
   }
 
   async createUser({ actorSessionToken, tenantId, email, password, roles = [] }) {
@@ -337,7 +360,8 @@ export class SecureAccess {
         userId: user.id,
         tenantId,
         expiresAt: new Date(this.#now().getTime() + this.#passwordResetTtlMs),
-        usedAt: null
+        usedAt: null,
+        consumingAt: null
       };
       this.#passwordResets.set(reset.tokenHash, reset);
       await this.#passwordResetDelivery({
@@ -368,9 +392,19 @@ export class SecureAccess {
       !reset ||
       reset.tenantId !== tenantId ||
       reset.usedAt ||
+      reset.consumingAt ||
       reset.expiresAt.getTime() <= this.#now().getTime()
     ) {
-      throw new Error("Password reset token is invalid or expired.");
+      this.#audit.append({
+        tenantId,
+        principalId: reset?.userId ?? null,
+        type: "PasswordResetRejected",
+        resource: "credential:password",
+        action: "identity.password.reset.complete",
+        outcome: "denied",
+        metadata: { reason: "token-invalid-expired-used-or-in-progress" }
+      });
+      throw new Error("Password reset token is invalid, expired, used, or in progress.");
     }
 
     const user = this.#users.get(reset.userId);
@@ -378,30 +412,48 @@ export class SecureAccess {
       throw new Error("Password reset principal is not active.");
     }
 
-    user.passwordHash = await hashPassword(newPassword);
-    reset.usedAt = this.#now();
+    reset.consumingAt = this.#now();
 
-    for (const session of this.#sessions.values()) {
-      if (
-        session.userId === user.id &&
-        session.tenantId === tenantId &&
-        !session.revokedAt
-      ) {
-        session.revokedAt = this.#now();
+    try {
+      const replacementHash = await hashPassword(newPassword);
+      user.passwordHash = replacementHash;
+      reset.usedAt = this.#now();
+      reset.consumingAt = null;
+
+      for (const session of this.#sessions.values()) {
+        if (
+          session.userId === user.id &&
+          session.tenantId === tenantId &&
+          !session.revokedAt
+        ) {
+          session.revokedAt = this.#now();
+        }
       }
+
+      this.#audit.append({
+        tenantId,
+        principalId: user.id,
+        type: "PasswordResetCompleted",
+        resource: `identity:${user.id}`,
+        action: "identity.password.reset.complete",
+        outcome: "granted",
+        metadata: { sessionsRevoked: true }
+      });
+
+      return true;
+    } catch (error) {
+      reset.consumingAt = null;
+      this.#audit.append({
+        tenantId,
+        principalId: user.id,
+        type: "PasswordResetFailed",
+        resource: `identity:${user.id}`,
+        action: "identity.password.reset.complete",
+        outcome: "denied",
+        metadata: { reason: "credential-replacement-failed" }
+      });
+      throw error;
     }
-
-    this.#audit.append({
-      tenantId,
-      principalId: user.id,
-      type: "PasswordResetCompleted",
-      resource: `identity:${user.id}`,
-      action: "identity.password.reset.complete",
-      outcome: "granted",
-      metadata: { sessionsRevoked: true }
-    });
-
-    return true;
   }
 
   authorize({ sessionToken, tenantId, permission, resourceId }) {
