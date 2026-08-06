@@ -78,18 +78,25 @@ export class SecureAccess {
   #users = new Map();
   #identities = new Map();
   #sessions = new Map();
+  #passwordResets = new Map();
   #audit;
   #now;
   #sessionTtlMs;
+  #passwordResetTtlMs;
+  #passwordResetDelivery;
 
   constructor({
     auditLog = new AuditLog(),
     now = () => new Date(),
-    sessionTtlMs = 8 * 60 * 60 * 1000
+    sessionTtlMs = 8 * 60 * 60 * 1000,
+    passwordResetTtlMs = 30 * 60 * 1000,
+    passwordResetDelivery = async () => {}
   } = {}) {
     this.#audit = auditLog;
     this.#now = now;
     this.#sessionTtlMs = sessionTtlMs;
+    this.#passwordResetTtlMs = passwordResetTtlMs;
+    this.#passwordResetDelivery = passwordResetDelivery;
   }
 
   get auditLog() {
@@ -319,6 +326,84 @@ export class SecureAccess {
     return true;
   }
 
+  async requestPasswordReset({ tenantId, email }) {
+    const userId = this.#identities.get(keyForIdentity(tenantId, email));
+    const user = userId ? this.#users.get(userId) : null;
+
+    if (user?.status === "active" && user.memberships.has(tenantId)) {
+      const token = randomBytes(32).toString("base64url");
+      const reset = {
+        tokenHash: hashToken(token),
+        userId: user.id,
+        tenantId,
+        expiresAt: new Date(this.#now().getTime() + this.#passwordResetTtlMs),
+        usedAt: null
+      };
+      this.#passwordResets.set(reset.tokenHash, reset);
+      await this.#passwordResetDelivery({
+        tenantId,
+        userId: user.id,
+        email: user.email,
+        token,
+        expiresAt: reset.expiresAt.toISOString()
+      });
+    }
+
+    this.#audit.append({
+      tenantId,
+      principalId: user?.id ?? null,
+      type: "PasswordResetRequested",
+      resource: "credential:password",
+      action: "identity.password.reset.request",
+      outcome: "granted",
+      metadata: {}
+    });
+
+    return Object.freeze({ accepted: true });
+  }
+
+  async completePasswordReset({ tenantId, token, newPassword }) {
+    const reset = this.#passwordResets.get(hashToken(token));
+    if (
+      !reset ||
+      reset.tenantId !== tenantId ||
+      reset.usedAt ||
+      reset.expiresAt.getTime() <= this.#now().getTime()
+    ) {
+      throw new Error("Password reset token is invalid or expired.");
+    }
+
+    const user = this.#users.get(reset.userId);
+    if (!user || user.status !== "active") {
+      throw new Error("Password reset principal is not active.");
+    }
+
+    user.passwordHash = await hashPassword(newPassword);
+    reset.usedAt = this.#now();
+
+    for (const session of this.#sessions.values()) {
+      if (
+        session.userId === user.id &&
+        session.tenantId === tenantId &&
+        !session.revokedAt
+      ) {
+        session.revokedAt = this.#now();
+      }
+    }
+
+    this.#audit.append({
+      tenantId,
+      principalId: user.id,
+      type: "PasswordResetCompleted",
+      resource: `identity:${user.id}`,
+      action: "identity.password.reset.complete",
+      outcome: "granted",
+      metadata: { sessionsRevoked: true }
+    });
+
+    return true;
+  }
+
   authorize({ sessionToken, tenantId, permission, resourceId }) {
     let principal;
 
@@ -338,13 +423,13 @@ export class SecureAccess {
 
     if (principal.tenantId !== tenantId) {
       this.#audit.append({
-        tenantId,
+        tenantId: principal.tenantId,
         principalId: principal.id,
         type: "AuthorizationDenied",
         resource: resourceId,
         action: permission,
         outcome: "denied",
-        metadata: { reason: "tenant-mismatch" }
+        metadata: { reason: "tenant-mismatch", requestedTenantId: tenantId }
       });
       return Object.freeze({ granted: false, reason: "tenant-mismatch" });
     }
