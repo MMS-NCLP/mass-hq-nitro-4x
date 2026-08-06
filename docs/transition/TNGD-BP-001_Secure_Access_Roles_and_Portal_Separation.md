@@ -85,3 +85,47 @@ The BP-001 tests cover valid and invalid authentication, password recovery and t
 ## Explicit Deferrals
 
 BP-001 does not add a portal UI, HTTP server, database schema, external identity provider, MFA, email delivery, password-recovery delivery channel, deployment provider, customer intake workflow, scheduling, dispatch, or later-package behavior.
+
+## Localized Correction TNGD-BP-001.1
+
+Authority accepted BP-001 for localized correction at repository head `54bc57e4414f142e4cd42fbde6440d1177878e72`.
+
+### Canonical Implementation
+
+The only authorized BP-001 source and test paths are:
+
+- `src/security/passwords.mjs`
+- `src/security/audit-log.mjs`
+- `src/security/secure-access.mjs`
+- `src/security/portal-boundary.mjs`
+- `src/security/manifest.mjs`
+- `src/security/index.mjs`
+- `tests/security.test.mjs`
+
+The competing `src/secure-access.mjs` and `tests/secure-access.test.mjs` paths were removed. Build, test, and repository-validation gates target only the canonical implementation and explicitly reject either discarded path.
+
+### Corrected Authority Metadata
+
+BP-001 feature metadata includes authentication, password recovery, role enforcement, tenant isolation, portal separation, audit logging, and session management.
+
+BP-002 is limited to its exact authorized responsibilities: Repair, Estimate, and Other Services intake paths; the eight-question intake foundation; initial customer capture; and service-request creation. Customer relationship management, service-location ownership, and technician records are not assigned to BP-002 by this correction.
+
+### Preserved Security Controls
+
+- Identity lookup remains keyed by tenant plus normalized email.
+- The public portal permits only `intake.submit` and sanitizes an explicit field allowlist.
+- Security events use the internal `AuditLog` by default; callers cannot silently disable storage.
+- Audit entries remain deeply immutable and SHA-256 hash chained.
+- Password-reset requests remain enumeration-resistant, single-use, expiring, and session-revoking.
+- Tests now explicitly cover tenant-distinct identical emails and non-discarding default audit storage.
+
+### Correction Validation Gate
+
+The corrected package must run:
+
+```text
+npm run check
+```
+
+Independent Acceptance must execute that command against the exact correction commit before BP-001.1 is accepted or BP-002 begins.
+
