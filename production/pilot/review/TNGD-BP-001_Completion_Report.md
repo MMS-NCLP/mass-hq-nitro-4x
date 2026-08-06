@@ -64,3 +64,21 @@ No local build, test execution, deployment, rendering, persistence, browser, or 
 ## Independent Acceptance Focus
 
 Run `npm run check`; inspect scrypt cost and operational suitability; verify reset delivery never logs raw tokens; verify session-token transport and durable repositories before deployment; confirm role permissions match TNGD operating policy; and confirm public/internal portal routes preserve the implemented boundary when transport is added.
+
+## TNGD-BP-001.1 Localized Correction Status
+
+BP-001 remains Manufactured — Pending Independent Acceptance.
+
+The localized correction authorized at head `54bc57e4414f142e4cd42fbde6440d1177878e72`:
+
+- retained `src/security/*` and `tests/security.test.mjs` as canonical;
+- removed `src/secure-access.mjs` and `tests/secure-access.test.mjs`;
+- restored password recovery to foundation feature metadata;
+- limited BP-002 metadata to the exact work-order responsibilities;
+- added explicit tenant-key and non-discarding-audit evidence tests;
+- hardened repository validation to reject discarded paths and require the reviewed scope, allowlist, audit default, and canonical test command.
+
+The original completion baseline remains historical evidence. The corrected commit and executable validation result are recorded separately in `TNGD-BP-001.1_Localized_Correction_Report.md`.
+
+BP-002 remains blocked until Independent Acceptance runs `npm run check` against the exact corrected commit and accepts BP-001.1.
+
