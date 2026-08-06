@@ -194,3 +194,54 @@ test("privileged actions are audited in a valid hash chain", async () => {
   assert.ok(records.some((record) => record.action === "security.audit.read"));
   assert.equal(auditLog.verify(), true);
 });
+
+
+test("password recovery is single-use and revokes existing sessions", async () => {
+  const deliveries = [];
+  const access = new SecureAccess({
+    passwordResetDelivery: async (delivery) => deliveries.push(delivery)
+  });
+
+  await access.bootstrapTenantAdmin({
+    tenantId: TENANT_A,
+    email: "owner@example.com",
+    password: ADMIN_PASSWORD
+  });
+  const existing = await access.authenticate({
+    tenantId: TENANT_A,
+    email: "owner@example.com",
+    password: ADMIN_PASSWORD
+  });
+
+  assert.deepEqual(
+    await access.requestPasswordReset({
+      tenantId: TENANT_A,
+      email: "owner@example.com"
+    }),
+    { accepted: true }
+  );
+  assert.equal(deliveries.length, 1);
+
+  await access.completePasswordReset({
+    tenantId: TENANT_A,
+    token: deliveries[0].token,
+    newPassword: "new secure recovery phrase"
+  });
+
+  assert.throws(() => access.validateSession(existing.token), /not active/);
+  await assert.rejects(
+    access.completePasswordReset({
+      tenantId: TENANT_A,
+      token: deliveries[0].token,
+      newPassword: "another secure recovery phrase"
+    }),
+    /invalid or expired/
+  );
+
+  const recovered = await access.authenticate({
+    tenantId: TENANT_A,
+    email: "owner@example.com",
+    password: "new secure recovery phrase"
+  });
+  assert.equal(recovered.principal.email, "owner@example.com");
+});
