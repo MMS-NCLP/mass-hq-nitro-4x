@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { foundation } from "../src/foundation.mjs";
-await import("../src/security/index.mjs");
+const { securityManifest } = await import("../src/security/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -9,4 +9,12 @@ await writeFile(
   "utf8"
 );
 
-process.stdout.write("Built dist/foundation-manifest.json\n");
+await writeFile(
+  new URL("../dist/security-manifest.json", import.meta.url),
+  `${JSON.stringify(securityManifest, null, 2)}\n`,
+  "utf8"
+);
+
+process.stdout.write(
+  "Built dist/foundation-manifest.json and dist/security-manifest.json\n"
+);
