@@ -119,6 +119,25 @@ if (!secureAccessSource.includes("new AuditLog()")) {
 if (!secureAccessSource.includes("keyForIdentity(tenantId, email)")) {
   throw new Error("Identity lookup must remain tenant-keyed.");
 }
+if (!secureAccessSource.includes("#tenantBootstrapReservations")) {
+  throw new Error("Tenant bootstrap must retain an atomic per-tenant reservation.");
+}
+if (!secureAccessSource.includes("reset.consumingAt")) {
+  throw new Error("Password reset must retain atomic token consumption.");
+}
+
+const securityTestSource = await readFile(
+  new URL("../tests/security.test.mjs", import.meta.url),
+  "utf8"
+);
+for (const evidenceName of [
+  "exactly one concurrent tenant bootstrap succeeds",
+  "exactly one concurrent password reset succeeds"
+]) {
+  if (!securityTestSource.includes(evidenceName)) {
+    throw new Error(`Missing concurrency evidence: ${evidenceName}`);
+  }
+}
 
 const portalSource = await readFile(
   new URL("../src/security/portal-boundary.mjs", import.meta.url),
