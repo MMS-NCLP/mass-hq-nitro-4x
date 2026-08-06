@@ -24,6 +24,7 @@ export const foundation = Object.freeze({
   ]),
   authorizedFeatureScope: Object.freeze([
     "authentication",
+    "password-recovery",
     "role-enforcement",
     "tenant-isolation",
     "portal-separation",
@@ -31,10 +32,12 @@ export const foundation = Object.freeze({
     "session-management"
   ]),
   deferredToBp002: Object.freeze([
-    "customer-records",
-    "contact-management",
-    "service-locations",
-    "technician-records"
+    "repair-intake",
+    "estimate-intake",
+    "other-services-intake",
+    "eight-question-intake-foundation",
+    "initial-customer-capture",
+    "service-request-creation"
   ])
 });
 
