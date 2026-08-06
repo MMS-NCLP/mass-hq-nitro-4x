@@ -20,17 +20,27 @@ test("foundation requires the authorized runtime boundary", () => {
   assert.equal(foundation.runtime.moduleFormat, "esm");
 });
 
-test("foundation exposes only BP-001 feature authority", () => {
+test("foundation exposes the complete BP-001 feature authority", () => {
   assert.deepEqual(foundation.authorizedFeatureScope, [
     "authentication",
+    "password-recovery",
     "role-enforcement",
     "tenant-isolation",
     "portal-separation",
     "audit-logging",
     "session-management"
   ]);
-  assert.ok(foundation.deferredToBp002.includes("customer-records"));
-  assert.ok(foundation.deferredToBp002.includes("service-locations"));
+});
+
+test("foundation defers only exact BP-002 work-order responsibilities", () => {
+  assert.deepEqual(foundation.deferredToBp002, [
+    "repair-intake",
+    "estimate-intake",
+    "other-services-intake",
+    "eight-question-intake-foundation",
+    "initial-customer-capture",
+    "service-request-creation"
+  ]);
 });
 
 test("foundation preserves persistence and deployment seams", () => {
