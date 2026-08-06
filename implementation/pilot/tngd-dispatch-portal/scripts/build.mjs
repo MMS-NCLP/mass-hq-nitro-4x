@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { foundation } from "../src/foundation.mjs";
+await import("../src/security/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
