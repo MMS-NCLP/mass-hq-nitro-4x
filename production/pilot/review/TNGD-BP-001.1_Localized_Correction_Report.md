@@ -104,3 +104,9 @@ The temporary validation files and generated manifests were removed after execut
 ## Acceptance Boundary
 
 Manufacturing validation is complete. Independent Acceptance must review the corrected artifact and accept BP-001.1 before BP-002 begins.
+
+## Superseding Localized Correction
+
+TNGD-BP-001.2 supersedes this correction only for the two identified concurrency defects. BP-001.1 canonical-path, scope, tenant-key, public-allowlist, audit-chain, and password-recovery corrections remain in force.
+
+See `TNGD-BP-001.2_Localized_Correction_Report.md` for the atomic-bootstrap and atomic-reset evidence and exact validation commit.
