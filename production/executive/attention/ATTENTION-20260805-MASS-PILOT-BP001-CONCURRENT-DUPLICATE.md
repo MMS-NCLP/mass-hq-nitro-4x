@@ -2,7 +2,7 @@
 
 **Message ID:** ATTENTION-20260805-MASS-PILOT-BP001-CONCURRENT-DUPLICATE  
 **Timestamp:** 2026-08-06T04:29:06Z  
-**Updated At:** 2026-08-06T05:20:18Z  
+**Updated At:** 2026-08-07T00:00:00Z  
 **From:** Manufacturing  
 **To:** Executive Authority  
 **Priority:** High  
@@ -10,8 +10,8 @@
 **Related Work Order(s):** TNGD-BP-001, TNGD-BP-002  
 **Related IRO/LCO:** None  
 **Repository Commits:** `d18e66c6046ab86c3e25b730e78df3b919808485`, `328129c02e62b5dc248312641127e5fcdfa0bfe8`, `7034e274fd16a6f7351b30f68ceefb73a889ea70`, `f45e8914a35ddee92dde62aef4bdd3171bdec5a8`  
-**Requested Action:** Independently accept TNGD-BP-001.2 at validated commit `95dcb8cf96e81058bd1173e0684be0662d3f572c` before BP-002 begins  
-**Status:** BP-001.2 Correction Submitted — Independent Acceptance Required  
+**Requested Action:** Completed — TNGD-BP-001.2 independently accepted and BP-002 cleared  
+**Status:** Resolved — BP-001.2 Accepted  
 
 ## Body
 
@@ -44,3 +44,9 @@ Independent review identified two concurrency defects after BP-001.1. TNGD-BP-00
 At exact corrected commit `95dcb8cf96e81058bd1173e0684be0662d3f572c`, `npm.cmd run check` completed with exit code 0: build passed, 16 of 16 tests passed, both deterministic concurrency tests passed, and canonical repository validation passed.
 
 The correction order and report are in `production/pilot/review`. This attention remains open only for Independent Acceptance of BP-001.2. BP-002 remains blocked and no package was moved to done.
+
+## Resolution
+
+Independent Acceptance was completed on 2026-08-07 against exact validated commit `95dcb8cf96e81058bd1173e0684be0662d3f572c`. A fresh connector-sourced copy passed `npm.cmd run check` with exit code 0: build passed, 16 of 16 tests passed, both deterministic concurrency tests passed, and canonical repository validation passed.
+
+The concurrency duplicate blocker is resolved. BP-002 is cleared to enter `production/pilot/active`. This update resolves the existing notice in place and does not create a duplicate Executive Attention item.
