@@ -51,4 +51,4 @@ Result: exit code `0`.
 - BP-001.1 tenant keys, public-portal allowlist, password recovery, and non-discarding audit requirements remain covered by the complete gate.
 - BP-002 responsibilities and scope are unchanged.
 - No package is moved to `production/pilot/done`.
-- BP-002 is cleared to move from `production/pilot/inbox` to `production/pilot/active`.
+- BP-002 was cleared and transitioned from `production/pilot/inbox` to `production/pilot/active`; no BP-002 implementation was performed during acceptance.
