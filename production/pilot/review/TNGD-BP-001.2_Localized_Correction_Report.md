@@ -7,7 +7,7 @@
 - Prior correction: TNGD-BP-001.1
 - Authorized baseline: `cea3ad4bd1a4fa5c8809211bfc138a8106b93b30`
 - Corrected artifact commit validated: `95dcb8cf96e81058bd1173e0684be0662d3f572c`
-- Status: Corrected — Pending Independent Acceptance
+- Status: Accepted — Independent Acceptance Complete
 
 ## Changed Files
 
@@ -97,8 +97,8 @@ The temporary validation files and generated manifests were removed after execut
 - Review: BP-000, BP-001, BP-001.1, and BP-001.2 work orders and evidence.
 - Done: unchanged.
 - Batch count: remains 2 of 6; BP-001.2 is a localized correction.
-- BP-002: blocked pending Independent Acceptance of BP-001.2.
+- BP-002: cleared for Active manufacturing by Independent Acceptance of BP-001.2.
 
 ## Acceptance Boundary
 
-Manufacturing validation is complete. Independent Acceptance must review and accept BP-001.2 before BP-002 begins.
+Independent Acceptance completed on 2026-08-07 against validated commit `95dcb8cf96e81058bd1173e0684be0662d3f572c`. The independently repeated `npm.cmd run check` gate passed with 16 of 16 tests and canonical repository validation. BP-002 is cleared to enter Active manufacturing.
