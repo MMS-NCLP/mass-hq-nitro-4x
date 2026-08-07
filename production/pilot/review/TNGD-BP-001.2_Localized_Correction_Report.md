@@ -92,12 +92,12 @@ The temporary validation files and generated manifests were removed after execut
 
 ## Queue State
 
-- Inbox: TNGD-BP-002 through TNGD-BP-006 remain unchanged.
-- Active: empty.
+- Inbox: TNGD-BP-003 through TNGD-BP-006 remain; TNGD-BP-002 has been removed after activation.
+- Active: TNGD-BP-002 — Three-Path Intake and Lead Capture.
 - Review: BP-000, BP-001, BP-001.1, and BP-001.2 work orders and evidence.
 - Done: unchanged.
 - Batch count: remains 2 of 6; BP-001.2 is a localized correction.
-- BP-002: cleared for Active manufacturing by Independent Acceptance of BP-001.2.
+- BP-002: active following Independent Acceptance of BP-001.2.
 
 ## Acceptance Boundary
 
