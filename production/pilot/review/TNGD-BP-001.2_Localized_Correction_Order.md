@@ -6,7 +6,7 @@ Project: MASS-TNGD-PILOT-001
 Parent Package: TNGD-BP-001
 Prior Correction: TNGD-BP-001.1
 Conveyor: Operational Manufacturing (Conveyor B)
-Status: Corrected — Pending Independent Acceptance
+Status: Accepted — Independent Acceptance Complete
 Authority: Executive Localized Correction Order
 Authorized Baseline: `cea3ad4bd1a4fa5c8809211bfc138a8106b93b30`
 
@@ -30,3 +30,7 @@ Correct two concurrency defects without redesigning or expanding BP-001.
 
 ### Completion Criteria
 Concurrent operations produce one winner and one safe rejection; the winning identity/password remains usable; canonical validation passes; correction evidence records the exact commit and results; and BP-001.2 is submitted to review.
+
+### Independent Acceptance
+
+Accepted on 2026-08-07 against exact validated commit `95dcb8cf96e81058bd1173e0684be0662d3f572c`. The independent `npm.cmd run check` gate passed with 16 of 16 tests, including both deterministic concurrency tests, and canonical repository validation passed. BP-002 is cleared to enter Active manufacturing without any expansion of its authorized scope.
