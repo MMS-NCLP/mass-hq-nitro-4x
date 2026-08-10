@@ -2,6 +2,7 @@ import { access, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { foundation } from "../src/foundation.mjs";
 import { securityManifest } from "../src/security/index.mjs";
+import { intakeManifest } from "../src/intake/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -12,6 +13,10 @@ const requiredPaths = [
   "scripts/validate-repository.mjs",
   "tests/foundation.test.mjs",
   "tests/security.test.mjs",
+  "tests/intake.test.mjs",
+  "src/intake/index.mjs",
+  "src/intake/intake-service.mjs",
+  "src/intake/manifest.mjs",
   "src/security/audit-log.mjs",
   "src/security/index.mjs",
   "src/security/manifest.mjs",
@@ -61,9 +66,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target only canonical BP-000/BP-001 tests.");
+  throw new Error("Test command must target canonical BP-000/BP-001/BP-002 tests.");
 }
 
 const buildSource = await readFile(
@@ -72,6 +77,9 @@ const buildSource = await readFile(
 );
 if (buildSource.includes("../src/secure-access.mjs")) {
   throw new Error("Build references the discarded BP-001 implementation.");
+}
+if (!buildSource.includes("intake-manifest.json")) {
+  throw new Error("Build does not generate the canonical BP-002 intake manifest.");
 }
 
 const requiredBp001Scope = [
@@ -98,11 +106,34 @@ const exactBp002Scope = [
   "initial-customer-capture",
   "service-request-creation"
 ];
-if (
-  JSON.stringify(foundation.deferredToBp002) !==
-  JSON.stringify(exactBp002Scope)
-) {
+if (JSON.stringify(foundation.bp002FeatureScope) !== JSON.stringify(exactBp002Scope)) {
   throw new Error("Foundation metadata expands or omits BP-002 authority.");
+}
+
+if (!foundation.implementedPackages.includes("TNGD-BP-002")) {
+  throw new Error("Foundation does not identify BP-002 as implemented.");
+}
+
+if (JSON.stringify(intakeManifest.paths) !== JSON.stringify(["repair", "estimate", "other-services"])) {
+  throw new Error("Intake manifest does not expose exactly the three authorized paths.");
+}
+
+const exactIntakeQuestions = [
+  "name",
+  "phone",
+  "email",
+  "serviceAddress",
+  "serviceCategory",
+  "serviceNeed",
+  "urgency",
+  "preferredContact"
+];
+if (JSON.stringify(intakeManifest.questions) !== JSON.stringify(exactIntakeQuestions)) {
+  throw new Error("Intake manifest must expose exactly the eight authorized questions.");
+}
+
+if (intakeManifest.persistence.boundary !== "in-memory") {
+  throw new Error("BP-002 must not select an unauthorized persistence provider.");
 }
 
 if (!securityManifest.capabilities.includes("password-recovery")) {
@@ -147,6 +178,37 @@ if (!portalSource.includes('action !== "intake.submit"')) {
   throw new Error("Public portal must retain the approved action allowlist.");
 }
 
+const intakeSource = await readFile(
+  new URL("../src/intake/intake-service.mjs", import.meta.url),
+  "utf8"
+);
+for (const requiredBoundary of [
+  "submitAuthorized",
+  'permission: "intake.create"',
+  'action: "intake.create"',
+  "customerKey(tenantId, answers)"
+]) {
+  if (!intakeSource.includes(requiredBoundary)) {
+    throw new Error(`BP-002 intake boundary is missing: ${requiredBoundary}`);
+  }
+}
+
+const intakeTestSource = await readFile(
+  new URL("../tests/intake.test.mjs", import.meta.url),
+  "utf8"
+);
+for (const evidenceName of [
+  "all three authorized intake paths create service requests",
+  "the intake foundation requires all eight authorized answers",
+  "initial customer capture reuses a tenant customer and isolates tenants",
+  "authorized portal users create intake while denied users cannot mutate state",
+  "approved public intake integrates through the secure portal allowlist"
+]) {
+  if (!intakeTestSource.includes(evidenceName)) {
+    throw new Error(`Missing BP-002 evidence: ${evidenceName}`);
+  }
+}
+
 const environment = await readFile(
   new URL("../.env.example", import.meta.url),
   "utf8"
@@ -171,4 +233,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000/BP-001 repository validation passed.\n");
+process.stdout.write("Canonical BP-000/BP-001/BP-002 repository validation passed.\n");

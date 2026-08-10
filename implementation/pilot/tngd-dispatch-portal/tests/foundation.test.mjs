@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002"]
   );
   assert.equal(
     foundation.implementationRoot,
@@ -32,8 +32,8 @@ test("foundation exposes the complete BP-001 feature authority", () => {
   ]);
 });
 
-test("foundation defers only exact BP-002 work-order responsibilities", () => {
-  assert.deepEqual(foundation.deferredToBp002, [
+test("foundation records only exact BP-002 work-order responsibilities", () => {
+  assert.deepEqual(foundation.bp002FeatureScope, [
     "repair-intake",
     "estimate-intake",
     "other-services-intake",

@@ -59,17 +59,44 @@ export class IntakeService {
   #customers = new Map();
   #requests = new Map();
   #audit;
+  #secureAccess;
   #now;
 
-  constructor({ auditLog, now = () => new Date() } = {}) {
+  constructor({ auditLog, secureAccess = null, now = () => new Date() } = {}) {
     if (!auditLog || typeof auditLog.append !== "function") {
       throw new Error("Intake service requires the shared audit log.");
     }
     this.#audit = auditLog;
+    this.#secureAccess = secureAccess;
     this.#now = now;
   }
 
-  submit({ tenantId, path, intake, source = "portal" }) {
+  submit({ tenantId, path, intake, source = "public-portal" }) {
+    return this.#createRequest({ tenantId, path, intake, source });
+  }
+
+  submitAuthorized({ sessionToken, tenantId, path, intake }) {
+    if (!this.#secureAccess) {
+      throw new Error("Authorized intake requires secure access.");
+    }
+
+    const principal = this.#secureAccess.requirePermission({
+      sessionToken,
+      tenantId,
+      permission: "intake.create",
+      resourceId: "service-request:new"
+    });
+
+    return this.#createRequest({
+      tenantId,
+      path,
+      intake,
+      source: "internal-portal",
+      principalId: principal.id
+    });
+  }
+
+  #createRequest({ tenantId, path, intake, source, principalId = null }) {
     if (!tenantId) throw new Error("Tenant is required.");
 
     const normalizedPath = normalizePath(path ?? intake?.serviceCategory);
@@ -101,8 +128,10 @@ export class IntakeService {
 
     this.#audit.append({
       tenantId,
+      principalId,
       type: "ServiceRequestCreated",
       resource: `service-request:${request.id}`,
+      action: "intake.create",
       outcome: "granted",
       metadata: {
         customerId: customer.id,

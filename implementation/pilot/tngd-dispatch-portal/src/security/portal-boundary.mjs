@@ -2,7 +2,11 @@ const PUBLIC_INTAKE_FIELDS = Object.freeze([
   "name",
   "phone",
   "email",
+  "serviceAddress",
   "serviceCategory",
+  "serviceNeed",
+  "urgency",
+  "preferredContact",
   "summary"
 ]);
 

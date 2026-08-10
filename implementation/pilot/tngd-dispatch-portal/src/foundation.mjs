@@ -2,7 +2,11 @@ import { pathToFileURL } from "node:url";
 
 export const foundation = Object.freeze({
   projectId: "MASS-TNGD-PILOT-001",
-  implementedPackages: Object.freeze(["TNGD-BP-000", "TNGD-BP-001"]),
+  implementedPackages: Object.freeze([
+    "TNGD-BP-000",
+    "TNGD-BP-001",
+    "TNGD-BP-002"
+  ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
     engine: "node",
@@ -31,7 +35,7 @@ export const foundation = Object.freeze({
     "audit-logging",
     "session-management"
   ]),
-  deferredToBp002: Object.freeze([
+  bp002FeatureScope: Object.freeze([
     "repair-intake",
     "estimate-intake",
     "other-services-intake",

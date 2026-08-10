@@ -17,3 +17,7 @@ Deployment injects configuration through process environment variables documente
 ## Deferred Decisions
 
 BP-000 does not select a cloud, container format, process manager, network endpoint, database, release service, or rollback provider. Provider-specific configuration requires a later authorized work order.
+
+## BP-002 Runtime State
+
+Customer and service-request records are currently process-local and are not durable across restarts. A deployment must not represent this boundary as durable storage until an authorized work order selects and validates a persistence provider and migration.
