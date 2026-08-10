@@ -1,0 +1,18 @@
+Entity,Purpose,Tenant Owned,Immutable Condition
+InstallationRequest,Requested plugin scope permissions and configuration references,Yes,After plan creation
+PrerequisiteFinding,Environment application entitlement or policy finding,Yes,After decision
+DependencyResolution,Deterministic graph result and digest,Yes,After plan binding
+ResolvedDependency,Exact selected omitted peer or conflict edge,Yes,After resolution completion
+InstallationPlan,Bound ordered lifecycle and recovery plan,Yes,After approval decision
+PlanApproval,Independent approval or rejection evidence,Yes,Always
+PluginInstallation,Tenant and scope installation aggregate,Yes,Version snapshots and terminal states
+InstallationVersionRecord,Append-only installed activated upgraded downgraded rollback or removal version snapshot,Yes,Always
+InstallationGrant,Approved effective permission intersection,Yes,After activation
+LifecycleOperation,Idempotent lifecycle command and outcome,Yes,After completion
+LifecycleStep,Ordered execution step and compensation state,Yes,After terminal result
+MigrationCheckpoint,Owned migration reference checksum and checkpoint,Yes,Always after capture
+HealthFinding,Readiness or operational health evidence,Yes,After observation
+RollbackEvidence,Approved target checkpoint and result,Yes,Always
+RemovalRecord,Safe removal evidence retained as tombstone,Yes,Always
+LifecycleOutbox,Durable lifecycle event and publication state,Yes,Payload after creation
+LifecycleAudit,Append-only correlated audit record,Yes,Always

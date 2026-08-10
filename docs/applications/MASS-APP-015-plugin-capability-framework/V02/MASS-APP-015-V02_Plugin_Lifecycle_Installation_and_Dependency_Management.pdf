@@ -1,0 +1,2758 @@
+%PDF-1.3
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+/Title (MASS\055APP\055015\055V02 Plugin Lifecycle\054 Installation \046 Dependency Management)
+/Subject (Production Baseline v1\0560)
+/Author (MASS Manufacturing)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 6
+/Kids [ 4 0 R 11 0 R 15 0 R 18 0 R 20 0 R 23 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents [ 5 0 R 6 0 R ]
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 7 0 R
+/F1-0 8 0 R
+/F2 9 0 R
+/F2-0 10 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 3541
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.078431 .14902 .239216 rg
+n 0 764.64 612 27.36 re f*
+BT /F2 7.5 Tf 9 TL ET
+1 1 1 rg
+BT 1 0 0 1 39.6 774.72 Tm (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.313725 .384314 .45098 rg
+BT 1 0 0 1 39.6 21.6 Tm (Production Baseline v1.0  |  EWO-MASS-APP-015-V02  |  2026-08-10) Tj T* ET
+BT 1 0 0 1 568.508 21.6 Tm (1) Tj T* ET
+.392157 .776471 .823529 RG
+1.4 w
+n 39.6 33.84 m 572.4 33.84 l S
+Q
+q
+1 0 0 1 45.6 706.8 cm
+Q
+q
+1 0 0 1 61.2 507.8 cm
+q
+.078431 .14902 .239216 rg
+n 0 199 489.6 -199 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 26 159 cm
+q
+.392157 .776471 .823529 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (PRODUCTION BASELINE v1.0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 26 61 cm
+q
+BT 1 0 0 1 0 60 Tm 28 TL /F2 24 Tf 1 1 1 rg (Plugin Lifecycle,) Tj  T* (Installation &) Tj  T* (Dependency Management) Tj T* ET
+Q
+Q
+q
+1 0 0 1 26 28 cm
+q
+.862745 .921569 .94902 rg
+BT 1 0 0 1 0 4 Tm /F1 11 Tf 15 TL (MASS-APP-015 / Volume 02) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 45.6 486.2 cm
+Q
+q
+1 0 0 1 45.6 403.2 cm
+q
+1 1 1 rg
+n 0 66 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 49.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 33 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 83 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 70 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (DOCUMENT CONTROL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 70 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (VALUE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Document ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (MASS-APP-015-V02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Authority) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (EWO-MASS-APP-015-V02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Status) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Production Baseline v1.0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Date) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (2026-08-10) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 83 m 482.4 83 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 83 l S
+n 482.4 0 m 482.4 83 l S
+n 0 66 m 482.4 66 l S
+n 0 49.5 m 482.4 49.5 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 118.8 0 m 118.8 83 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 387.36 cm
+Q
+q
+1 0 0 1 64.8 322.36 cm
+q
+.917647 .960784 .968627 rg
+n 0 65 482.4 -65 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 15 13 cm
+q
+.078431 .14902 .239216 rg
+BT 1 0 0 1 0 30 Tm /F2 9 Tf 13 TL (Installation is governed presence, not execution authority. V02 binds every material lifecycle change to a) Tj T* (validated V01 manifest, deterministic dependency graph, explicit human approval, tenant scope, and) Tj T* (durable evidence.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.392157 .776471 .823529 RG
+1.2 w
+n 0 65 m 482.4 65 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 65 l S
+n 482.4 0 m 482.4 65 l S
+Q
+Q
+Q
+ 
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.078431 0.14902 0.239216 rg
+n
+0 764.64 612 27.36 re
+f*
+1 1 1 rg
+BT
+/F2-0 7.5 Tf
+9 TL
+ET
+BT
+1 0 0 1 39.6 774.72 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+endstream
+endobj
+6 0 obj
+<<
+/Length 148
+>>
+stream
+q
+0.0784 0.1490 0.2392 rg
+0 764.64 612 27.36 re f
+1 1 1 rg
+BT /F2 7.5 Tf 39.6 774.72 Td (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj ET
+Q
+
+endstream
+endobj
+7 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+8 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+9 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+10 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+11 0 obj
+<<
+/Contents 12 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 7 0 R
+/F1-0 8 0 R
+/F1-1 13 0 R
+/F2 9 0 R
+/F2-0 10 0 R
+/F2-1 14 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 8425
+>>
+stream
+q
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.078431 .14902 .239216 rg
+n 0 764.64 612 27.36 re f*
+BT /F2 7.5 Tf 9 TL ET
+1 1 1 rg
+BT 1 0 0 1 39.6 774.72 Tm (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.313725 .384314 .45098 rg
+BT 1 0 0 1 39.6 21.6 Tm (Production Baseline v1.0  |  EWO-MASS-APP-015-V02  |  2026-08-10) Tj T* ET
+BT 1 0 0 1 568.508 21.6 Tm (2) Tj T* ET
+.392157 .776471 .823529 RG
+1.4 w
+n 39.6 33.84 m 572.4 33.84 l S
+Q
+q
+1 0 0 1 45.6 724.24 cm
+q
+.078431 .14902 .239216 rg
+BT 1 0 0 1 0 3 Tm /F2 17 Tf 20 TL (1. Mission and Ownership) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 680.24 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 27.4 Tm /F1 8.6 Tf 12 TL (V02 converts a V01-validated plugin package into a controlled tenant installation. It owns lifecycle requests, prerequisite findings,) Tj T* (dependency resolution, immutable plans, independent decisions, scoped installation records, health gates, rollback evidence, recovery,) Tj T* (and safe-removal tombstones.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 623.74 cm
+q
+1 1 1 rg
+n 0 33.5 482.4 -33.5 re f*
+.078431 .14902 .239216 rg
+n 0 50.5 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 37.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (V02 OWNS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 159.8 37.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (V02 CONSUMES) Tj T* ET
+Q
+Q
+q
+1 0 0 1 343.4 37.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (V02 NEVER CLAIMS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 12.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 10.2 Tm /F1 6.8 Tf 8.5 TL (Plans, decisions, installation state, lifecycle) Tj T* (evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 159.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 18.7 Tm /F1 6.8 Tf 8.5 TL (V01 manifests and declarations; ENG identity,) Tj T* (authorization, events, workflow, audit, configuration, API,) Tj T* (deployment, entitlement and lineage) Tj T* ET
+Q
+Q
+q
+1 0 0 1 343.4 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 18.7 Tm /F1 6.8 Tf 8.5 TL (Runtime invocation \(V03\),) Tj T* (deployment-engine execution, marketplace) Tj T* (storefront, other applications' data) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 50.5 m 482.4 50.5 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 50.5 l S
+n 482.4 0 m 482.4 50.5 l S
+n 0 33.5 m 482.4 33.5 l S
+n 154.8 0 m 154.8 50.5 l S
+n 338.4 0 m 338.4 50.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 601.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Permanent Architecture vs V1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 559.74 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 27.4 Tm /F1 8.6 Tf 12 TL (Permanent architecture separates declared package truth, target-environment truth, deterministic resolution, human authority, execution) Tj T* (coordination, and immutable evidence. V1 supports organization, workspace, project, and user scopes; required/optional/peer/conflict) Tj T* (edges; install, activate, suspend, upgrade, downgrade, rollback, repair, and removal.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 537.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Human Authority) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 468.74 cm
+q
+.090196 .419608 .529412 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 52 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 52 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (A requester may request but cannot approve its own plan.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 39 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 27 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Approval binds manifest digest, exact versions, target scope, permissions, migrations, steps, health gates, and rollback) Tj T* (target.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 14 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 14 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (A material change creates a new plan revision and invalidates prior approval.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 1 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 1 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (A plugin, publisher, automation, or execution principal cannot self-approve.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 45.6 446.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Role Mapping) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 325.74 cm
+q
+1 1 1 rg
+n 0 99 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 82.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 66 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 49.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 33 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 116 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 103 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (ROLE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 103 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (BASELINE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 103 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (AUTHORITY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Installation Viewer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Viewer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Read authorized state and evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Installation Requester) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Contributor) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Request scoped lifecycle action) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Plugin Operator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Contributor extension) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Execute an approved plan) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Lifecycle Steward) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Steward) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Resolve dependencies and recommend recovery) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Installation / Security Approver) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Administrator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Independently decide bound plans) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Executive Approver) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Executive) Tj T* ET
+Q
+Q
+q
+1 0 0 1 221 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Decide explicitly exceptional risk) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 116 m 482.4 116 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 116 l S
+n 482.4 0 m 482.4 116 l S
+n 0 99 m 482.4 99 l S
+n 0 82.5 m 482.4 82.5 l S
+n 0 66 m 482.4 66 l S
+n 0 49.5 m 482.4 49.5 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 118.8 0 m 118.8 116 l S
+n 216 0 m 216 116 l S
+Q
+Q
+Q
+ 
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.078431 0.14902 0.239216 rg
+n
+0 764.64 612 27.36 re
+f*
+1 1 1 rg
+BT
+/F2-0 7.5 Tf
+9 TL
+ET
+BT
+1 0 0 1 39.6 774.72 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+q
+0.0784 0.1490 0.2392 rg
+0 764.64 612 27.36 re f
+1 1 1 rg
+BT /F2 7.5 Tf 39.6 774.72 Td (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj ET
+Q
+
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-1 12 Tf
+14.4 TL
+ET
+0.090196 0.168627 0.266667 rg
+n
+0 764.5 612 27.5 re
+f*
+1 1 1 rg
+BT
+/F2-1 8 Tf
+9.6 TL
+ET
+BT
+1 0 0 1 39 776.5 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+endstream
+endobj
+13 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+14 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+15 0 obj
+<<
+/Contents [ 16 0 R 17 0 R ]
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 7 0 R
+/F1-0 8 0 R
+/F2 9 0 R
+/F2-0 10 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+16 0 obj
+<<
+/Length 9334
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.078431 .14902 .239216 rg
+n 0 764.64 612 27.36 re f*
+BT /F2 7.5 Tf 9 TL ET
+1 1 1 rg
+BT 1 0 0 1 39.6 774.72 Tm (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.313725 .384314 .45098 rg
+BT 1 0 0 1 39.6 21.6 Tm (Production Baseline v1.0  |  EWO-MASS-APP-015-V02  |  2026-08-10) Tj T* ET
+BT 1 0 0 1 568.508 21.6 Tm (3) Tj T* ET
+.392157 .776471 .823529 RG
+1.4 w
+n 39.6 33.84 m 572.4 33.84 l S
+Q
+q
+1 0 0 1 45.6 724.24 cm
+q
+.078431 .14902 .239216 rg
+BT 1 0 0 1 0 3 Tm /F2 17 Tf 20 TL (2. Controlled Installation Flow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 583.74 cm
+q
+1 1 1 rg
+n 0 115.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 99 482.4 -16.5 re f*
+1 1 1 rg
+n 0 82.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 66 482.4 -16.5 re f*
+1 1 1 rg
+n 0 49.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 33 482.4 -16.5 re f*
+1 1 1 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 132.5 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 119.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (#) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 119.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (STAGE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 119.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (CONTROL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 103 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (01) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 103 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (REQUEST) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 103 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Exact V01 version, digest, scope, grants, configuration refs, idempotency key) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (VERIFY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Eligibility, platform/application/environment prerequisites, entitlement, security) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (03) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (RESOLVE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Declared graph only; deterministic versions, conflicts, peers, optional omissions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (04) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (PLAN) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Immutable ordered steps, approvals, migrations, health gates, compensation, rollback) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (05) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (APPROVE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Independent human decision bound to the complete plan digest) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (06) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (EXECUTE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Authorized idempotent steps through owning platform gateways) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (07) Tj T* ET
+Q
+Q
+q
+1 0 0 1 35.24 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (ACTIVATE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 110.84 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Explicit action after grants, entitlement, migrations and readiness pass) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 132.5 m 482.4 132.5 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 132.5 l S
+n 482.4 0 m 482.4 132.5 l S
+n 0 115.5 m 482.4 115.5 l S
+n 0 99 m 482.4 99 l S
+n 0 82.5 m 482.4 82.5 l S
+n 0 66 m 482.4 66 l S
+n 0 49.5 m 482.4 49.5 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 30.24 0 m 30.24 132.5 l S
+n 105.84 0 m 105.84 132.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 561.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Dependency Resolution) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 473.74 cm
+q
+1 1 1 rg
+n 0 66 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 49.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 33 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 83 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 70 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (KIND) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 70 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (RULE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 264.2 70 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (FAIL-CLOSED CONDITION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Required) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Exactly one compatible published version) Tj T* ET
+Q
+Q
+q
+1 0 0 1 264.2 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Missing, cycle, scope violation, entitlement failure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Optional) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Only when explicitly selected) Tj T* ET
+Q
+Q
+q
+1 0 0 1 264.2 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Never silently installed; omission impact recorded) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Peer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Already present or explicitly included) Tj T* ET
+Q
+Q
+q
+1 0 0 1 264.2 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Absent, incompatible version, or invalid scope) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Conflict) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (No matching installed or planned version) Tj T* ET
+Q
+Q
+q
+1 0 0 1 264.2 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Matching conflict remains unresolved) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 83 m 482.4 83 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 83 l S
+n 482.4 0 m 482.4 83 l S
+n 0 66 m 482.4 66 l S
+n 0 49.5 m 482.4 49.5 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 57.6 0 m 57.6 83 l S
+n 259.2 0 m 259.2 83 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 451.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Deterministic Selection) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 358.74 cm
+q
+.090196 .419608 .529412 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 76 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 64 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Retain a healthy compatible installed version; otherwise select the highest published, eligible, supported version) Tj T* (satisfying every inbound range.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 51 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 39 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Required edges resolve first; peer and conflict verification follows. Canonical plugin name and version are stable ordering) Tj T* (tie-breakers.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 26 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 14 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Transitive nodes retain provenance and reason chains. Required cycles block; optional-only cycles are omitted with a) Tj T* (finding.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 1 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 1 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (Resolver output is advisory until the complete immutable graph is independently approved.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 45.6 336.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Scope Rule) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 306.74 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (A dependency must have equal or broader scope than its dependent and tenant policy must permit inheritance. Promotion or scope) Tj T* (widening always creates a new plan and approval.) Tj T* ET
+Q
+Q
+ 
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.078431 0.14902 0.239216 rg
+n
+0 764.64 612 27.36 re
+f*
+1 1 1 rg
+BT
+/F2-0 7.5 Tf
+9 TL
+ET
+BT
+1 0 0 1 39.6 774.72 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+endstream
+endobj
+17 0 obj
+<<
+/Length 148
+>>
+stream
+q
+0.0784 0.1490 0.2392 rg
+0 764.64 612 27.36 re f
+1 1 1 rg
+BT /F2 7.5 Tf 39.6 774.72 Td (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj ET
+Q
+
+endstream
+endobj
+18 0 obj
+<<
+/Contents 19 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 7 0 R
+/F1-0 8 0 R
+/F1-1 13 0 R
+/F2 9 0 R
+/F2-0 10 0 R
+/F2-1 14 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+19 0 obj
+<<
+/Length 7609
+>>
+stream
+q
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.078431 .14902 .239216 rg
+n 0 764.64 612 27.36 re f*
+BT /F2 7.5 Tf 9 TL ET
+1 1 1 rg
+BT 1 0 0 1 39.6 774.72 Tm (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.313725 .384314 .45098 rg
+BT 1 0 0 1 39.6 21.6 Tm (Production Baseline v1.0  |  EWO-MASS-APP-015-V02  |  2026-08-10) Tj T* ET
+BT 1 0 0 1 568.508 21.6 Tm (4) Tj T* ET
+.392157 .776471 .823529 RG
+1.4 w
+n 39.6 33.84 m 572.4 33.84 l S
+Q
+q
+1 0 0 1 45.6 724.24 cm
+q
+.078431 .14902 .239216 rg
+BT 1 0 0 1 0 3 Tm /F2 17 Tf 20 TL (3. Lifecycle State and Recovery) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 692.24 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Every transition requires expected state, installation revision, approved plan digest, actor authorization, and an idempotency key. A) Tj T* (repeated command returns its original outcome. A stale revision fails without side effects.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 570.24 cm
+q
+1 1 1 rg
+n 0 99 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 82.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 66 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 49.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 33 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 116 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 103 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (PHASE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 103 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (STATES) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 103 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (KEY GATE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Plan) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (requested / planning / awaiting_approval / approved) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Validated digest, resolved graph, independent decision) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Install) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (installing / installed) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Durable step evidence and required readiness) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Operate) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (activating / active / suspending / suspended) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Explicit action; runtime remains V03) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Change) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (upgrading / rolling_back / repairing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Approved target, checkpoints, health) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Exit) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (removing / removed) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Reverse dependency analysis and retained tombstone) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Failure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.6 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (recovery_required / failed) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (No false success; resume from verified checkpoint) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 116 m 482.4 116 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 116 l S
+n 482.4 0 m 482.4 116 l S
+n 0 99 m 482.4 99 l S
+n 0 82.5 m 482.4 82.5 l S
+n 0 66 m 482.4 66 l S
+n 0 49.5 m 482.4 49.5 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 57.6 0 m 57.6 116 l S
+n 226.8 0 m 226.8 116 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 548.24 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Upgrade, Downgrade, Rollback, Repair) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 467.24 cm
+q
+.090196 .419608 .529412 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 64 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 52 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Each change compares source/target digests, permissions, dependencies, configuration schema, data migrations,) Tj T* (compatibility, health, and rollback feasibility.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 39 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 39 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (Permission expansion always requires new approval. Unsafe downgrade is rejected.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 26 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 26 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (Rollback uses an approved target and captured checkpoint; reverse migrations are never invented.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 13 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 1 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Repair revalidates digest, dependencies, configuration refs, grants, and health, and replays only explicitly idempotent) Tj T* (steps.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 45.6 445.24 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Partial Failure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 415.24 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Failure atomically records the completed-step boundary and durable audit/outbox evidence before entering recovery. Irreversible work is) Tj T* (never hidden. If durable audit or outbox persistence fails, the state transition fails and remains retryable.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 393.24 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Safe Removal) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 351.24 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 27.4 Tm /F1 8.6 Tf 12 TL (Required dependents block removal. Optional dependents create impact findings. Sole-use dependencies become orphan candidates,) Tj T* (never automatic deletions. V02 removes only its metadata/configuration references and retains a tombstone; application- or) Tj T* (engine-owned data remains with its owner.) Tj T* ET
+Q
+Q
+ 
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.078431 0.14902 0.239216 rg
+n
+0 764.64 612 27.36 re
+f*
+1 1 1 rg
+BT
+/F2-0 7.5 Tf
+9 TL
+ET
+BT
+1 0 0 1 39.6 774.72 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+q
+0.0784 0.1490 0.2392 rg
+0 764.64 612 27.36 re f
+1 1 1 rg
+BT /F2 7.5 Tf 39.6 774.72 Td (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj ET
+Q
+
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-1 12 Tf
+14.4 TL
+ET
+0.090196 0.168627 0.266667 rg
+n
+0 764.5 612 27.5 re
+f*
+1 1 1 rg
+BT
+/F2-1 8 Tf
+9.6 TL
+ET
+BT
+1 0 0 1 39 776.5 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+endstream
+endobj
+20 0 obj
+<<
+/Contents [ 21 0 R 22 0 R ]
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 7 0 R
+/F1-0 8 0 R
+/F2 9 0 R
+/F2-0 10 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+21 0 obj
+<<
+/Length 8027
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.078431 .14902 .239216 rg
+n 0 764.64 612 27.36 re f*
+BT /F2 7.5 Tf 9 TL ET
+1 1 1 rg
+BT 1 0 0 1 39.6 774.72 Tm (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.313725 .384314 .45098 rg
+BT 1 0 0 1 39.6 21.6 Tm (Production Baseline v1.0  |  EWO-MASS-APP-015-V02  |  2026-08-10) Tj T* ET
+BT 1 0 0 1 568.508 21.6 Tm (5) Tj T* ET
+.392157 .776471 .823529 RG
+1.4 w
+n 39.6 33.84 m 572.4 33.84 l S
+Q
+q
+1 0 0 1 45.6 724.24 cm
+q
+.078431 .14902 .239216 rg
+BT 1 0 0 1 0 3 Tm /F2 17 Tf 20 TL (4. Platform Gateways and Integrity) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 550.74 cm
+q
+1 1 1 rg
+n 0 148.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 132 482.4 -16.5 re f*
+1 1 1 rg
+n 0 115.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 99 482.4 -16.5 re f*
+1 1 1 rg
+n 0 82.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 66 482.4 -16.5 re f*
+1 1 1 rg
+n 0 49.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 33 482.4 -16.5 re f*
+1 1 1 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 165.5 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 152.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (GATEWAY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 152.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (CONSUMPTION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 152.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (FAILURE BEHAVIOR) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 136 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Plugin Registry) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 136 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (V01 manifest, version, digest, declarations) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 136 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Reject missing, unpublished or changed version) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 119.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Identity / Authorization) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 119.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Actor, role, scope and separation of duty) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 119.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Fail closed without grant expansion) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 103 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Workflow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 103 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Approval and execution coordination) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 103 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Pause and retain completed-step evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Event / Audit) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Outbox events and immutable evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 86.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Retry; lifecycle decision fails without durability) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Configuration) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Approved settings and secret references) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 70 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Block readiness; never copy secret values) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Deployment) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Owned environment execution) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 53.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Record failure; V02 never impersonates executor) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Entitlement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (License and entitlement evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Block activation when required evidence is invalid) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Lineage) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Package, plan, migration, rollback provenance) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Block irreversible transition when mandatory) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Administration / Security) Tj T* ET
+Q
+Q
+q
+1 0 0 1 95 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Published organization/security contracts) Tj T* ET
+Q
+Q
+q
+1 0 0 1 285.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Never fabricate unavailable contracts) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 165.5 m 482.4 165.5 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 165.5 l S
+n 482.4 0 m 482.4 165.5 l S
+n 0 148.5 m 482.4 148.5 l S
+n 0 132 m 482.4 132 l S
+n 0 115.5 m 482.4 115.5 l S
+n 0 99 m 482.4 99 l S
+n 0 82.5 m 482.4 82.5 l S
+n 0 66 m 482.4 66 l S
+n 0 49.5 m 482.4 49.5 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 90 0 m 90 165.5 l S
+n 280.8 0 m 280.8 165.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 528.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Database Enforcement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 423.74 cm
+q
+.090196 .419608 .529412 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 88 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 76 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Seventeen tenant-owned tables use UUID defaults, UNIQUE\(id, tenant_id\), composite tenant-safe foreign keys, and) Tj T* (auth.jwt\(\)-derived RLS.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 63 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 51 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Triggers prohibit requester self-approval, approval digest mismatch, destructive evidence mutation, and mutation of) Tj T* (decided plans and terminal operations.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 38 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 26 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Approval, migration checkpoint, rollback, removal, health, audit, and published event evidence is immutable at its) Tj T* (governing state.) Tj T* ET
+Q
+Q
+.090196 .419608 .529412 rg
+q
+1 0 0 1 0 13 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 3.4 Tm /F1 8.6 Tf 12 TL (-) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 11.52 1 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 15.4 Tm /F1 8.6 Tf 12 TL (Outbox payloads cannot be rewritten or deleted; publication time is the only allowed publication mutation before it) Tj T* (becomes fixed.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 45.6 401.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Migration Ownership) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 359.74 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 27.4 Tm /F1 8.6 Tf 12 TL (V02 owns installation metadata and configuration-schema coordination. Source applications and engines own their data. V02 stores only) Tj T* (owner, migration reference, checksum, preconditions, checkpoint, result, and compensation reference. Irreversible migrations require) Tj T* (explicit warning, approval, and recovery evidence.) Tj T* ET
+Q
+Q
+ 
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.078431 0.14902 0.239216 rg
+n
+0 764.64 612 27.36 re
+f*
+1 1 1 rg
+BT
+/F2-0 7.5 Tf
+9 TL
+ET
+BT
+1 0 0 1 39.6 774.72 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+endstream
+endobj
+22 0 obj
+<<
+/Length 148
+>>
+stream
+q
+0.0784 0.1490 0.2392 rg
+0 764.64 612 27.36 re f
+1 1 1 rg
+BT /F2 7.5 Tf 39.6 774.72 Td (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj ET
+Q
+
+endstream
+endobj
+23 0 obj
+<<
+/Contents 24 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 7 0 R
+/F1-0 8 0 R
+/F1-1 13 0 R
+/F2 9 0 R
+/F2-0 10 0 R
+/F2-1 14 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+24 0 obj
+<<
+/Length 8870
+>>
+stream
+q
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.078431 .14902 .239216 rg
+n 0 764.64 612 27.36 re f*
+BT /F2 7.5 Tf 9 TL ET
+1 1 1 rg
+BT 1 0 0 1 39.6 774.72 Tm (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.313725 .384314 .45098 rg
+BT 1 0 0 1 39.6 21.6 Tm (Production Baseline v1.0  |  EWO-MASS-APP-015-V02  |  2026-08-10) Tj T* ET
+BT 1 0 0 1 568.508 21.6 Tm (6) Tj T* ET
+.392157 .776471 .823529 RG
+1.4 w
+n 39.6 33.84 m 572.4 33.84 l S
+Q
+q
+1 0 0 1 45.6 724.24 cm
+q
+.078431 .14902 .239216 rg
+BT 1 0 0 1 0 3 Tm /F2 17 Tf 20 TL (5. Contract Surface and Constitutional Boundary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 566.74 cm
+q
+1 1 1 rg
+n 0 132.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 116 482.4 -16.5 re f*
+1 1 1 rg
+n 0 99.5 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 83 482.4 -25 re f*
+1 1 1 rg
+n 0 58 482.4 -25 re f*
+.956863 .968627 .980392 rg
+n 0 33 482.4 -16.5 re f*
+1 1 1 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 149.5 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 136.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (ACTION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 136.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (ENDPOINT) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 136.5 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (MINIMUM ROLE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 120 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Request) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 120 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (POST /plugin-installation-requests) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 120 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Installation Requester) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 103.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Resolve) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 103.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (POST /plugin-installation-requests/{id}/resolve) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 103.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Lifecycle Steward) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 87 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Approve / Reject) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 87 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (POST /plugin-installation-plans/{id}/{decision}) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 87 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Installation Approver) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 62 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 10.2 Tm /F1 6.8 Tf 8.5 TL (Install / Activate /) Tj T* (Suspend) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 70.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (POST /plugin-installations/{id}/{action}) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 70.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Plugin Operator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 37 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 10.2 Tm /F1 6.8 Tf 8.5 TL (Upgrade / Downgrade /) Tj T* (Rollback / Repair) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 45.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (POST /plugin-installations/{id}/{action}) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 45.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Plugin Operator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Remove) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (POST /plugin-installations/{id}/remove) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Plugin Operator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Inspect) Tj T* ET
+Q
+Q
+q
+1 0 0 1 87.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (GET /plugin-installations/{id}/{dependencies|health|history}) Tj T* ET
+Q
+Q
+q
+1 0 0 1 354.2 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Installation Viewer) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 149.5 m 482.4 149.5 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 149.5 l S
+n 482.4 0 m 482.4 149.5 l S
+n 0 132.5 m 482.4 132.5 l S
+n 0 116 m 482.4 116 l S
+n 0 99.5 m 482.4 99.5 l S
+n 0 83 m 482.4 83 l S
+n 0 58 m 482.4 58 l S
+n 0 33 m 482.4 33 l S
+n 0 16.5 m 482.4 16.5 l S
+n 82.8 0 m 82.8 149.5 l S
+n 349.2 0 m 349.2 149.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 45.6 544.74 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Mutation Contract) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 502.74 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 27.4 Tm /F1 8.6 Tf 12 TL (Mutation endpoints require Idempotency-Key, expected revision where applicable, actor authorization, and correlation identifiers.) Tj T* (Installation and rollback examples accompany this volume as machine-readable JSON. Events are written in the same transaction as) Tj T* (authoritative state changes.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 489.54 cm
+Q
+q
+1 0 0 1 64.8 394.54 cm
+q
+.078431 .14902 .239216 rg
+n 0 95 482.4 -95 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 16 74 cm
+q
+.392157 .776471 .823529 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (CONSTITUTIONAL BOUNDARY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 16 10 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 36 Tm /F1 8 Tf 11 TL (V02 may validate, plan, compare, recommend, coordinate an authorized lifecycle action, and preserve evidence. It cannot) Tj T* (expand privilege, install undeclared dependencies, self-approve, imply runtime execution authority, duplicate deployment) Tj T* (ownership, bypass license/security/privacy controls, remove another owner's data, suppress failures, or make an irreversible) Tj T* (change without the approved bound plan.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 45.6 381.58 cm
+Q
+q
+1 0 0 1 45.6 359.58 cm
+q
+.090196 .419608 .529412 rg
+BT 1 0 0 1 0 2.5 Tm /F2 11.5 Tf 14 TL (Artifact References) Tj T* ET
+Q
+Q
+q
+1 0 0 1 45.6 246.58 cm
+q
+1 1 1 rg
+n 0 91 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 74.5 482.4 -16.5 re f*
+1 1 1 rg
+n 0 58 482.4 -16.5 re f*
+.956863 .968627 .980392 rg
+n 0 41.5 482.4 -25 re f*
+1 1 1 rg
+n 0 16.5 482.4 -16.5 re f*
+.078431 .14902 .239216 rg
+n 0 108 482.4 -17 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 95 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (ARTIFACT) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 95 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 7 Tf 9 TL (PURPOSE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 78.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (MASS-APP-015-V02_Migration_Reference.sql) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 78.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Tenant-safe schema, RLS, triggers, immutable evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 62 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (MASS-APP-015-V02_Plugin_Lifecycle_State_Machine.mmd) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 62 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Complete lifecycle states and transition paths) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 45.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (MASS-APP-015-V02_Dependency_Resolution_Rules.md) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 45.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Deterministic edge, cycle, scope, and selection rules) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 20.5 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 10.2 Tm /F1 6.8 Tf 8.5 TL (MASS-APP-015-V02_Installation_and_Rollback_Contract_Examples.js) Tj T* (on) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 29 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Machine-readable request, plan, rollback, and result examples) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (MASS-APP-015-V02_API_Inventory.csv / Data_Model.csv) Tj T* ET
+Q
+Q
+q
+1 0 0 1 231.8 4 cm
+q
+.094118 .137255 .180392 rg
+BT 1 0 0 1 0 1.7 Tm /F1 6.8 Tf 8.5 TL (Contract and persistence inventories) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .839216 .87451 RG
+.35 w
+n 0 108 m 482.4 108 l S
+n 0 0 m 482.4 0 l S
+n 0 0 m 0 108 l S
+n 482.4 0 m 482.4 108 l S
+n 0 91 m 482.4 91 l S
+n 0 74.5 m 482.4 74.5 l S
+n 0 58 m 482.4 58 l S
+n 0 41.5 m 482.4 41.5 l S
+n 0 16.5 m 482.4 16.5 l S
+n 226.8 0 m 226.8 108 l S
+Q
+Q
+Q
+ 
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.078431 0.14902 0.239216 rg
+n
+0 764.64 612 27.36 re
+f*
+1 1 1 rg
+BT
+/F2-0 7.5 Tf
+9 TL
+ET
+BT
+1 0 0 1 39.6 774.72 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+q
+0.0784 0.1490 0.2392 rg
+0 764.64 612 27.36 re f
+1 1 1 rg
+BT /F2 7.5 Tf 39.6 774.72 Td (MASS HQ  /  APP-015 PLUGIN & CAPABILITY FRAMEWORK) Tj ET
+Q
+
+
+Q
+
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-1 12 Tf
+14.4 TL
+ET
+0.090196 0.168627 0.266667 rg
+n
+0 764.5 612 27.5 re
+f*
+1 1 1 rg
+BT
+/F2-1 8 Tf
+9.6 TL
+ET
+BT
+1 0 0 1 39 776.5 Tm
+(MASS HQ  \057  APP\055015 PLUGIN \046 CAPABILITY FRAMEWORK) Tj
+T*
+ET
+Q
+
+
+endstream
+endobj
+xref
+0 25
+0000000000 65535 f 
+0000000015 00000 n 
+0000000218 00000 n 
+0000000312 00000 n 
+0000000361 00000 n 
+0000000617 00000 n 
+0000004210 00000 n 
+0000004409 00000 n 
+0000004516 00000 n 
+0000004623 00000 n 
+0000004735 00000 n 
+0000004848 00000 n 
+0000005122 00000 n 
+0000013600 00000 n 
+0000013708 00000 n 
+0000013821 00000 n 
+0000014080 00000 n 
+0000023467 00000 n 
+0000023667 00000 n 
+0000023941 00000 n 
+0000031603 00000 n 
+0000031862 00000 n 
+0000039942 00000 n 
+0000040142 00000 n 
+0000040416 00000 n 
+trailer
+<<
+/Size 25
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+49339
+%%EOF

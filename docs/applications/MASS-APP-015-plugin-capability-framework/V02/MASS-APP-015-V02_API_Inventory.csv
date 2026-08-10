@@ -1,0 +1,22 @@
+Method,Path,Purpose,Minimum Role
+POST,/plugin-installation-requests,Request scoped installation,Installation Requester
+GET,/plugin-installation-requests/{id},Read request and findings,Installation Viewer
+POST,/plugin-installation-requests/{id}/resolve,Resolve prerequisites and dependencies,Lifecycle Steward
+GET,/plugin-installation-plans/{id},Read immutable plan,Installation Viewer
+POST,/plugin-installation-plans/{id}/approve,Approve bound plan,Installation Approver
+POST,/plugin-installation-plans/{id}/reject,Reject bound plan,Installation Approver
+POST,/plugin-installations/{id}/install,Execute approved installation,Plugin Operator
+GET,/plugin-installations/{id},Read installation state and evidence,Installation Viewer
+POST,/plugin-installations/{id}/activate,Activate installed plugin,Plugin Operator
+POST,/plugin-installations/{id}/suspend,Suspend active plugin,Plugin Operator
+POST,/plugin-installations/{id}/resume,Resume suspended plugin,Plugin Operator
+POST,/plugin-installations/{id}/upgrade,Execute approved upgrade,Plugin Operator
+POST,/plugin-installations/{id}/downgrade,Execute approved downgrade,Plugin Operator
+POST,/plugin-installations/{id}/rollback,Execute approved rollback,Plugin Operator
+POST,/plugin-installations/{id}/repair,Execute approved repair,Plugin Operator
+POST,/plugin-installations/{id}/remove,Execute approved safe removal,Plugin Operator
+GET,/plugin-installations/{id}/dependencies,Read resolved dependency graph,Installation Viewer
+GET,/plugin-installations/{id}/health,Read health and readiness findings,Installation Viewer
+GET,/plugin-installations/{id}/history,Read lifecycle audit history,Installation Viewer
+POST,/plugin-installations/{id}/orphan-analysis,Assess orphan candidates,Lifecycle Steward
+

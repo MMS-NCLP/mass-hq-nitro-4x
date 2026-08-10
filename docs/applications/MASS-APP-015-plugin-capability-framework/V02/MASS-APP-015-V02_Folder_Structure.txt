@@ -1,0 +1,22 @@
+docs/applications/MASS-APP-015-plugin-capability-framework/V02/
+|-- MASS-APP-015-V02_Plugin_Lifecycle_Installation_and_Dependency_Management.md
+|-- MASS-APP-015-V02_Plugin_Lifecycle_Installation_and_Dependency_Management.pdf
+|-- MASS-APP-015-V02_Architecture.mmd
+|-- MASS-APP-015-V02_Plugin_Lifecycle_State_Machine.mmd
+|-- MASS-APP-015-V02_Dependency_Resolution_Rules.md
+|-- MASS-APP-015-V02_Installation_and_Rollback_Contract_Examples.json
+|-- MASS-APP-015-V02_API_Inventory.csv
+|-- MASS-APP-015-V02_Data_Model.csv
+|-- MASS-APP-015-V02_Migration_Reference.sql
+`-- MASS-APP-015-V02_Manufacturing_Completion_Report.md
+
+Canonical application controls updated by V02:
+../V01/MASS_Build_Manifest.md
+../V01/MASS-APP-015_Revision_Log.md
+
+src/features/plugin-lifecycle/{api,application,domain,infrastructure}
+src/features/plugin-lifecycle/domain/{installation,dependency-resolution,lifecycle-operation,recovery}
+src/features/plugin-lifecycle/gateways/{plugin-registry,identity,authorization,workflow,event,audit,configuration,deployment,entitlement,lineage,administration,security-governance}-gateway.ts
+src/features/plugin-lifecycle/contracts/{installation,activation,suspension,upgrade,rollback,repair,removal}.ts
+src/features/plugin-lifecycle/workers/{lifecycle-executor,outbox-publisher,health-monitor}.ts
+supabase/migrations/APP-015/V02/MASS-APP-015-V02_Migration_Reference.sql

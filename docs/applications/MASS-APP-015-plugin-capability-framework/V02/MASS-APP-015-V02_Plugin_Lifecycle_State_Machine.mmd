@@ -1,0 +1,32 @@
+stateDiagram-v2
+  [*] --> requested: authorized request
+  requested --> planning: snapshot manifest and prerequisites
+  planning --> awaiting_approval: deterministic plan created
+  planning --> failed: unresolved required dependency or conflict
+  awaiting_approval --> approved: independent approval
+  awaiting_approval --> failed: rejection or expiry
+  approved --> installing: authorized install
+  installing --> installed: steps and readiness pass
+  installing --> recovery_required: partial failure
+  installed --> activating: authorized activation
+  activating --> active: grants, entitlement, health pass
+  activating --> recovery_required: gate or execution failure
+  active --> suspending: authorized suspension
+  suspending --> suspended: invocation blocked
+  suspended --> activating: authorized resume
+  active --> upgrading: approved target plan
+  suspended --> upgrading: approved target plan
+  upgrading --> active: upgrade health passes
+  upgrading --> rolling_back: approved rollback required
+  rolling_back --> active: prior version restored and healthy
+  rolling_back --> recovery_required: rollback failure
+  recovery_required --> repairing: authorized recovery plan
+  repairing --> installed: installation repaired
+  repairing --> active: active installation repaired
+  repairing --> failed: recovery exhausted
+  installed --> removing: authorized removal
+  suspended --> removing: authorized removal
+  failed --> removing: safe-removal plan
+  removing --> removed: evidence and tombstone retained
+  removed --> [*]
+

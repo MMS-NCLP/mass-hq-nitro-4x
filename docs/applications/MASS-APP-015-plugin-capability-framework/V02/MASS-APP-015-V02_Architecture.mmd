@@ -1,0 +1,19 @@
+flowchart LR
+  R["Authorized Requester"] --> API["Lifecycle API"]
+  API --> REG["V01 Plugin Registry Gateway"]
+  API --> PRE["Eligibility / Prerequisite Checks"]
+  REG --> RES["Deterministic Dependency Resolver"]
+  PRE --> RES
+  RES --> PLAN["Immutable Installation Plan"]
+  PLAN --> APPROVE["Independent Human Approval"]
+  APPROVE --> EXEC["Lifecycle Coordinator"]
+  EXEC --> CFG["Configuration Gateway"]
+  EXEC --> DEP["Deployment Gateway"]
+  EXEC --> MIG["Application-owned Migration Gateways"]
+  EXEC --> HEALTH["Health / Readiness Checks"]
+  HEALTH --> STATE["Tenant Installation State"]
+  STATE --> REC["Recovery / Rollback Coordinator"]
+  EXEC --> OUTBOX["Immutable Audit + Event Outbox"]
+  REC --> OUTBOX
+  STATE --> OUTBOX
+
