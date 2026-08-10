@@ -8,11 +8,14 @@ docs/applications/MASS-APP-015-plugin-capability-framework/V02/
 |-- MASS-APP-015-V02_API_Inventory.csv
 |-- MASS-APP-015-V02_Data_Model.csv
 |-- MASS-APP-015-V02_Migration_Reference.sql
-`-- MASS-APP-015-V02_Manufacturing_Completion_Report.md
 
 Canonical application controls updated by V02:
 ../V01/MASS_Build_Manifest.md
 ../V01/MASS-APP-015_Revision_Log.md
+
+Review submission:
+../../../../production/review/EWO-MASS-APP-015-V02.md
+../../../../production/review/EWO-MASS-APP-015-V02_Completion_Report.md
 
 src/features/plugin-lifecycle/{api,application,domain,infrastructure}
 src/features/plugin-lifecycle/domain/{installation,dependency-resolution,lifecycle-operation,recovery}
