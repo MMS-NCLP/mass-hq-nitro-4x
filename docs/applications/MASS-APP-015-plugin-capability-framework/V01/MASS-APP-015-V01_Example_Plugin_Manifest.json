@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "canonicalName": "mass.example.document-insight",
+  "displayName": "Document Insight",
+  "description": "Reference plugin manifest demonstrating the governed V01 declaration contract.",
+  "classification": "internal",
+  "publisher": {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "name": "MASS Platform Engineering",
+    "supportUrl": "https://mass-hq.example/support/document-insight"
+  },
+  "version": "1.0.0",
+  "compatibility": {
+    "massVersion": ">=1.0.0 <2.0.0",
+    "applications": [
+      {"kind": "required", "id": "MASS-APP-013", "versionRange": ">=1.0.0"}
+    ],
+    "engines": [
+      {"kind": "peer", "id": "ENG-009", "versionRange": ">=1.0.0"}
+    ]
+  },
+  "capabilities": [
+    {
+      "id": "document.insight.summarize",
+      "type": "tool",
+      "purpose": "Produce an authorized, cited summary of an existing document reference.",
+      "inputs": {"type": "object", "required": ["documentRef"], "properties": {"documentRef": {"type": "string"}}},
+      "outputs": {"type": "object", "required": ["summary", "citations"], "properties": {"summary": {"type": "string"}, "citations": {"type": "array"}}},
+      "errors": ["DOCUMENT_UNAVAILABLE", "AUTHORIZATION_DENIED", "LINEAGE_INCOMPLETE"],
+      "sideEffects": ["none"],
+      "permissions": ["documents.read", "lineage.read"],
+      "approval": "user_confirmation",
+      "entryPoint": "capability://document-insight/summarize/v1",
+      "timeoutMs": 30000,
+      "idempotent": true,
+      "consumedContracts": ["ENG-004.authorization.v1", "ENG-008.documents.v1", "ENG-027.lineage.v1"],
+      "documentation": {
+        "overview": "https://mass-hq.example/plugins/document-insight/capabilities/summarize",
+        "operation": "https://mass-hq.example/plugins/document-insight/operations/summarize",
+        "support": "https://mass-hq.example/support/document-insight"
+      },
+      "eventsProduced": ["document.insight.completed"],
+      "eventsConsumed": []
+    }
+  ],
+  "dependencies": [],
+  "permissions": ["documents.read", "lineage.read"],
+  "tenantEligibility": {
+    "installationScopes": ["organization", "workspace"],
+    "requiredEntitlements": ["mass.plugin.document-insight"]
+  },
+  "documentation": {
+    "overview": "https://mass-hq.example/plugins/document-insight",
+    "support": "https://mass-hq.example/support/document-insight",
+    "changelog": "https://mass-hq.example/plugins/document-insight/changelog"
+  },
+  "provenance": {
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "signatureRef": "sigstore://mass/document-insight/1.0.0",
+    "buildRef": "build://mass/document-insight/2026-08-11"
+  },
+  "deprecation": {"deprecated": false}
+}
+

@@ -6,6 +6,7 @@ docs/applications/MASS-APP-015-plugin-capability-framework/V01/
 |-- MASS-APP-015-V01_Data_Model.csv
 |-- MASS-APP-015-V01_Migration_Reference.sql
 |-- MASS-APP-015-V01_Plugin_Manifest.schema.json
+|-- MASS-APP-015-V01_Example_Plugin_Manifest.json
 |-- MASS-APP-015-V01_Capability_Type_Registry.csv
 |-- MASS_Build_Manifest.md
 `-- MASS-APP-015_Revision_Log.md

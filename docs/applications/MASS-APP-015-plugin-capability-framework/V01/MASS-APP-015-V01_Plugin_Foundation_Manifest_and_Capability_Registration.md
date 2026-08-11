@@ -69,7 +69,7 @@ Publishes `plugin.manifest.submitted`, `plugin.version.validated`, `plugin.versi
 
 ## 6. Manifest Contract
 
-The canonical JSON Schema accompanies this volume. A manifest includes canonical name, display name, plugin classification, publisher, version, compatibility range, capabilities, dependencies, entry points, permissions, tenant eligibility, documentation, support, signing provenance, deprecation, and replacement.
+The canonical JSON Schema accompanies this volume. A manifest includes canonical name, display name, plugin classification, publisher, version, compatibility range, capabilities, dependencies, entry points, permissions, tenant eligibility, documentation, support, signing provenance, deprecation, and replacement. `MASS-APP-015-V01_Example_Plugin_Manifest.json` is the validating machine-readable reference example.
 
 Canonical names use lowercase reverse-domain or approved MASS namespace tokens and are immutable after first publication. Versions use semantic versioning. Published manifest content is immutable; correction creates a new version.
 
