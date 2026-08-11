@@ -20,3 +20,5 @@ APP-014 Manufacturing Standard beginning with V05:
 - Every volume includes an explicit Role Mapping section mapped to the APP-014 baseline hierarchy.
 - Every volume includes an implementation-grade Migration Reference SQL file.
 - Production Markdown references the Migration Reference SQL file.
+
+Localized correction status: LCO-007-A applied to V15 under IRO-009 authorization (2026-08-11); synthesis requester self-approval is database-enforced.

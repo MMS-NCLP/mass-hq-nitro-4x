@@ -17,3 +17,4 @@
 - v1.0 V17 — Application Integration, Responsibility Closure & Production Readiness manufactured as Closure Candidate under EWO-MASS-APP-014-V17 (2026-08-03).
 - v1.1 V08–V12 — Consolidated LCO-004/LCO-005/LCO-006 manufacturing corrections: complete gateway folder inventories; V10–V12 Document Control; UUID defaults; tenant uniqueness; and `auth.jwt()` RLS normalization (2026-08-03).
 - v1.0 V02 - IRO-002 review: role mapping, SQL migration reference, Mermaid correction applied by Codex. Accepted (2026-08-03).
+- v1.1 V15 - LCO-007-A database-enforced prevention of requester self-approval for synthesis issuance, applied under IRO-009 authorization (2026-08-11).
