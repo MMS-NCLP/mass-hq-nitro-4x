@@ -1,7 +1,8 @@
 import { INTAKE_PATHS } from "./intake-service.mjs";
+import { PRIMARY_QUESTIONS } from "./guided-intake.mjs";
 
 export const intakeManifest = Object.freeze({
-  workOrderId: "TNGD-BP-002",
+  workOrderIds: Object.freeze(["TNGD-BP-002", "TNGD-BP-003"]),
   paths: Object.freeze(Object.values(INTAKE_PATHS)),
   questions: Object.freeze([
     "name",
@@ -22,5 +23,14 @@ export const intakeManifest = Object.freeze({
   persistence: Object.freeze({
     boundary: "in-memory",
     migrationLocation: "migrations"
+  }),
+  guidedIntake: Object.freeze({
+    primaryQuestionCount: PRIMARY_QUESTIONS.length,
+    questions: PRIMARY_QUESTIONS,
+    presentation: "one-at-a-time",
+    lifecycle: Object.freeze(["draft", "completed", "ready-for-bp004"]),
+    mediaKinds: Object.freeze(["photo", "voice-note"]),
+    autosave: "after-each-answer",
+    handoffTarget: "TNGD-BP-004"
   })
 });

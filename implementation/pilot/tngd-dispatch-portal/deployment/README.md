@@ -21,3 +21,5 @@ BP-000 does not select a cloud, container format, process manager, network endpo
 ## BP-002 Runtime State
 
 Customer and service-request records are currently process-local and are not durable across restarts. A deployment must not represent this boundary as durable storage until an authorized work order selects and validates a persistence provider and migration.
+
+BP-003 guided-intake drafts, autosaved answers, media references, and completed Intake Records share this process-local limitation. Deployment must not advertise cross-process resume or restart durability until an authorized persistence implementation passes the canonical gate.

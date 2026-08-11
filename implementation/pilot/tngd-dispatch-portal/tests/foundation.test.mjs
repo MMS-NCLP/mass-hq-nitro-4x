@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003"]
   );
   assert.equal(
     foundation.implementationRoot,
@@ -40,6 +40,17 @@ test("foundation records only exact BP-002 work-order responsibilities", () => {
     "eight-question-intake-foundation",
     "initial-customer-capture",
     "service-request-creation"
+  ]);
+});
+
+test("foundation records only exact BP-003 work-order responsibilities", () => {
+  assert.deepEqual(foundation.bp003FeatureScope, [
+    "eight-question-guided-intake",
+    "conditional-intake-rules",
+    "autosave-and-resume",
+    "intake-media-references",
+    "structured-intake-record",
+    "bp004-ready-handoff"
   ]);
 });
 

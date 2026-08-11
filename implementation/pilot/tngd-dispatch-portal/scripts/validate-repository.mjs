@@ -14,9 +14,16 @@ const requiredPaths = [
   "tests/foundation.test.mjs",
   "tests/security.test.mjs",
   "tests/intake.test.mjs",
+  "tests/guided-intake.test.mjs",
   "src/intake/index.mjs",
+  "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
   "src/intake/manifest.mjs",
+  "docs/bp003/QUESTIONNAIRE_AND_RULES.md",
+  "docs/bp003/DOMAIN_AND_DATA_MODEL.md",
+  "docs/bp003/API_INVENTORY.md",
+  "docs/bp003/PERMISSION_AUDIT_EVENT_MODEL.md",
+  "docs/bp003/REVISION_LOG.md",
   "src/security/audit-log.mjs",
   "src/security/index.mjs",
   "src/security/manifest.mjs",
@@ -24,6 +31,7 @@ const requiredPaths = [
   "src/security/portal-boundary.mjs",
   "src/security/secure-access.mjs",
   "migrations/README.md",
+  "migrations/TNGD-BP-003_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -66,9 +74,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000/BP-001/BP-002 tests.");
+  throw new Error("Test command must target canonical BP-000/BP-001/BP-002/BP-003 tests.");
 }
 
 const buildSource = await readFile(
@@ -114,6 +122,21 @@ if (!foundation.implementedPackages.includes("TNGD-BP-002")) {
   throw new Error("Foundation does not identify BP-002 as implemented.");
 }
 
+const exactBp003Scope = [
+  "eight-question-guided-intake",
+  "conditional-intake-rules",
+  "autosave-and-resume",
+  "intake-media-references",
+  "structured-intake-record",
+  "bp004-ready-handoff"
+];
+if (JSON.stringify(foundation.bp003FeatureScope) !== JSON.stringify(exactBp003Scope)) {
+  throw new Error("Foundation metadata expands or omits BP-003 authority.");
+}
+if (!foundation.implementedPackages.includes("TNGD-BP-003")) {
+  throw new Error("Foundation does not identify BP-003 as implemented.");
+}
+
 if (JSON.stringify(intakeManifest.paths) !== JSON.stringify(["repair", "estimate", "other-services"])) {
   throw new Error("Intake manifest does not expose exactly the three authorized paths.");
 }
@@ -134,6 +157,22 @@ if (JSON.stringify(intakeManifest.questions) !== JSON.stringify(exactIntakeQuest
 
 if (intakeManifest.persistence.boundary !== "in-memory") {
   throw new Error("BP-002 must not select an unauthorized persistence provider.");
+}
+
+if (
+  JSON.stringify(intakeManifest.workOrderIds) !==
+  JSON.stringify(["TNGD-BP-002", "TNGD-BP-003"])
+) {
+  throw new Error("Intake manifest work-order ownership is incorrect.");
+}
+if (
+  intakeManifest.guidedIntake.primaryQuestionCount !== 8 ||
+  intakeManifest.guidedIntake.questions.length !== 8 ||
+  intakeManifest.guidedIntake.presentation !== "one-at-a-time" ||
+  intakeManifest.guidedIntake.autosave !== "after-each-answer" ||
+  intakeManifest.guidedIntake.handoffTarget !== "TNGD-BP-004"
+) {
+  throw new Error("BP-003 manifest does not preserve the guided-intake contract.");
 }
 
 if (!securityManifest.capabilities.includes("password-recovery")) {
@@ -209,6 +248,47 @@ for (const evidenceName of [
   }
 }
 
+const guidedIntakeSource = await readFile(
+  new URL("../src/intake/guided-intake.mjs", import.meta.url),
+  "utf8"
+);
+for (const requiredBoundary of [
+  "PRIMARY_QUESTIONS",
+  "startAuthorized",
+  "answerAuthorized",
+  "resumeAuthorized",
+  "attachMediaAuthorized",
+  "completeAuthorized",
+  'permission: "intake.create"',
+  'permission: "intake.read"',
+  'status: "ready-for-bp004"',
+  'targetPackage: "TNGD-BP-004"',
+  '"photo", "voice-note"',
+  "originalEvidence",
+  "auditEventIds"
+]) {
+  if (!guidedIntakeSource.includes(requiredBoundary)) {
+    throw new Error(`BP-003 guided-intake boundary is missing: ${requiredBoundary}`);
+  }
+}
+
+const guidedIntakeTestSource = await readFile(
+  new URL("../tests/guided-intake.test.mjs", import.meta.url),
+  "utf8"
+);
+for (const evidenceName of [
+  "repair, estimate, and other-service paths produce BP-004-ready records",
+  "one-at-a-time questions enforce adaptive and conditional requirements",
+  "every answer autosaves and a session resumes at the next question",
+  "photo and voice-note references remain immutable original evidence",
+  "tenant and role enforcement prevent unauthorized guided-intake mutation",
+  "completed records retain user, source, timestamps, and valid audit history"
+]) {
+  if (!guidedIntakeTestSource.includes(evidenceName)) {
+    throw new Error(`Missing BP-003 evidence: ${evidenceName}`);
+  }
+}
+
 const environment = await readFile(
   new URL("../.env.example", import.meta.url),
   "utf8"
@@ -233,4 +313,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000/BP-001/BP-002 repository validation passed.\n");
+process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003 repository validation passed.\n");
