@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001
 Conveyor: Operational Manufacturing (Conveyor B)
-Status: Executive Authorized
+Status: Active Manufacturing
 
 ### Objective
 Manufacture the guided intake capability that converts the service-path selection from BP-002 into a complete, structured Intake Record using no more than eight primary questions.
@@ -85,3 +85,5 @@ Demonstrate:
 BP-003 is complete when an authorized administrative user can complete a guided service intake in eight primary questions or fewer and produce a standardized, auditable Intake Record ready for Customer Record and Service Case creation without manual restructuring or duplicate entry.
 
 Executive Authority: Approved for manufacturing after BP-001 and BP-002 dependency requirements are satisfied.
+
+Activation Authority: IRO-009 Executive Acceptance of BP-002 on 2026-08-11 satisfied the final dependency. Activation does not expand this work order's scope.
