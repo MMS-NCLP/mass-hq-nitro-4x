@@ -7,7 +7,7 @@
 - Conveyor: Operational Manufacturing (Conveyor B)
 - Manufacturing baseline: `7605c668820b2082da2c1f680f303279928d6b74`
 - Implementation commit: `2ccb62478d11b6a4e54b6b3d6c1fb9c00260a81b`
-- Status: Manufacturing complete; submitted for independent review
+- Status: Executive Accepted — Archived
 
 ## Authorized Scope Completed
 
@@ -45,5 +45,8 @@ The five BP-002 tests prove the three authorized paths, all eight required answe
 
 - No persistence provider, HTTP server, UI framework, deployment provider, scheduling, dispatch, job, or reporting behavior was introduced.
 - No APP-015 files, governance files, Jcode configuration, or `NC-Local-Pro-Project` content was modified.
-- TNGD-BP-003 and later pilot packages were not started.
-- The work order and this completion report are submitted to `production/pilot/review`.
+- TNGD-BP-003 and later pilot packages were not started during BP-002 manufacturing.
+
+## Executive Acceptance
+
+IRO-009 accepted the exact BP-002 implementation and evidence on 2026-08-11. The accepted work order and this report are archived in `production/pilot/done` under the forward-looking archival policy. This acceptance satisfies BP-003's BP-002 dependency without modifying BP-003 scope.
