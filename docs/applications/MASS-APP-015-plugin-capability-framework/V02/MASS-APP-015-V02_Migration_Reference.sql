@@ -76,7 +76,9 @@ CREATE TABLE plugin_installation (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(), tenant_id uuid NOT NULL,
   plan_id uuid NOT NULL, plugin_version_id uuid NOT NULL, manifest_digest text NOT NULL,
   scope_type text NOT NULL CHECK (scope_type IN ('organization','workspace','project','user')),
-  scope_id uuid NOT NULL, state text NOT NULL DEFAULT 'requested', revision bigint NOT NULL DEFAULT 1,
+  scope_id uuid NOT NULL, state text NOT NULL DEFAULT 'requested'
+    CHECK (state IN ('requested','planning','awaiting_approval','approved','installing','installed','activating','active','suspending','suspended','upgrading','rolling_back','repairing','removing','removed','recovery_required','failed')),
+  revision bigint NOT NULL DEFAULT 1,
   installed_at timestamptz, activated_at timestamptz, suspended_at timestamptz, removed_at timestamptz,
   created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(),
   UNIQUE (id, tenant_id), UNIQUE (tenant_id, plugin_version_id, scope_type, scope_id),
