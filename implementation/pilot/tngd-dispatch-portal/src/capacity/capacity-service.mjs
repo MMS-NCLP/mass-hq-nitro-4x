@@ -17,14 +17,14 @@ export class CapacityService {
     this.#secureAccess = secureAccess; this.#scheduling = schedulingService; this.#audit = auditLog; this.#now = now;
   }
 
-  configureProfileAuthorized({ sessionToken, tenantId, technicianId, serviceCapabilities, shifts, serviceAreas, travelRadiusMiles, dailyLimit, sameDayLimit, emergencyEnabled, equipment, vehicles }) {
+  configureProfileAuthorized({ sessionToken, tenantId, technicianId, serviceCapabilities, skills = [], shifts, serviceAreas, travelRadiusMiles, dailyLimit, sameDayLimit, emergencyEnabled, emergencyDailyLimit = 0, equipment, vehicles }) {
     const principal = this.#authorize(sessionToken, tenantId, `technician:${technicianId}:capacity`);
     if (!Array.isArray(shifts) || !shifts.length || Number(dailyLimit) < 1) throw new Error("Valid shifts and daily capacity are required.");
     const profile = frozen({ id: randomUUID(), tenantId, technicianId,
-      serviceCapabilities: [...new Set(serviceCapabilities ?? [])], shifts: structuredClone(shifts),
+      serviceCapabilities: [...new Set(serviceCapabilities ?? [])], skills: [...new Set(skills)], shifts: structuredClone(shifts),
       serviceAreas: [...new Set(serviceAreas ?? [])], travelRadiusMiles: Number(travelRadiusMiles ?? 0),
       dailyLimit: Number(dailyLimit), sameDayLimit: Number(sameDayLimit ?? dailyLimit),
-      emergencyEnabled: Boolean(emergencyEnabled), equipment: [...new Set(equipment ?? [])],
+      emergencyEnabled: Boolean(emergencyEnabled), emergencyDailyLimit: Number(emergencyDailyLimit), equipment: [...new Set(equipment ?? [])],
       vehicles: [...new Set(vehicles ?? [])], updatedBy: principal.id, updatedAt: this.#now().toISOString() });
     this.#profiles.set(`${tenantId}:${technicianId}`, profile);
     this.#event(principal, tenantId, technicianId, "TechnicianCapacityProfileConfigured"); return profile;
@@ -43,21 +43,24 @@ export class CapacityService {
     if (!String(reason || "").trim()) throw new Error("Capacity override requires a reason.");
     const override = frozen({ id: randomUUID(), tenantId, technicianId, date, additionalCapacity: Number(additionalCapacity), reason, authorId: principal.id, createdAt: this.#now().toISOString() });
     this.#overrides.set(`${tenantId}:${technicianId}:${date}`, override);
-    this.#event(principal, tenantId, technicianId, "CapacityOverrideAuthorized"); return override;
+    this.#event(principal, tenantId, technicianId, "CapacityOverrideAuthorized", { overrideId: override.id, date, additionalCapacity: override.additionalCapacity, reason: override.reason }); return override;
   }
 
-  calculateAuthorized({ sessionToken, tenantId, startsAt, endsAt, serviceType, serviceArea, requiredEquipment = [], requiredVehicle = null, emergency = false, sameDay = false, appointmentIds = [] }) {
+  calculateAuthorized({ sessionToken, tenantId, startsAt, endsAt, serviceType, serviceArea, travelDistanceMiles = 0, requiredSkills = [], requiredEquipment = [], requiredVehicle = null, emergency = false }) {
     const principal = this.#secureAccess.requirePermission({ sessionToken, tenantId, permission: "scheduling.manage", resourceId: "capacity:query" });
     const period = { startsAt: new Date(startsAt).toISOString(), endsAt: new Date(endsAt).toISOString() };
     if (period.startsAt >= period.endsAt) throw new Error("Valid capacity interval required.");
     const date = day(period.startsAt); const weekday = new Date(period.startsAt).getUTCDay();
-    const appointments = appointmentIds.map((appointmentId) => this.#scheduling.getAuthorized({ sessionToken, tenantId, appointmentId })).filter(Boolean);
+    const sameDay = date === day(this.#now().toISOString());
+    const appointments = this.#scheduling.listAuthorized({ sessionToken, tenantId });
     const candidates = [];
     for (const profile of this.#profiles.values()) {
       if (profile.tenantId !== tenantId) continue;
       const reasons = [];
       if (!profile.serviceCapabilities.includes(serviceType)) reasons.push("capability");
+      if (requiredSkills.some((item) => !profile.skills.includes(item))) reasons.push("skill");
       if (!profile.serviceAreas.includes(serviceArea)) reasons.push("service-area");
+      if (Number(travelDistanceMiles) > profile.travelRadiusMiles) reasons.push("travel-radius");
       if (emergency && !profile.emergencyEnabled) reasons.push("emergency");
       if (requiredVehicle && !profile.vehicles.includes(requiredVehicle)) reasons.push("vehicle");
       if (requiredEquipment.some((item) => !profile.equipment.includes(item))) reasons.push("equipment");
@@ -68,7 +71,8 @@ export class CapacityService {
       const assigned = appointments.filter((item) => item.technicianId === profile.technicianId || item.capacityReservationTechnicianId === profile.technicianId);
       if (assigned.some((item) => overlaps(period, item))) reasons.push("overlap");
       const override = this.#overrides.get(`${tenantId}:${profile.technicianId}:${date}`);
-      const limit = (sameDay ? profile.sameDayLimit : profile.dailyLimit) + Number(override?.additionalCapacity ?? 0);
+      const emergencyLimit = emergency ? profile.emergencyDailyLimit : Number.POSITIVE_INFINITY;
+      const limit = Math.min(sameDay ? profile.sameDayLimit : profile.dailyLimit, emergencyLimit) + Number(override?.additionalCapacity ?? 0);
       if (assigned.filter((item) => day(item.startsAt) === date).length >= limit) reasons.push("daily-capacity");
       candidates.push(frozen({ technicianId: profile.technicianId, available: reasons.length === 0, reasons, remainingCapacity: Math.max(0, limit - assigned.length), overrideId: override?.id ?? null }));
     }
@@ -78,5 +82,5 @@ export class CapacityService {
   }
 
   #authorize(sessionToken, tenantId, resourceId) { return this.#secureAccess.requirePermission({ sessionToken, tenantId, permission: "dispatch.manage", resourceId }); }
-  #event(principal, tenantId, technicianId, type) { this.#audit.append({ tenantId, principalId: principal.id, type, resource: `technician:${technicianId}`, action: "dispatch.manage", outcome: "granted" }); }
+  #event(principal, tenantId, technicianId, type, metadata = {}) { this.#audit.append({ tenantId, principalId: principal.id, type, resource: `technician:${technicianId}`, action: "dispatch.manage", outcome: "granted", metadata }); }
 }

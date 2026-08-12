@@ -93,6 +93,11 @@ export class SchedulingService {
     return value?.tenantId === tenantId ? value : null;
   }
 
+  listAuthorized({ sessionToken, tenantId }) {
+    this.#secureAccess.requirePermission({ sessionToken, tenantId, permission: "customers.read", resourceId: "appointments:list" });
+    return Object.freeze([...this.#appointments.values()].filter((value) => value.tenantId === tenantId));
+  }
+
   #assertNoConflict(tenantId, proposed, excludedId = null) {
     for (const appointment of this.#appointments.values()) {
       if (appointment.tenantId !== tenantId || appointment.id === excludedId) continue;
