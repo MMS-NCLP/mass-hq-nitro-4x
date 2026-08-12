@@ -7,7 +7,7 @@
 - Conveyor: Operational Manufacturing (Conveyor B)
 - Canonical manufacturing baseline: `677ab287ebfe847d3364bdaaa7fca77e97285e0f`
 - Implementation commit: `e16cd6b06896c818051245a4329be3465d01e9d5`
-- Status: Manufacturing complete — Submitted for Independent Review
+- Status: Executive Accepted — Pending archival to Pilot done
 
 ## Activation Authority
 
@@ -68,3 +68,7 @@ BP-003 remains process-local and non-durable because no database or migration pr
 ## Review Handoff
 
 The work order and this completion report are submitted together to `production/pilot/review` against implementation commit `e16cd6b06896c818051245a4329be3465d01e9d5`. Independent Acceptance must verify that exact committed artifact set and may not infer BP-004 manufacturing authority from the handoff envelope.
+
+## Executive Acceptance
+
+IRO-010 accepted the exact BP-003 implementation and evidence on 2026-08-11 with no localized corrections. Executive Authority accepted that disposition and released BP-004 for activation. The accepted package is archived under the forward-looking Pilot queue policy.
