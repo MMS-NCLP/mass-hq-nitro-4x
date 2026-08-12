@@ -6,7 +6,8 @@ export const foundation = Object.freeze({
     "TNGD-BP-000",
     "TNGD-BP-001",
     "TNGD-BP-002",
-    "TNGD-BP-003"
+    "TNGD-BP-003",
+    "TNGD-BP-004"
   ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
@@ -51,6 +52,15 @@ export const foundation = Object.freeze({
     "intake-media-references",
     "structured-intake-record",
     "bp004-ready-handoff"
+  ]),
+  bp004FeatureScope: Object.freeze([
+    "intake-to-customer-conversion",
+    "tenant-customer-matching",
+    "duplicate-customer-prevention",
+    "initial-service-case-creation",
+    "initial-customer-timeline",
+    "intake-evidence-preservation",
+    "bp005-ready-handoff"
   ])
 });
 

@@ -3,6 +3,7 @@ import { constants } from "node:fs";
 import { foundation } from "../src/foundation.mjs";
 import { securityManifest } from "../src/security/index.mjs";
 import { intakeManifest } from "../src/intake/index.mjs";
+import { customerCaseManifest } from "../src/customer/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -15,6 +16,7 @@ const requiredPaths = [
   "tests/security.test.mjs",
   "tests/intake.test.mjs",
   "tests/guided-intake.test.mjs",
+  "tests/customer-case.test.mjs",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -24,6 +26,14 @@ const requiredPaths = [
   "docs/bp003/API_INVENTORY.md",
   "docs/bp003/PERMISSION_AUDIT_EVENT_MODEL.md",
   "docs/bp003/REVISION_LOG.md",
+  "src/customer/index.mjs",
+  "src/customer/customer-case-service.mjs",
+  "src/customer/manifest.mjs",
+  "docs/bp004/DOMAIN_AND_DATA_MODEL.md",
+  "docs/bp004/API_INVENTORY.md",
+  "docs/bp004/CONVERSION_AND_DEDUPLICATION_RULES.md",
+  "docs/bp004/PERMISSION_AUDIT_EVENT_MODEL.md",
+  "docs/bp004/REVISION_LOG.md",
   "src/security/audit-log.mjs",
   "src/security/index.mjs",
   "src/security/manifest.mjs",
@@ -32,6 +42,7 @@ const requiredPaths = [
   "src/security/secure-access.mjs",
   "migrations/README.md",
   "migrations/TNGD-BP-003_REFERENCE.md",
+  "migrations/TNGD-BP-004_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -74,9 +85,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000/BP-001/BP-002/BP-003 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-004 tests.");
 }
 
 const buildSource = await readFile(
@@ -88,6 +99,9 @@ if (buildSource.includes("../src/secure-access.mjs")) {
 }
 if (!buildSource.includes("intake-manifest.json")) {
   throw new Error("Build does not generate the canonical BP-002 intake manifest.");
+}
+if (!buildSource.includes("customer-case-manifest.json")) {
+  throw new Error("Build does not generate the canonical BP-004 customer-case manifest.");
 }
 
 const requiredBp001Scope = [
@@ -135,6 +149,34 @@ if (JSON.stringify(foundation.bp003FeatureScope) !== JSON.stringify(exactBp003Sc
 }
 if (!foundation.implementedPackages.includes("TNGD-BP-003")) {
   throw new Error("Foundation does not identify BP-003 as implemented.");
+}
+
+const exactBp004Scope = [
+  "intake-to-customer-conversion",
+  "tenant-customer-matching",
+  "duplicate-customer-prevention",
+  "initial-service-case-creation",
+  "initial-customer-timeline",
+  "intake-evidence-preservation",
+  "bp005-ready-handoff"
+];
+if (JSON.stringify(foundation.bp004FeatureScope) !== JSON.stringify(exactBp004Scope)) {
+  throw new Error("Foundation metadata expands or omits BP-004 authority.");
+}
+if (!foundation.implementedPackages.includes("TNGD-BP-004")) {
+  throw new Error("Foundation does not identify BP-004 as implemented.");
+}
+
+if (
+  customerCaseManifest.workOrderId !== "TNGD-BP-004" ||
+  JSON.stringify(customerCaseManifest.capabilities) !== JSON.stringify(exactBp004Scope) ||
+  JSON.stringify(customerCaseManifest.entities) !==
+    JSON.stringify(["CustomerRecord", "ServiceCase", "CustomerTimeline"]) ||
+  customerCaseManifest.serviceCaseStatus !== "ready-for-scheduling" ||
+  customerCaseManifest.handoffTarget !== "TNGD-BP-005" ||
+  customerCaseManifest.persistence.boundary !== "in-memory"
+) {
+  throw new Error("BP-004 customer-case manifest does not match authority.");
 }
 
 if (JSON.stringify(intakeManifest.paths) !== JSON.stringify(["repair", "estimate", "other-services"])) {
@@ -206,6 +248,46 @@ for (const evidenceName of [
 ]) {
   if (!securityTestSource.includes(evidenceName)) {
     throw new Error(`Missing concurrency evidence: ${evidenceName}`);
+  }
+}
+
+const customerCaseSource = await readFile(
+  new URL("../src/customer/customer-case-service.mjs", import.meta.url),
+  "utf8"
+);
+for (const requiredBoundary of [
+  "convertAuthorized",
+  'permission: "customers.write"',
+  "getRecordAuthorized",
+  "#customerIdentityIndex",
+  'status: "ready-for-scheduling"',
+  'targetPackage: "TNGD-BP-005"',
+  "originalEvidence",
+  "auditEventIds"
+]) {
+  if (!customerCaseSource.includes(requiredBoundary)) {
+    throw new Error(`BP-004 customer-case boundary is missing: ${requiredBoundary}`);
+  }
+}
+for (const forbiddenBoundary of ["scheduledAt", "calendarEventId", "technicianId"]) {
+  if (customerCaseSource.includes(forbiddenBoundary)) {
+    throw new Error(`BP-004 improperly implements scheduling: ${forbiddenBoundary}`);
+  }
+}
+
+const customerCaseTestSource = await readFile(
+  new URL("../tests/customer-case.test.mjs", import.meta.url),
+  "utf8"
+);
+for (const evidenceName of [
+  "completed guided intake creates one governed customer, service case, timeline, and BP-005 handoff",
+  "repeat conversion is idempotent and does not create duplicate cases",
+  "matching email or phone reuses the tenant customer while creating a new service case",
+  "tenant boundaries and customer permissions govern conversion and reads",
+  "intake evidence remains immutable and scheduling behavior is not implemented"
+]) {
+  if (!customerCaseTestSource.includes(evidenceName)) {
+    throw new Error(`Missing BP-004 evidence: ${evidenceName}`);
   }
 }
 
@@ -313,4 +395,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003 repository validation passed.\n");
+process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003/BP-004 repository validation passed.\n");
