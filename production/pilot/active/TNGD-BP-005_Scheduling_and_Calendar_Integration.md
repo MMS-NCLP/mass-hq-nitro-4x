@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001
 Conveyor: Operational Manufacturing (Conveyor B)
-Status: Executive Authorized
+Status: Active Manufacturing
 
 ### Objective
 Manufacture the scheduling capability that converts an approved Service Case into a scheduled appointment while synchronizing with the organization's calendar.
@@ -35,3 +35,7 @@ Requires:
 A Service Case can be scheduled, synchronized with the approved calendar provider, conflict-checked, and prepared for technician dispatch without duplicate entry.
 
 Executive Authority: Approved for placement into production/pilot/inbox after dependency prerequisites (BP-001 through BP-004) are satisfied.
+
+### Activation Record
+
+BP-005 entered Active Manufacturing on 2026-08-12 after Executive Acceptance of BP-004 satisfied its dependency prerequisites. Activation authorizes only the exact BP-005 work-order scope. BP-006 remains blocked pending BP-005 Independent Review, Executive Acceptance, and renewed continuation approval for the next pilot batch.
