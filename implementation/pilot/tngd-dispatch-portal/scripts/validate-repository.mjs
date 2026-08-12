@@ -4,6 +4,7 @@ import { foundation } from "../src/foundation.mjs";
 import { securityManifest } from "../src/security/index.mjs";
 import { intakeManifest } from "../src/intake/index.mjs";
 import { customerCaseManifest } from "../src/customer/index.mjs";
+import { schedulingManifest } from "../src/scheduling/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -17,6 +18,7 @@ const requiredPaths = [
   "tests/intake.test.mjs",
   "tests/guided-intake.test.mjs",
   "tests/customer-case.test.mjs",
+  "tests/scheduling.test.mjs",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -34,6 +36,14 @@ const requiredPaths = [
   "docs/bp004/CONVERSION_AND_DEDUPLICATION_RULES.md",
   "docs/bp004/PERMISSION_AUDIT_EVENT_MODEL.md",
   "docs/bp004/REVISION_LOG.md",
+  "src/scheduling/index.mjs",
+  "src/scheduling/scheduling-service.mjs",
+  "src/scheduling/calendar-gateway.mjs",
+  "src/scheduling/manifest.mjs",
+  "docs/bp005/DOMAIN_AND_DATA_MODEL.md",
+  "docs/bp005/API_INVENTORY.md",
+  "docs/bp005/SCHEDULING_CALENDAR_RULES.md",
+  "docs/bp005/REVISION_LOG.md",
   "src/security/audit-log.mjs",
   "src/security/index.mjs",
   "src/security/manifest.mjs",
@@ -43,6 +53,7 @@ const requiredPaths = [
   "migrations/README.md",
   "migrations/TNGD-BP-003_REFERENCE.md",
   "migrations/TNGD-BP-004_REFERENCE.md",
+  "migrations/TNGD-BP-005_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -85,7 +96,7 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
   throw new Error("Test command must target canonical BP-000 through BP-004 tests.");
 }
@@ -103,6 +114,7 @@ if (!buildSource.includes("intake-manifest.json")) {
 if (!buildSource.includes("customer-case-manifest.json")) {
   throw new Error("Build does not generate the canonical BP-004 customer-case manifest.");
 }
+if (!buildSource.includes("scheduling-manifest.json")) throw new Error("Build does not generate BP-005 scheduling manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -166,6 +178,9 @@ if (JSON.stringify(foundation.bp004FeatureScope) !== JSON.stringify(exactBp004Sc
 if (!foundation.implementedPackages.includes("TNGD-BP-004")) {
   throw new Error("Foundation does not identify BP-004 as implemented.");
 }
+const exactBp005Scope = ["appointment-creation", "calendar-synchronization", "conflict-detection", "rescheduling", "dispatch-readiness", "scheduling-audit"];
+if (JSON.stringify(foundation.bp005FeatureScope) !== JSON.stringify(exactBp005Scope) || !foundation.implementedPackages.includes("TNGD-BP-005")) throw new Error("Foundation BP-005 authority is incorrect.");
+if (JSON.stringify(schedulingManifest.capabilities) !== JSON.stringify(exactBp005Scope) || schedulingManifest.handoffTarget !== "TNGD-BP-006" || schedulingManifest.calendarBoundary !== "approved-provider-gateway") throw new Error("BP-005 scheduling manifest is incorrect.");
 
 if (
   customerCaseManifest.workOrderId !== "TNGD-BP-004" ||
@@ -291,6 +306,13 @@ for (const evidenceName of [
   }
 }
 
+const schedulingSource = await readFile(new URL("../src/scheduling/scheduling-service.mjs", import.meta.url), "utf8");
+for (const boundary of ["scheduleAuthorized", "rescheduleAuthorized", 'permission: "scheduling.manage"', "#assertNoConflict", 'status: "scheduled"', 'technicianAssignmentStatus: "ready-for-bp006"', 'targetPackage: "TNGD-BP-006"']) if (!schedulingSource.includes(boundary)) throw new Error(`BP-005 boundary missing: ${boundary}`);
+for (const forbidden of ["assignTechnician", "optimizeRoute", "dispatchAuthorized"]) if (schedulingSource.includes(forbidden)) throw new Error(`BP-005 improperly implements BP-006: ${forbidden}`);
+
+const schedulingTests = await readFile(new URL("../tests/scheduling.test.mjs", import.meta.url), "utf8");
+for (const evidence of ["creates one synchronized BP-006-ready appointment", "idempotent per tenant Service Case", "overlapping tenant appointments are rejected", "rescheduling updates the same calendar event", "technicians cannot schedule and BP-006 dispatch is not implemented"]) if (!schedulingTests.includes(evidence)) throw new Error(`Missing BP-005 evidence: ${evidence}`);
+
 const portalSource = await readFile(
   new URL("../src/security/portal-boundary.mjs", import.meta.url),
   "utf8"
@@ -395,4 +417,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003/BP-004 repository validation passed.\n");
+process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003/BP-004/BP-005 repository validation passed.\n");

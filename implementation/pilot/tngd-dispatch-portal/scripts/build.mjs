@@ -3,6 +3,7 @@ import { foundation } from "../src/foundation.mjs";
 const { securityManifest } = await import("../src/security/index.mjs");
 const { intakeManifest } = await import("../src/intake/index.mjs");
 const { customerCaseManifest } = await import("../src/customer/index.mjs");
+const { schedulingManifest } = await import("../src/scheduling/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -29,6 +30,8 @@ await writeFile(
   "utf8"
 );
 
+await writeFile(new URL("../dist/scheduling-manifest.json", import.meta.url), `${JSON.stringify(schedulingManifest, null, 2)}\n`, "utf8");
+
 process.stdout.write(
-  "Built foundation, security, intake, and customer-case manifests\n"
+  "Built foundation, security, intake, customer-case, and scheduling manifests\n"
 );
