@@ -6,7 +6,7 @@
 |---|---|
 | Work Order | TNGD-BP-004 |
 | Title | Customer Record and Service Case Creation |
-| Status | Submitted for Independent Review |
+| Status | Executive Accepted — Archived |
 | Artifact Commit | `1fffbca02a1507fa0c53da43a538850b83574f68` |
 | Manufacturing Date | 2026-08-11 |
 
@@ -65,6 +65,6 @@ BP-004 does not schedule appointments, select technicians, create calendar recor
 
 ## Queue Disposition
 
-The work order and this report are ready to move from `production/pilot/active` to `production/pilot/review`. Independent Review and Executive Acceptance remain required before BP-005 activation.
+IRO-011 independently accepted the exact BP-004 artifact set at review head `f5014712e3d8e3858ba455a4546e7900254fd3aa`, found no defects, and recommended Executive Acceptance. Executive Authority formally accepted BP-004 on 2026-08-12. The work order and this report are archived together in `production/pilot/done` under the forward-looking archival policy.
 
-Batch position after manufacturing: 5 of 6 packages manufactured in the current pilot cadence.
+Batch position after acceptance: 5 of 6 packages accepted/manufactured in the current pilot cadence. BP-005 may proceed as the sixth package; BP-006 remains blocked pending renewed continuation approval.
