@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001
 Conveyor: Operational Manufacturing (Conveyor B)
-Status: Executive Authorized
+Status: Active Manufacturing
 
 ### Objective
 Create the technician availability and capacity layer required to convert service cases and appointment requests into assignable field work.
@@ -62,3 +62,7 @@ Demonstrate shift setup, PTO blocking, blackout dates, capability filtering, ser
 
 ### Completion Criteria
 BP-006 is complete when authorized users can maintain reliable technician availability and the system can calculate auditable, conflict-free capacity for scheduling and dispatch.
+
+### Activation Record
+
+BP-006 entered Active Manufacturing under renewed Executive continuation approval after BP-005 completed Independent Review and Executive Acceptance. Its canonical inbox work order was dependency-ready, Pilot Active was empty, and repository authority contained no newer blocker. Activation authorizes only this exact work-order scope; BP-007 and later packages remain unauthorized unless separately present and approved in the canonical queue.
