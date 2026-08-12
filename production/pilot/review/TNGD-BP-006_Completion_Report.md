@@ -5,7 +5,7 @@
 | Work Order | TNGD-BP-006 |
 | Title | Technician Availability and Capacity |
 | Status | Submitted for Independent Review |
-| Artifact Commit | `2a7f55a` |
+| Artifact Commit | `2a7f55a`; corrected by BP-006.1 commit `1ff670e` |
 | Manufacturing Date | 2026-08-12 |
 
 ## Manufactured Scope
@@ -24,7 +24,7 @@ BP-006 creates governed technician availability profiles, recurring shifts, capa
 
 - `npm.cmd run check`: exit 0
 - Build: passed
-- Tests: 47 passed; 0 failed, skipped, cancelled, or todo
+- Tests after BP-006.1: 49 passed; 0 failed, skipped, cancelled, or todo
 - Validator: `Canonical BP-000/BP-001/BP-002/BP-003/BP-004/BP-005/BP-006 repository validation passed.`
 - `git diff --check`: passed
 
