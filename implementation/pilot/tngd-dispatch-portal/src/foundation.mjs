@@ -8,7 +8,8 @@ export const foundation = Object.freeze({
     "TNGD-BP-002",
     "TNGD-BP-003",
     "TNGD-BP-004",
-    "TNGD-BP-005"
+    "TNGD-BP-005",
+    "TNGD-BP-006"
   ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
@@ -70,6 +71,14 @@ export const foundation = Object.freeze({
     "rescheduling",
     "dispatch-readiness",
     "scheduling-audit"
+  ]),
+  bp006FeatureScope: Object.freeze([
+    "technician-availability-profiles",
+    "capacity-calculation",
+    "availability-exceptions",
+    "temporary-capacity-overrides",
+    "capability-and-area-filtering",
+    "bp005-bp007-capacity-handoff"
   ])
 });
 

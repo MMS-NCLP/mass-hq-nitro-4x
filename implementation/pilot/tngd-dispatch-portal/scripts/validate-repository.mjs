@@ -5,6 +5,7 @@ import { securityManifest } from "../src/security/index.mjs";
 import { intakeManifest } from "../src/intake/index.mjs";
 import { customerCaseManifest } from "../src/customer/index.mjs";
 import { schedulingManifest } from "../src/scheduling/index.mjs";
+import { capacityManifest } from "../src/capacity/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -19,6 +20,7 @@ const requiredPaths = [
   "tests/guided-intake.test.mjs",
   "tests/customer-case.test.mjs",
   "tests/scheduling.test.mjs",
+  "tests/capacity.test.mjs",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -44,6 +46,8 @@ const requiredPaths = [
   "docs/bp005/API_INVENTORY.md",
   "docs/bp005/SCHEDULING_CALENDAR_RULES.md",
   "docs/bp005/REVISION_LOG.md",
+  "src/capacity/index.mjs", "src/capacity/capacity-service.mjs", "src/capacity/manifest.mjs",
+  "docs/bp006/DOMAIN_AND_DATA_MODEL.md", "docs/bp006/API_INVENTORY.md", "docs/bp006/PERMISSION_MATRIX.md", "docs/bp006/CAPACITY_CALCULATION_RULES.md", "docs/bp006/AUDIT_AND_EVENT_MODEL.md", "docs/bp006/REVISION_LOG.md",
   "src/security/audit-log.mjs",
   "src/security/index.mjs",
   "src/security/manifest.mjs",
@@ -54,6 +58,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-003_REFERENCE.md",
   "migrations/TNGD-BP-004_REFERENCE.md",
   "migrations/TNGD-BP-005_REFERENCE.md",
+  "migrations/TNGD-BP-006_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -96,7 +101,7 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
   throw new Error("Test command must target canonical BP-000 through BP-004 tests.");
 }
@@ -115,6 +120,7 @@ if (!buildSource.includes("customer-case-manifest.json")) {
   throw new Error("Build does not generate the canonical BP-004 customer-case manifest.");
 }
 if (!buildSource.includes("scheduling-manifest.json")) throw new Error("Build does not generate BP-005 scheduling manifest.");
+if (!buildSource.includes("capacity-manifest.json")) throw new Error("Build does not generate BP-006 capacity manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -181,6 +187,9 @@ if (!foundation.implementedPackages.includes("TNGD-BP-004")) {
 const exactBp005Scope = ["appointment-creation", "calendar-synchronization", "conflict-detection", "rescheduling", "dispatch-readiness", "scheduling-audit"];
 if (JSON.stringify(foundation.bp005FeatureScope) !== JSON.stringify(exactBp005Scope) || !foundation.implementedPackages.includes("TNGD-BP-005")) throw new Error("Foundation BP-005 authority is incorrect.");
 if (JSON.stringify(schedulingManifest.capabilities) !== JSON.stringify(exactBp005Scope) || schedulingManifest.handoffTarget !== "TNGD-BP-006" || schedulingManifest.calendarBoundary !== "approved-provider-gateway") throw new Error("BP-005 scheduling manifest is incorrect.");
+const exactBp006Scope = ["technician-availability-profiles", "capacity-calculation", "availability-exceptions", "temporary-capacity-overrides", "capability-and-area-filtering", "bp005-bp007-capacity-handoff"];
+if (JSON.stringify(foundation.bp006FeatureScope) !== JSON.stringify(exactBp006Scope) || !foundation.implementedPackages.includes("TNGD-BP-006")) throw new Error("Foundation BP-006 authority is incorrect.");
+if (capacityManifest.workOrderId !== "TNGD-BP-006" || !capacityManifest.consumers.includes("TNGD-BP-007")) throw new Error("BP-006 capacity manifest is incorrect.");
 
 if (
   customerCaseManifest.workOrderId !== "TNGD-BP-004" ||
@@ -313,6 +322,12 @@ for (const forbidden of ["assignTechnician", "optimizeRoute", "dispatchAuthorize
 const schedulingTests = await readFile(new URL("../tests/scheduling.test.mjs", import.meta.url), "utf8");
 for (const evidence of ["creates one synchronized BP-006-ready appointment", "idempotent per tenant Service Case", "overlapping tenant appointments are rejected", "rescheduling updates the same calendar event", "technicians cannot schedule and BP-006 dispatch is not implemented"]) if (!schedulingTests.includes(evidence)) throw new Error(`Missing BP-005 evidence: ${evidence}`);
 
+const capacitySource = await readFile(new URL("../src/capacity/capacity-service.mjs", import.meta.url), "utf8");
+for (const boundary of ["configureProfileAuthorized", "addExceptionAuthorized", "addOverrideAuthorized", "calculateAuthorized", 'permission: "dispatch.manage"', 'permission: "scheduling.manage"', 'dispatch: "TNGD-BP-007"']) if (!capacitySource.includes(boundary)) throw new Error(`BP-006 boundary missing: ${boundary}`);
+for (const forbidden of ["assignTechnicianAuthorized", "routeOptimization", "dispatchBoard"]) if (capacitySource.includes(forbidden)) throw new Error(`BP-006 improperly implements BP-007: ${forbidden}`);
+const capacityTests = await readFile(new URL("../tests/capacity.test.mjs", import.meta.url), "utf8");
+for (const evidence of ["shift setup exposes service-capable capacity", "PTO and blackout dates block capacity", "capability, service area, equipment, vehicle, and emergency requirements", "same-day limits and overlapping assignments", "authorized reasoned override increases temporary capacity", "tenant and role enforcement prevent technician capacity administration"]) if (!capacityTests.includes(evidence)) throw new Error(`Missing BP-006 evidence: ${evidence}`);
+
 const portalSource = await readFile(
   new URL("../src/security/portal-boundary.mjs", import.meta.url),
   "utf8"
@@ -417,4 +432,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003/BP-004/BP-005 repository validation passed.\n");
+process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003/BP-004/BP-005/BP-006 repository validation passed.\n");
