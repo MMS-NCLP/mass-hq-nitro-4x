@@ -4,7 +4,7 @@
 |---|---|
 | Work Order | TNGD-BP-005 |
 | Title | Scheduling and Calendar Integration |
-| Status | Submitted for Independent Review |
+| Status | Executive Accepted — Archived |
 | Artifact Commit | `1cace1a` |
 | Manufacturing Date | 2026-08-12 |
 
@@ -36,4 +36,6 @@ BP-005 does not assign technicians, calculate capacity, optimize routes, operate
 
 ## Batch Disposition
 
-This is package 6 of 6 in the authorized pilot cadence. Production stops after submission to `production/pilot/review`.
+IRO-012 independently accepted the exact BP-005 artifact set at review head `a87cbcefbdc5bd6177b10a0e2eb5e95a9868f696`, found no defects, and recommended Executive Acceptance. Executive Authority formally accepted BP-005 and granted renewed continuation approval for the next Pilot batch. The work order and this report are archived together in `production/pilot/done`.
+
+This is package 6 of 6 in the completed pilot manufacturing cadence covering BP-000 through BP-005. BP-006 may be activated only from its canonical inbox work order and remains subject to its own manufacturing, Independent Review, and Executive Acceptance gates.
