@@ -103,7 +103,7 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 const canonicalTestCommand =
   "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-004 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-006 tests.");
 }
 
 const buildSource = await readFile(
@@ -327,6 +327,36 @@ for (const boundary of ["configureProfileAuthorized", "addExceptionAuthorized", 
 for (const forbidden of ["assignTechnicianAuthorized", "routeOptimization", "dispatchBoard"]) if (capacitySource.includes(forbidden)) throw new Error(`BP-006 improperly implements BP-007: ${forbidden}`);
 const capacityTests = await readFile(new URL("../tests/capacity.test.mjs", import.meta.url), "utf8");
 for (const evidence of ["shift setup exposes service-capable capacity", "PTO and blackout dates block capacity", "capability, service area, equipment, vehicle, and emergency requirements", "same-day limits and overlapping assignments", "authorized reasoned override increases temporary capacity", "tenant and role enforcement prevent technician capacity administration"]) if (!capacityTests.includes(evidence)) throw new Error(`Missing BP-006 evidence: ${evidence}`);
+
+for (const correctedBoundary of [
+  "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
+  'governedDistance(travelDistanceMiles, "Travel distance")',
+  'governedCapacityInteger(dailyLimit, "Daily capacity", 1)',
+  'governedCapacityInteger(sameDayLimit, "Same-day capacity")',
+  'governedCapacityInteger(emergencyDailyLimit, "Emergency capacity")',
+  'governedCapacityInteger(additionalCapacity, "Override capacity")',
+  "const assignedOnDate = assigned.filter",
+  "limit - assignedOnDate.length",
+  "overrideId: override.id",
+  "additionalCapacity: override.additionalCapacity",
+  "reason: override.reason"
+]) {
+  if (!capacitySource.includes(correctedBoundary)) {
+    throw new Error(`Missing BP-006.2 corrected boundary: ${correctedBoundary}`);
+  }
+}
+
+for (const correctedEvidence of [
+  "partial-day exceptions block only overlapping intervals",
+  "governed travel input rejects omission and invalid distances",
+  "remaining capacity counts only appointments on the requested date",
+  "capacity and override amounts reject malformed or ungoverned numeric values",
+  "authorized reasoned override increases temporary capacity and remains auditable"
+]) {
+  if (!capacityTests.includes(correctedEvidence)) {
+    throw new Error(`Missing BP-006.2 correction evidence: ${correctedEvidence}`);
+  }
+}
 
 const portalSource = await readFile(
   new URL("../src/security/portal-boundary.mjs", import.meta.url),
