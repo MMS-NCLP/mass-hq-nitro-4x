@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001  
 Conveyor: Operational Manufacturing (Conveyor B)  
-Status: Executive Authorized — Dependency Gated Pilot Inbox
+Status: Active Manufacturing
 
 ### Authority
 
@@ -161,3 +161,7 @@ No package beyond BP-012 is authorized by this work order.
 Manufacturing doctrine:
 
 Build what we approved. Improve what we learn. Defer what we imagine.
+
+### Activation Record
+
+BP-012 entered Active Manufacturing on 2026-08-15 from canonical authority commit `5c750f9c4e3b0acc9d01346456ccf3880224ffd5`. BP-007 through BP-011 have committed their required operational contracts, Pilot Active was empty, and no repository-authorized architecture-critical dependency defect was present. BP-013 through BP-015 remain in Pilot Inbox, preserving three future authorized Work Orders. This activation does not authorize warranty adjudication, customer follow-up delivery, later-package behavior, or the deferred detailed garage-door order form.
