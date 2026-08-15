@@ -15,7 +15,7 @@
 
 ## 1. Purpose and Authority Boundary
 
-This record preserves approved operational requirements for incorporation into the correct future pilot Engineering Work Orders before TNGD-BP-007 and TNGD-BP-008 are manufactured.
+This record preserves approved operational requirements for incorporation into the correct future pilot Engineering Work Orders. Package ownership is reconciled by TNGD-PILOT-PACKAGE-SEQUENCE-RECONCILIATION-001: technician diagnostic requirements belong to BP-008 and repair/estimate execution requirements belong to BP-009.
 
 This record is planning and requirements authority only. It is not an Engineering Work Order, does not authorize manufacturing, does not alter dependency order, and does not expand the scope of TNGD-BP-001 or any other existing work order.
 
@@ -78,6 +78,6 @@ It shall not be introduced into the current pilot without a later approved Engin
 
 ## 8. Required Future Incorporation
 
-Before TNGD-BP-007 and TNGD-BP-008 are manufactured, their approved repository work orders—or other correctly scoped prerequisite work orders—must incorporate these requirements with explicit ownership, dependencies, acceptance evidence, and source-of-truth boundaries.
+Before TNGD-BP-008 and TNGD-BP-009 are manufactured, their approved repository work orders must incorporate these requirements with explicit ownership, dependencies, acceptance evidence, and source-of-truth boundaries.
 
 No participant may manufacture these requirements directly from this record.
