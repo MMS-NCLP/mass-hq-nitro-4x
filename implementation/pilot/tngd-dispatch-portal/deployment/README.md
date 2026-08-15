@@ -23,3 +23,5 @@ BP-000 does not select a cloud, container format, process manager, network endpo
 Customer and service-request records are currently process-local and are not durable across restarts. A deployment must not represent this boundary as durable storage until an authorized work order selects and validates a persistence provider and migration.
 
 BP-003 guided-intake drafts, autosaved answers, media references, and completed Intake Records share this process-local limitation. Deployment must not advertise cross-process resume or restart durability until an authorized persistence implementation passes the canonical gate.
+
+BP-011 requires deployment-managed Square credentials and webhook-verification secrets. These enter only the governed gateway environment and must never be persisted in invoice, transaction, audit, or customer-access records. Live Square and database validation remains deferred until those runtimes are explicitly configured.

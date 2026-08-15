@@ -1,0 +1,3 @@
+# TNGD-BP-011 Migration Reference
+
+Production persistence shall create tenant-keyed invoice, invoice-version, line-item, attachment-reference, payment-intent-reference, transaction-reference, webhook-receipt, refund-reference, receipt-reference, exception, and financial-history tables. Composite `(id, tenant_id)` uniqueness and foreign keys, row-level tenant policies, immutable finalized-version/evidence triggers, non-negative integer-cent checks, valid total/deposit checks, unique `(tenant_id, idempotency_key)` and `(tenant_id, provider_event_id)` constraints, and append-only audit integration are mandatory. Prohibited card credential columns are forbidden. This is a provider-neutral reference; no unapproved database runtime is selected.

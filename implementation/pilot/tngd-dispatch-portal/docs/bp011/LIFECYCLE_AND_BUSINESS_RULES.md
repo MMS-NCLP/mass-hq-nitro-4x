@@ -1,0 +1,3 @@
+# BP-011 Lifecycle and Business Rules
+
+Invoices move from `draft` to `finalized`; finalized content is immutable and correction requires a later version. Payment state moves from `not-started` to `pending`, then provider-evidenced `paid`, `failed`, `disputed`, `refund-pending`, or `refunded`. Webhook authenticity is verified before state change and provider event identifiers enforce idempotency. MASS remains authoritative for invoice and operational payment state; Square remains authoritative for processing. Failures, mismatches, disputes, and refunds yield BP-012-ready references, not reconciliation resolution.
