@@ -6,7 +6,7 @@
 |---|---|
 | Project | MASS-TNGD-PILOT-001 |
 | Package | TNGD-BP-008 |
-| Status | Executive Authorized — Active Correction |
+| Status | Submitted for Renewed Independent Review |
 | Authority | Executive Authority; MPD-002 |
 | Blocking Chain | BP-009 and successors |
 | Source Finding | ATTENTION-20260815-MASS-PILOT-BP008-INCOMPLETE-CANONICAL-ARTIFACT |
@@ -66,3 +66,7 @@ Run against the exact recovered canonical candidate:
 - BP-010 and later remain untouched.
 
 No architectural redesign or scope expansion is authorized.
+
+## Review Submission Record
+
+The exact recoverable BP-008 artifact set was committed at `5a07b8fad9e83973b364dc8cc40c04b7bcd0a0c8`. Working-tree and independently assembled clean-tree gates each passed all 74 tests and canonical validation through BP-008. The correction order and report entered Pilot Review on 2026-08-15. BP-009 was not manufactured in the recovery commit.

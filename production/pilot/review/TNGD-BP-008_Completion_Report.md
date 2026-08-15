@@ -7,6 +7,7 @@
 | Status | Submitted for Independent Review |
 | Activation Commit | `f8c6896405d80df5a23c0b423b4180798c60be73` |
 | Artifact Commit | `2d07a03910d07b9c6aa3b455719faa18ce115b76` |
+| Canonical Recovery Commit | `5a07b8fad9e83973b364dc8cc40c04b7bcd0a0c8` |
 | Manufacturing Date | 2026-08-14 |
 
 ## Manufactured Scope
@@ -46,4 +47,10 @@ No repair or estimate creation, estimate-to-job conversion, customer authorizati
 
 ## Queue Disposition
 
-BP-008 is submitted to `production/pilot/review` for Independent Review. BP-009 remains unauthorized and no later package was activated.
+BP-008 and BP-008.1 are submitted to `production/pilot/review` for renewed Independent Review. Under MPD-002, BP-009 may consume recovery commit `5a07b8fad9e83973b364dc8cc40c04b7bcd0a0c8` provisionally while review proceeds because both complete validation gates passed and no architecture-critical defect remains.
+
+## BP-008.1 Canonical Recovery Evidence
+
+The original artifact commit omitted executable files that were present in the validated manufacturing workspace. TNGD-BP-008.1 recovered only the exact BP-008 stash-backed files and committed them at `5a07b8fad9e83973b364dc8cc40c04b7bcd0a0c8`. The eight BP-008 documents and build integration already present in canonical history matched the recovery stash and were not rewritten.
+
+Both the recovered working candidate and a separately assembled clean tree passed `npm.cmd run check`: build passed, all 74 tests passed with zero failures or skips, and the validator printed `Canonical BP-000 through BP-008 repository validation passed.` Canonical blob verification confirmed every restored file at the recovery commit. Module syntax/resolution, `git diff --check`, inventory comparison, and the explicit forbidden-scope scan passed. No BP-009 behavior or detailed garage-door order form was restored.
