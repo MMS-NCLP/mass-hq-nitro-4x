@@ -26,6 +26,10 @@ A canonical `main` inventory after BP-009 activation found that BP-008 artifact 
 
 The completion report states that the full gate passed with 74 tests, but that result was produced from a working artifact set that is not completely present in the canonical commit. Running the documented canonical gate at current `main` therefore cannot validate the claimed BP-008 implementation and cannot provide BP-009 with its required executable diagnostic-report and handoff contracts.
 
+## Canonical Gate Evidence
+
+After synchronizing the local checkout to canonical commit `5220068f41b94d2414fba9a2c181b02c99b35f74`, Manufacturing ran `npm.cmd run check` from `implementation/pilot/tngd-dispatch-portal`. The gate exited with code 1 during the build step before tests or repository validation could run. Node reported `ERR_MODULE_NOT_FOUND` for `src/field-workflow/index.mjs`, imported by `scripts/build.mjs`. No passing canonical BP-008 or BP-009 validation is claimed.
+
 BP-009 activation commit `d2af7fa35bc95d752494fb6da622ce6f5bd51c4d` was recorded before this contradiction was discovered. Manufacturing has now paused BP-009 in Active without implementing any BP-009 scope. BP-010 through BP-012 remain in Inbox and were not activated.
 
 The missing files are preserved in a recoverable local stash created during canonical synchronization, but repository authority contains no LCO or refinement work order authorizing their restoration. Manufacturing will not reconstruct or commit them from conversational history. Executive or review authority must authorize an isolated artifact-completeness correction against verified contents, followed by the complete BP-000 through BP-008 gate at the exact corrected commit. BP-009 may resume only after that committed baseline exists and no architecture-critical defect remains.
