@@ -4,7 +4,7 @@
 |---|---|
 | Authority | IRO-013 |
 | Corrected Artifact Commit | `1ff670e` |
-| Status | Submitted for Renewed Independent Review |
+| Status | Executive Accepted — Archived |
 | Date | 2026-08-12 |
 
 ## Corrections
@@ -25,3 +25,7 @@
 - `git diff --check`: passed
 
 BP-007 remains unauthorized and unimplemented.
+
+## Executive Acceptance
+
+BP-006.1 is preserved as an approved correction within the Executive-accepted BP-006 operational baseline. IRO-013, IRO-014, and IRO-014-AP remain permanent review history. BP-007 remains unauthorized.

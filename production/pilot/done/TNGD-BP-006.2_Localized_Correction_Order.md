@@ -4,7 +4,7 @@
 |---|---|
 | Authority | Executive disposition; IRO-014 and IRO-014-AP |
 | Scope | Narrow BP-006 correction only |
-| Status | Manufactured — submitted for renewed Independent Review |
+| Status | Complete — Executive Accepted Archive |
 | Date | 2026-08-12 |
 
 ## Authorized Corrections
@@ -17,3 +17,7 @@
 6. Reconcile the affected BP-006 documentation, migration reference, revision log, and completion evidence.
 
 No BP-006 redesign or scope expansion is authorized. BP-007 assignment, routing, optimization, dispatch-board behavior, activation, and manufacturing remain unauthorized.
+
+## Accepted Archive Record
+
+This localized correction order is complete and archived with the Executive-accepted BP-006 operational baseline on 2026-08-14. IRO-014, IRO-014-AP, and IRO-015 remain permanent review history. BP-007 remains unauthorized.

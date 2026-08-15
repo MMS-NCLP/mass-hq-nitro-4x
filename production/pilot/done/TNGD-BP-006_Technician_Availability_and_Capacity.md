@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001
 Conveyor: Operational Manufacturing (Conveyor B)
-Status: Active Manufacturing
+Status: Executive Accepted — Archived
 
 ### Objective
 Create the technician availability and capacity layer required to convert service cases and appointment requests into assignable field work.
@@ -66,3 +66,9 @@ BP-006 is complete when authorized users can maintain reliable technician availa
 ### Activation Record
 
 BP-006 entered Active Manufacturing under renewed Executive continuation approval after BP-005 completed Independent Review and Executive Acceptance. Its canonical inbox work order was dependency-ready, Pilot Active was empty, and repository authority contained no newer blocker. Activation authorizes only this exact work-order scope; BP-007 and later packages remain unauthorized unless separately present and approved in the canonical queue.
+
+### Executive Acceptance Evidence
+
+Executive Authority formally accepted TNGD-BP-006 on 2026-08-14 after IRO-015 renewed Independent Review accepted the BP-006.2 corrected artifact at canonical review head `2f215eb5175a49fb2c1f9fef8c0deac04f74b1bf`. The accepted operational baseline includes original artifact `2a7f55a`, BP-006.1 correction `1ff670e`, and BP-006.2 correction `cb6c10167cfbe0b3e78a3f5940e598d0304077fe`.
+
+IRO-013, IRO-014, IRO-014-AP, and IRO-015 remain permanent review history. BP-007 remains unauthorized; this acceptance does not create, activate, or manufacture it.

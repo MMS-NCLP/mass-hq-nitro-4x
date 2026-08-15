@@ -12,3 +12,7 @@ Correct:
 5. Add direct blackout, training, administrative-hold, travel, skill, emergency-limit, and override-evidence tests.
 
 No BP-007 behavior or architectural expansion is authorized.
+
+## Accepted Archive Record
+
+This localized correction order is complete and archived with the Executive-accepted BP-006 operational baseline on 2026-08-14. Its originating IRO-013 remains permanent review history. BP-007 remains unauthorized.

@@ -4,7 +4,7 @@
 |---|---|
 | Authority | Executive disposition; IRO-014 and IRO-014-AP |
 | Corrected Artifact Commit | `cb6c10167cfbe0b3e78a3f5940e598d0304077fe` |
-| Status | Submitted for Renewed Independent Review |
+| Status | Executive Accepted — Archived |
 | Date | 2026-08-12 |
 
 ## Corrections Completed
@@ -30,6 +30,6 @@ From `implementation/pilot/tngd-dispatch-portal`:
 
 Live database execution remains deferred because no persistence provider is authorized. The reference migration contract was updated, but no deployed migration is claimed.
 
-## Review Handoff
+## Executive Acceptance
 
-BP-006.2 is submitted for renewed Independent Review. BP-006 has not received Executive Acceptance. BP-007 remains unauthorized and was neither activated nor manufactured.
+IRO-015 renewed Independent Review accepted BP-006.2 with no findings. Executive Authority formally accepted BP-006, including its approved BP-006.1 and BP-006.2 corrections, on 2026-08-14. This report is archived as part of the accepted operational baseline. BP-007 remains unauthorized and was neither activated nor manufactured.

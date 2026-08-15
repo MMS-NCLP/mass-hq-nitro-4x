@@ -4,7 +4,7 @@
 |---|---|
 | Work Order | TNGD-BP-006 |
 | Title | Technician Availability and Capacity |
-| Status | Submitted for Independent Review |
+| Status | Executive Accepted — Archived |
 | Artifact Commit | `2a7f55a`; corrected by BP-006.1 `1ff670e` and BP-006.2 `cb6c10167cfbe0b3e78a3f5940e598d0304077fe` |
 | Manufacturing Date | 2026-08-12 |
 
@@ -32,6 +32,10 @@ Evidence covers shift setup; all-day PTO, blackout, training, and administrative
 
 Live database execution remains deferred because no provider is authorized. BP-007 route optimization, assignment, and dispatch-board behavior are excluded and not implemented.
 
-## Queue Disposition
+## Executive Acceptance and Baseline Disposition
 
-BP-006 is ready for Independent Review. BP-007 and later packages remain unauthorized.
+IRO-015 renewed Independent Review accepted BP-006.2 with no findings after 53/53 tests and 36/36 independent boundary probes passed. Executive Authority formally accepted TNGD-BP-006 on 2026-08-14.
+
+The original BP-006 artifact plus approved BP-006.1 and BP-006.2 corrections are the accepted operational baseline for technician availability and capacity. The work order, this completion report, and applicable correction evidence are archived together under the forward-looking archival policy. IRO-013, IRO-014, IRO-014-AP, and IRO-015 remain permanent review history.
+
+BP-007 remains unauthorized and was not created, activated, or manufactured.
