@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001  
 Conveyor: Operational Manufacturing (Conveyor B)  
-Status: Active Manufacturing
+Status: Paused — Architecture-Critical Dependency Artifact Incomplete
 
 ### Authority
 
@@ -143,3 +143,7 @@ Build what we approved. Improve what we learn. Defer what we imagine.
 ### Activation Record
 
 BP-009 entered Active Manufacturing on 2026-08-15 under MPD-002 at canonical authority commit `5220068f41b94d2414fba9a2c181b02c99b35f74`. BP-008 is a committed provisional predecessor baseline: its complete manufacturing gate passed with 74 tests, it is in Pilot Review, and no architecture-critical or active-dependency defect is known. Pilot Active was empty before activation. This activation authorizes only the exact BP-009 scope; BP-010 behavior and the detailed garage-door order form remain excluded.
+
+### Architecture-Critical Pause Record
+
+Canonical post-activation inspection found that BP-008 artifact commit `2d07a03910d07b9c6aa3b455719faa18ce115b76` does not contain the field-workflow source, automated BP-008 test, migration reference, dispatch handoff extension, or foundation updates required by its completion report. Because BP-009 must consume those committed contracts, MPD-002 requires the affected dependency chain to pause. No BP-009 implementation was manufactured. Executive Attention `ATTENTION-20260815-MASS-PILOT-BP008-INCOMPLETE-CANONICAL-ARTIFACT` records the required resolution.
