@@ -10,7 +10,8 @@ export const foundation = Object.freeze({
     "TNGD-BP-004",
     "TNGD-BP-005",
     "TNGD-BP-006",
-    "TNGD-BP-007"
+    "TNGD-BP-007",
+    "TNGD-BP-008"
   ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
@@ -83,6 +84,16 @@ export const foundation = Object.freeze({
   ]),
   bp007FeatureScope: Object.freeze([
     "dispatcher-work-queue","capacity-aware-recommendations","human-approved-assignment","reassignment-and-return","dispatch-lifecycle","exception-handling","immutable-assignment-history","technician-handoff"
+  ]),
+  bp008FeatureScope: Object.freeze([
+    "assigned-technician-mobile-workflow",
+    "today-current-next-job-views",
+    "field-lifecycle-and-exceptions",
+    "25-point-inspection",
+    "governed-diagnostic-evidence",
+    "immutable-submission",
+    "customer-safe-report",
+    "bp009-ready-reference-handoff"
   ])
 });
 

@@ -333,108 +333,153 @@ for (const boundary of ["scheduleAuthorized", "rescheduleAuthorized", 'permissio
 for (const forbidden of ["assignTechnician", "optimizeRoute", "dispatchAuthorized"]) if (schedulingSource.includes(forbidden)) throw new Error(`BP-005 improperly implements BP-006: ${forbidden}`);
 
 const schedulingTests = await readFile(new URL("../tests/scheduling.test.mjs", import.meta.url), "utf8");
-for (const evidence of ["creates one synchronized BP-006-ready appointment", "idempotent per tenant Service Case", "overlapping tenant a…15162 tokens truncated…is.#replaceInspection(inspection, { measurements: [...inspection.measurements, measurement] }, session, handoff.technicianId, "MeasurementRecorded", { measurementId: measurement.id });
-  }
+for (const evidence of ["creates one synchronized BP-006-ready appointment", "idempotent per tenant Service Case", "overlapping tenant appointments are rejected", "rescheduling updates the same calendar event", "technicians cannot schedule and BP-006 dispatch is not implemented"]) if (!schedulingTests.includes(evidence)) throw new Error(`Missing BP-005 evidence: ${evidence}`);
 
-  recordDoorDetailsAuthorized({ sessionToken, tenantId, inspectionId, quantity, springIdentification, doorSize, springType, groundLevelCondition }) {
-    const inspection = this.#mutableInspection(tenantId, inspectionId); const session = this.#session(tenantId, inspection.fieldSessionId);
-    const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
-    if (!Number.isInteger(quantity) || quantity < 1 || !String(springIdentification || "").trim() || !String(doorSize || "").trim() ||
-      !["Torsion", "Extension", "Rear Torsion"].includes(springType) || !["Leveled", "Slightly unlevel", "Severely unlevel"].includes(groundLevelCondition)) {
-      throw new Error("Complete governed door details are required.");
-    }
-    const doorDetails = deepFreeze({ quantity, springIdentification, doorSize, springType, groundLevelCondition, recordedBy: handoff.technicianId });
-    return this.#replaceInspection(inspection, { doorDetails }, session, handoff.technicianId, "DoorDetailsRecorded");
-  }
+const capacitySource = await readFile(new URL("../src/capacity/capacity-service.mjs", import.meta.url), "utf8");
+for (const boundary of ["configureProfileAuthorized", "addExceptionAuthorized", "addOverrideAuthorized", "calculateAuthorized", 'permission: "dispatch.manage"', 'permission: "scheduling.manage"', 'dispatch: "TNGD-BP-007"']) if (!capacitySource.includes(boundary)) throw new Error(`BP-006 boundary missing: ${boundary}`);
+for (const forbidden of ["assignTechnicianAuthorized", "routeOptimization", "dispatchBoard"]) if (capacitySource.includes(forbidden)) throw new Error(`BP-006 improperly implements BP-007: ${forbidden}`);
+const capacityTests = await readFile(new URL("../tests/capacity.test.mjs", import.meta.url), "utf8");
+for (const evidence of ["shift setup exposes service-capable capacity", "PTO and blackout dates block capacity", "capability, service area, equipment, vehicle, and emergency requirements", "same-day limits and overlapping assignments", "authorized reasoned override increases temporary capacity", "tenant and role enforcement prevent technician capacity administration"]) if (!capacityTests.includes(evidence)) throw new Error(`Missing BP-006 evidence: ${evidence}`);
+const dispatchSource=await readFile(new URL("../src/dispatch/dispatch-service.mjs",import.meta.url),"utf8");for(const b of ["createWorkItemAuthorized","recommendAuthorized","assignAuthorized","reassignAuthorized","returnToQueueAuthorized","dispatchAuthorized","handoffAuthorized","Recommendation requester cannot approve"])if(!dispatchSource.includes(b))throw new Error(`BP-007 boundary missing: ${b}`);for(const f of ["executeJobAuthorized","createEstimate","processPayment","liveTrafficProvider"])if(dispatchSource.includes(f))throw new Error(`BP-007 forbidden scope: ${f}`);
+const dispatchTests=await readFile(new URL("../tests/dispatch.test.mjs",import.meta.url),"utf8");for(const e of ["idempotent unassigned work item","capacity-aware recommendation","human approval separation","immutable assignment history","return to queue and dispatch lifecycle","exceptions are opened and resolved","assigned technician receives"])if(!dispatchTests.includes(e))throw new Error(`Missing BP-007 evidence: ${e}`);
+const fieldSource=await readFile(new URL("../src/field-workflow/field-workflow-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["listJobsAuthorized","openAuthorized","transitionAuthorized","startInspectionAuthorized","recordItemAuthorized","attachMediaReferenceAuthorized","submitAuthorized","shareDiagnosticReportAuthorized","addExceptionAuthorized","administrativeViewAuthorized",'targetPackage: "TNGD-BP-009"','action: "repair-or-estimate-pending"',"Submitted inspection evidence is immutable","Repair requires the 25-Point Inspection","Does Not Apply", "listHandoffsAuthorized"])if(!fieldSource.includes(boundary))throw new Error(`BP-008 boundary missing: ${boundary}`);
+for(const forbidden of ["createRepairAuthorized","createEstimateAuthorized","authorizeCustomerAuthorized","createInvoiceAuthorized","processPaymentAuthorized","determineWarrantyAuthorized","garageDoorOrderForm","computerVision","aiDiagnosis"])if(fieldSource.includes(forbidden))throw new Error(`BP-008 forbidden scope: ${forbidden}`);
+const fieldTests=await readFile(new URL("../tests/field-workflow.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["assigned technician receives today, current, and next views","unassigned technicians cannot view, open, or mutate","field lifecycle permits pause and resume","exactly nineteen source components and four governed results","repair submission blocks missing inspection","submits immutable evidence and a BP-009-ready reference handoff","estimate inspection is optional","governed references without binary duplication","exclude internal-only notes","exceptions return to administration","tenant isolation, role enforcement, idempotency, and audit history"])if(!fieldTests.includes(evidence))throw new Error(`Missing BP-008 evidence: ${evidence}`);
 
-  attachMediaReferenceAuthorized({ sessionToken, tenantId, inspectionId, category, assetId, mimeType }) {
-    const inspection = this.#mutableInspection(tenantId, inspectionId); const session = this.#session(tenantId, inspection.fieldSessionId);
-    const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
-    if (!["before", "diagnostic", "after"].includes(category) || !String(assetId || "").trim() || !String(mimeType || "").startsWith("image/")) throw new Error("A governed photograph reference is required.");
-    const existing = inspection.mediaReferences.find((item) => item.assetId === assetId && item.category === category); if (existing) return inspection;
-    const reference = deepFreeze({ id: randomUUID(), category, assetId, mimeType, capturedBy: handoff.technicianId, capturedAt: this.#now().toISOString() });
-    return this.#replaceInspection(inspection, { mediaReferences: [...inspection.mediaReferences, reference] }, session, handoff.technicianId, "MediaReferenceAttached", { referenceId: reference.id, category });
+for (const correctedBoundary of [
+  "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
+  'governedDistance(travelDistanceMiles, "Travel distance")',
+  'governedCapacityInteger(dailyLimit, "Daily capacity", 1)',
+  'governedCapacityInteger(sameDayLimit, "Same-day capacity")',
+  'governedCapacityInteger(emergencyDailyLimit, "Emergency capacity")',
+  'governedCapacityInteger(additionalCapacity, "Override capacity")',
+  "const assignedOnDate = assigned.filter",
+  "limit - assignedOnDate.length",
+  "overrideId: override.id",
+  "additionalCapacity: override.additionalCapacity",
+  "reason: override.reason"
+]) {
+  if (!capacitySource.includes(correctedBoundary)) {
+    throw new Error(`Missing BP-006.2 corrected boundary: ${correctedBoundary}`);
   }
-
-  confirmOperationalEvidenceAuthorized({ sessionToken, tenantId, inspectionId, stickerWarrantyDisclosure, referralCard }) {
-    const inspection = this.#mutableInspection(tenantId, inspectionId); const session = this.#session(tenantId, inspection.fieldSessionId);
-    const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
-    if (stickerWarrantyDisclosure !== true || referralCard !== true) throw new Error("Warranty disclosure and referral-card confirmations are required.");
-    return this.#replaceInspection(inspection, { confirmations: deepFreeze({ stickerWarrantyDisclosure, referralCard, confirmedBy: handoff.technicianId }) }, session, handoff.technicianId, "OperationalEvidenceConfirmed");
-  }
-
-  submitAuthorized({ sessionToken, tenantId, fieldSessionId }) {
-    const session = this.#session(tenantId, fieldSessionId); const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
-    if (session.status === "submitted") return this.#reports.get(session.reportId);
-    if (session.status !== "field-complete") throw new Error("Field work must be complete before submission.");
-    const inspectionId = this.#inspectionBySession.get(session.id); const inspection = inspectionId ? this.#inspections.get(inspectionId) : null;
-    if (session.serviceType === "repair" && !inspection) throw new Error("Repair requires the 25-Point Inspection.");
-    if (inspection) this.#validateInspection(inspection);
-    const submittedAt = this.#now().toISOString();
-    const submittedInspection = inspection ? deepFreeze({ ...inspection, status: "submitted", submittedAt, revision: inspection.revision + 1 }) : null;
-    if (submittedInspection) this.#inspections.set(submittedInspection.id, submittedInspection);
-    const customerNotes = submittedInspection?.notes.filter((note) => note.visibility === "customer") ?? [];
-    const itemResults = inspectionTemplate.components.map((component) => deepFreeze({ ...component, result: submittedInspection?.itemResults[component.id]?.result ?? null,
-      note: submittedInspection?.itemResults[component.id]?.note ?? "" }));
-    const report = deepFreeze({ id: randomUUID(), tenantId, fieldSessionId: session.id, diagnosticName: inspectionTemplate.name,
-      inspectionPerformed: Boolean(submittedInspection), itemResults, customerNotes, measurements: submittedInspection?.measurements ?? [],
-      doorDetails: submittedInspection?.doorDetails ?? null, mediaReferences: submittedInspection?.mediaReferences ?? [],
-      findings: itemResults.filter((item) => ["Flag", "Fail"].includes(item.result)), createdAt: submittedAt, immutable: true });
-    this.#reports.set(report.id, report);
-    this.#replaceSession(session, { status: "submitted", reportId: report.id, submittedAt,
-      handoff: deepFreeze({ targetPackage: "TNGD-BP-009", serviceCaseId: session.serviceCaseId, fieldSessionId: session.id,
-        diagnosticReportId: report.id, findingItemIds: report.findings.map((item) => item.id), action: "repair-or-estimate-pending" }) }, handoff.technicianId, "FieldEvidenceSubmitted", { reportId: report.id });
-    return report;
-  }
-
-  diagnosticReportAuthorized({ sessionToken, tenantId, fieldSessionId }) {
-    const session = this.#session(tenantId, fieldSessionId); this.#assigned(sessionToken, tenantId, session.workItemId);
-    const report = this.#reports.get(session.reportId); if (!report) throw new Error("Diagnostic report is not available."); return report;
-  }
-
-  shareDiagnosticReportAuthorized({ sessionToken, tenantId, fieldSessionId }) {
-    const session = this.#session(tenantId, fieldSessionId); const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
-    const report = this.diagnosticReportAuthorized({ sessionToken, tenantId, fieldSessionId });
-    const token = randomBytes(24).toString("hex"); const share = deepFreeze({ token, tenantId, reportId: report.id, sharedBy: handoff.technicianId, sharedAt: this.#now().toISOString() });
-    this.#shares.set(token, share); this.#recordEvent(session, handoff.technicianId, "DiagnosticReportShared", { reportId: report.id }); return deepFreeze({ shareToken: token, reportId: report.id });
-  }
-
-  sharedDiagnosticReport({ shareToken }) {
-    const share = this.#shares.get(shareToken); if (!share) throw new Error("Shared diagnostic report not found."); return this.#reports.get(share.reportId);
-  }
-
-  downloadDiagnosticReportAuthorized({ sessionToken, tenantId, fieldSessionId }) {
-    const report = this.diagnosticReportAuthorized({ sessionToken, tenantId, fieldSessionId });
-    return deepFreeze({ filename: `tngd-25-point-${report.id}.json`, mediaType: "application/json", content: JSON.stringify(report) });
-  }
-
-  addExceptionAuthorized({ sessionToken, tenantId, fieldSessionId, type, detail }) {
-    const session = this.#session(tenantId, fieldSessionId); const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
-    if (!String(type || "").trim() || !String(detail || "").trim()) throw new Error("Field exception type and detail are required.");
-    const exception = deepFreeze({ id: randomUUID(), tenantId, fieldSessionId, type, detail, previousStatus: session.status,
-      evidenceRevision: this.#inspections.get(this.#inspectionBySession.get(session.id))?.revision ?? null,
-      status: "returned-to-administration", openedBy: handoff.technicianId, openedAt: this.#now().toISOString() });
-    this.#exceptions.set(exception.id, exception); this.#recordEvent(session, handoff.technicianId, "FieldExceptionReturned", { exceptionId: exception.id, type }); return exception;
-  }
-
-  administrativeViewAuthorized({ sessionToken, tenantId, fieldSessionId }) {
-    const principal = this.#secure.requirePermission({ sessionToken, tenantId, permission: "jobs.read", resourceId: `field-session:${fieldSessionId}` });
-    const session = this.#session(tenantId, fieldSessionId); const inspection = this.#inspections.get(this.#inspectionBySession.get(session.id));
-    return deepFreeze({ session, inspection: inspection ?? null, exceptions: [...this.#exceptions.values()].filter((item) => item.fieldSessionId === session.id),
-      history: [...(this.#history.get(session.id) ?? [])], viewedBy: principal.id });
-  }
-
-  setTemplateAvailabilityAuthorized({ sessionToken, tenantId, enabled }) {
-    const principal = this.#secure.requirePermission({ sessionToken, tenantId, permission: "dispatch.manage", resourceId: "inspection-template:availability" });
-    if (!principal.roles.includes("tenant_admin")) throw new Error("Only the tenant administrator may configure template availability.");
-    this.#templateEnabled.set(tenantId, Boolean(enabled));
-    this.#audit.append({ tenantId, principalId: principal.id, type: "InspectionTemplateAvailabilityChanged", resource: inspectionTemplate.id,
-      action: "dispatch.manage", outcome: "granted", metadata: { enabled: Boolean(enabled) } }); return Boolean(enabled);
-  }
-
-  historyAuthorized({ sessionToken, tenantId, fieldSessionId }) {
-    const session = this.#session(tenantId, fieldSessionId); this.#assigned(sessionToken, tenantId, session.workItemId);
-    return deepFreeze([...(this.#history.get(session.id) ?? [])]);
-  }
-
 }
+
+for (const correctedEvidence of [
+  "partial-day exceptions block only overlapping intervals",
+  "governed travel input rejects omission and invalid distances",
+  "remaining capacity counts only appointments on the requested date",
+  "capacity and override amounts reject malformed or ungoverned numeric values",
+  "authorized reasoned override increases temporary capacity and remains auditable"
+]) {
+  if (!capacityTests.includes(correctedEvidence)) {
+    throw new Error(`Missing BP-006.2 correction evidence: ${correctedEvidence}`);
+  }
+}
+
+const portalSource = await readFile(
+  new URL("../src/security/portal-boundary.mjs", import.meta.url),
+  "utf8"
+);
+if (!portalSource.includes('action !== "intake.submit"')) {
+  throw new Error("Public portal must retain the approved action allowlist.");
+}
+
+const intakeSource = await readFile(
+  new URL("../src/intake/intake-service.mjs", import.meta.url),
+  "utf8"
+);
+for (const requiredBoundary of [
+  "submitAuthorized",
+  'permission: "intake.create"',
+  'action: "intake.create"',
+  "customerKey(tenantId, answers)"
+]) {
+  if (!intakeSource.includes(requiredBoundary)) {
+    throw new Error(`BP-002 intake boundary is missing: ${requiredBoundary}`);
+  }
+}
+
+const intakeTestSource = await readFile(
+  new URL("../tests/intake.test.mjs", import.meta.url),
+  "utf8"
+);
+for (const evidenceName of [
+  "all three authorized intake paths create service requests",
+  "the intake foundation requires all eight authorized answers",
+  "initial customer capture reuses a tenant customer and isolates tenants",
+  "authorized portal users create intake while denied users cannot mutate state",
+  "approved public intake integrates through the secure portal allowlist"
+]) {
+  if (!intakeTestSource.includes(evidenceName)) {
+    throw new Error(`Missing BP-002 evidence: ${evidenceName}`);
+  }
+}
+
+const guidedIntakeSource = await readFile(
+  new URL("../src/intake/guided-intake.mjs", import.meta.url),
+  "utf8"
+);
+for (const requiredBoundary of [
+  "PRIMARY_QUESTIONS",
+  "startAuthorized",
+  "answerAuthorized",
+  "resumeAuthorized",
+  "attachMediaAuthorized",
+  "completeAuthorized",
+  'permission: "intake.create"',
+  'permission: "intake.read"',
+  'status: "ready-for-bp004"',
+  'targetPackage: "TNGD-BP-004"',
+  '"photo", "voice-note"',
+  "originalEvidence",
+  "auditEventIds"
+]) {
+  if (!guidedIntakeSource.includes(requiredBoundary)) {
+    throw new Error(`BP-003 guided-intake boundary is missing: ${requiredBoundary}`);
+  }
+}
+
+const guidedIntakeTestSource = await readFile(
+  new URL("../tests/guided-intake.test.mjs", import.meta.url),
+  "utf8"
+);
+for (const evidenceName of [
+  "repair, estimate, and other-service paths produce BP-004-ready records",
+  "one-at-a-time questions enforce adaptive and conditional requirements",
+  "every answer autosaves and a session resumes at the next question",
+  "photo and voice-note references remain immutable original evidence",
+  "tenant and role enforcement prevent unauthorized guided-intake mutation",
+  "completed records retain user, source, timestamps, and valid audit history"
+]) {
+  if (!guidedIntakeTestSource.includes(evidenceName)) {
+    throw new Error(`Missing BP-003 evidence: ${evidenceName}`);
+  }
+}
+
+const environment = await readFile(
+  new URL("../.env.example", import.meta.url),
+  "utf8"
+);
+
+for (const name of [
+  "MASS_RUNTIME_ENV",
+  "MASS_DATABASE_URL",
+  "MASS_DEPLOYMENT_TARGET"
+]) {
+  if (!environment.includes(`${name}=`)) {
+    throw new Error(`Missing environment declaration: ${name}`);
+  }
+}
+
+try {
+  await access(new URL("../.env", import.meta.url), constants.F_OK);
+  throw new Error("A real .env file must not be committed.");
+} catch (error) {
+  if (error.code !== "ENOENT") {
+    throw error;
+  }
+}
+
+process.stdout.write("Canonical BP-000 through BP-008 repository validation passed.\n");
