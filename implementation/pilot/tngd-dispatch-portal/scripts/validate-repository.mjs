@@ -9,6 +9,7 @@ import { capacityManifest } from "../src/capacity/index.mjs";
 import { dispatchManifest } from "../src/dispatch/index.mjs";
 import { fieldWorkflowManifest } from "../src/field-workflow/index.mjs";
 import { repairEstimateManifest } from "../src/repair-estimate/index.mjs";
+import { customerAuthorizationManifest } from "../src/customer-authorization/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -30,6 +31,8 @@ const requiredPaths = [
   "docs/bp008/DOMAIN_AND_DATA_MODEL.md","docs/bp008/API_INVENTORY.md","docs/bp008/PERMISSION_MATRIX.md","docs/bp008/MOBILE_WORKFLOW_AND_STATE_RULES.md","docs/bp008/INSPECTION_TEMPLATE_AND_VALIDATION_RULES.md","docs/bp008/DIAGNOSTIC_REPORT_AND_MEDIA_CONTRACT.md","docs/bp008/AUDIT_AND_EVENT_MODEL.md","docs/bp008/REVISION_LOG.md",
   "tests/repair-estimate.test.mjs","src/repair-estimate/index.mjs","src/repair-estimate/repair-estimate-service.mjs","src/repair-estimate/manifest.mjs",
   "docs/bp009/DOMAIN_AND_DATA_MODEL.md","docs/bp009/API_INVENTORY.md","docs/bp009/PERMISSION_MATRIX.md","docs/bp009/LIFECYCLE_AND_BUSINESS_RULES.md","docs/bp009/AUDIT_AND_EVENT_MODEL.md","docs/bp009/REVISION_LOG.md",
+  "tests/customer-authorization.test.mjs","src/customer-authorization/index.mjs","src/customer-authorization/customer-authorization-service.mjs","src/customer-authorization/manifest.mjs",
+  "docs/bp010/DOMAIN_AND_DATA_MODEL.md","docs/bp010/API_INVENTORY.md","docs/bp010/PERMISSION_MATRIX.md","docs/bp010/LIFECYCLE_AND_BUSINESS_RULES.md","docs/bp010/AUDIT_AND_EVENT_MODEL.md","docs/bp010/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -71,6 +74,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-007_REFERENCE.md",
   "migrations/TNGD-BP-008_REFERENCE.md",
   "migrations/TNGD-BP-009_REFERENCE.md",
+  "migrations/TNGD-BP-010_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -113,7 +117,7 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
   throw new Error("Test command must target canonical BP-000 through BP-008 tests.");
 }
@@ -136,6 +140,7 @@ if (!buildSource.includes("capacity-manifest.json")) throw new Error("Build does
 if (!buildSource.includes("dispatch-manifest.json")) throw new Error("Build does not generate BP-007 dispatch manifest.");
 if (!buildSource.includes("field-workflow-manifest.json")) throw new Error("Build does not generate BP-008 field-workflow manifest.");
 if (!buildSource.includes("repair-estimate-manifest.json")) throw new Error("Build does not generate BP-009 repair-estimate manifest.");
+if (!buildSource.includes("customer-authorization-manifest.json")) throw new Error("Build does not generate BP-010 customer-authorization manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -210,6 +215,8 @@ const exactBp008Scope=["assigned-technician-mobile-workflow","today-current-next
 if(!foundation.implementedPackages.includes("TNGD-BP-008")||JSON.stringify(foundation.bp008FeatureScope)!==JSON.stringify(exactBp008Scope)||fieldWorkflowManifest.workOrderId!=="TNGD-BP-008"||fieldWorkflowManifest.componentCount!==19||fieldWorkflowManifest.handoffTarget!=="TNGD-BP-009"||fieldWorkflowManifest.persistence.media!=="references-only")throw new Error("BP-008 manifest authority is incorrect.");
 const exactBp009Scope=["repair-service-template","new-door-estimate-template","draft-and-version-lifecycle","diagnostic-reference-lineage","recommendations-options-line-items","outcome-recording","idempotent-estimate-conversion","bp010-ready-authorization-package"];
 if(!foundation.implementedPackages.includes("TNGD-BP-009")||JSON.stringify(foundation.bp009FeatureScope)!==JSON.stringify(exactBp009Scope)||repairEstimateManifest.workOrderId!=="TNGD-BP-009"||repairEstimateManifest.handoffTarget!=="TNGD-BP-010")throw new Error("BP-009 manifest authority is incorrect.");
+const exactBp010Scope=["authorization-request-and-presentation","adult-acknowledgment","immutable-content-snapshot","signature-or-equivalent-evidence","decision-lifecycle","amendment-and-reauthorization","customer-safe-receipt","bp011-ready-financial-handoff"];
+if(!foundation.implementedPackages.includes("TNGD-BP-010")||JSON.stringify(foundation.bp010FeatureScope)!==JSON.stringify(exactBp010Scope)||customerAuthorizationManifest.workOrderId!=="TNGD-BP-010"||customerAuthorizationManifest.handoffTarget!=="TNGD-BP-011")throw new Error("BP-010 manifest authority is incorrect.");
 
 if (
   customerCaseManifest.workOrderId !== "TNGD-BP-004" ||
@@ -275,15 +282,7 @@ if (!secureAccessSource.includes("new AuditLog()")) {
 if (!secureAccessSource.includes("keyForIdentity(tenantId, email)")) {
   throw new Error("Identity lookup must remain tenant-keyed.");
 }
-if (!secureAccessSource.includes("#tenantBootstrapReservations")) {
-  throw new Error("Tenant bootstrap must retain an atomic per-tenant reservation.");
-}
-if (!secureAccessSource.includes("reset.consumingAt")) {
-  throw new Error("Password reset must retain atomic token consumption.");
-}
-
-const securityTestSource = await readFile(
-  new URL("../tests/security.test.mjs", import.meta.url),
+if (!secureAccessSource.includes("#tenantBootstr◊MÌ¢Gß≤⁄Óù∆≠y”urity.test.mjs", import.meta.url),
   "utf8"
 );
 for (const evidenceName of [
@@ -359,6 +358,11 @@ for(const boundary of ["Garage Door Repair | Service","New Garage Door Estimate"
 for(const forbidden of ["authorizeCustomerAuthorized","createInvoiceAuthorized","processPaymentAuthorized","determineWarrantyAuthorized","garageDoorOrderForm","aiGeneratedPricing"])if(executionSource.includes(forbidden))throw new Error(`BP-009 forbidden scope: ${forbidden}`);
 const executionTests=await readFile(new URL("../tests/repair-estimate.test.mjs",import.meta.url),"utf8");
 for(const evidence of ["both approved templates and exact standard Service and Warranty line items","repair requires BP-008 inspection while estimate inspection remains optional","draft creation is idempotent and preserves customer Service Case and evidence references","finalized versions are immutable and corrections create a new version","BP-010 package remains pending and does not authorize work","accepted estimate conversion preserves lineage without duplicate customer or Service Case","tenant and role enforcement plus audit history remain intact","no authorization invoice payment warranty decision or detailed order execution is exposed"])if(!executionTests.includes(evidence))throw new Error(`Missing BP-009 evidence: ${evidence}`);
+const authorizationSource=await readFile(new URL("../src/customer-authorization/customer-authorization-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["createRequestAuthorized","current immutable BP-009 version","contentHash","adult age 18 or older","signature or approved equivalent evidence","Employees, technicians, AI, and requesters cannot authorize","Accepted and declined authorization evidence is immutable","amendAuthorized","receipt","financialHandoffAuthorized",'targetPackage:"TNGD-BP-011"'])if(!authorizationSource.includes(boundary))throw new Error(`BP-010 boundary missing: ${boundary}`);
+for(const forbidden of ["createInvoiceAuthorized","processPaymentAuthorized","storeCardAuthorized","determineWarrantyAuthorized","garageDoorOrderForm"])if(authorizationSource.includes(forbidden))throw new Error(`BP-010 forbidden scope: ${forbidden}`);
+const authorizationTests=await readFile(new URL("../tests/customer-authorization.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["authorization binds one immutable BP-009 version and exact presented content hash","authorization request creation is idempotent without replaying transaction secrets","authorized adult acknowledgment and signature evidence are required","employees technicians AI and unauthenticated calls cannot authorize for customers","accepted and declined evidence is immutable and retry-safe","changed scope or price requires amendment to a new immutable version","customer-safe receipt excludes transaction token and internal history","BP-011 handoff requires current approval and performs no invoice or payment","tenant role and audit boundaries remain intact with no BP-011 execution"])if(!authorizationTests.includes(evidence))throw new Error(`Missing BP-010 evidence: ${evidence}`);
 
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
@@ -494,4 +498,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000 through BP-009 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-010 repository validation passed.\n");

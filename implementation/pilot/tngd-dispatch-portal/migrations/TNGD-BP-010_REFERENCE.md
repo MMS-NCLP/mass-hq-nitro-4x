@@ -1,0 +1,3 @@
+# TNGD-BP-010 Persistence Reference
+
+Provider implementation shall create tenant-keyed authorization requests, immutable content snapshots, acknowledgments, signature-evidence references, immutable decisions, amendments, receipts, and append-only history. Composite tenant foreign keys bind requests to BP-009 records and versions. Unique tenant/idempotency constraints protect request and decision retries. Accepted and declined evidence rejects update/delete; revocation and amendment append new evidence. Transaction tokens are stored only as cryptographic hashes. No live provider is authorized by BP-010.
