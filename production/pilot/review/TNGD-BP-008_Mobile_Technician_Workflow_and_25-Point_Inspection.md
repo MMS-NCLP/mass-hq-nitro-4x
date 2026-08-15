@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001  
 Conveyor: Operational Manufacturing (Conveyor B)  
-Status: Active Manufacturing
+Status: Submitted for Independent Review
 
 ### Authority
 
@@ -311,3 +311,7 @@ Build what we approved. Improve what we learn. Defer what we imagine.
 ### Activation Record
 
 BP-008 entered Active Manufacturing on 2026-08-14 from its canonical Pilot Inbox work order at authority commit `52adc2fd88742566f9080b9b94c38a8b16c0bd1a`. IRO-016 and Executive Acceptance of BP-007 satisfy its dependency gate. Pilot Active was empty before activation. This activation authorizes only the exact BP-008 scope; the detailed garage-door order form and BP-009 or later behavior remain deferred and unauthorized.
+
+### Review Submission Record
+
+Manufacturing completed on 2026-08-14 at artifact commit `2d07a03910d07b9c6aa3b455719faa18ce115b76`. The complete `npm.cmd run check` gate passed with 74 tests and canonical BP-000 through BP-008 repository validation. The work order and completion evidence were submitted to Pilot Review for Independent Review. BP-009 remains unauthorized.
