@@ -1,44 +1,47 @@
 # MASS Operational Pilot Production Line
 
-This queue is Conveyor B under [MPD-001 — Dual Conveyor Manufacturing Strategy](../../governance/directives/MPD-001_Dual_Conveyor_Manufacturing_Strategy.md).
+This queue is Conveyor B under:
+
+- [MPD-001 — Dual Conveyor Manufacturing Strategy](../../governance/directives/MPD-001_Dual_Conveyor_Manufacturing_Strategy.md)
+- [MPD-002 — Continuous Production Flywheel](../../governance/directives/MPD-002_Continuous_Production_Flywheel.md)
 
 ## Authority
 
-- Governing charter: [MASS-TNGD-PILOT-001](../../docs/research/tngd-pilot/MASS-TNGD-PILOT-001_TNGD_Dispatch_User_Portal_Operational_Pilot_Charter.md)
-- Planning backlog: [MASS-TNGD-PILOT-001 Implementation Backlog](../../docs/research/tngd-pilot/MASS-TNGD-PILOT-001_Implementation_Backlog.md)
-- Product roadmap: [MASS-PLAN-001](../../governance/MASS-PLAN-001_Master_Product_Roadmap.md)
-- Package numbering: [TNGD Pilot Package Sequence Reconciliation 001](../../governance/reconciliations/TNGD-PILOT-PACKAGE-SEQUENCE-RECONCILIATION-001.md)
+- [MASS-TNGD-PILOT-001 Charter](../../docs/research/tngd-pilot/MASS-TNGD-PILOT-001_TNGD_Dispatch_User_Portal_Operational_Pilot_Charter.md)
+- [Pilot Implementation Backlog](../../docs/research/tngd-pilot/MASS-TNGD-PILOT-001_Implementation_Backlog.md)
+- [MASS-PLAN-001](../../governance/MASS-PLAN-001_Master_Product_Roadmap.md)
+- [Package Sequence Reconciliation 001](../../governance/reconciliations/TNGD-PILOT-PACKAGE-SEQUENCE-RECONCILIATION-001.md)
 
 ## Queue
 
-- `inbox/` — Executive-authorized pilot work orders, including dependency-gated future packages.
-- `active/` — the sole pilot package currently being manufactured.
-- `review/` — completed pilot packages awaiting Independent Review or Executive Acceptance.
-- `done/` — accepted pilot packages and completion evidence.
+- `inbox/` — Executive-authorized feature, correction, refinement, validation, or readiness work orders
+- `active/` — the sole Pilot package currently being manufactured
+- `review/` — completed packages and review evidence
+- `done/` — accepted packages and completion evidence
 
-## Operating Rules
+## Continuous Operating Rules
 
-1. No item enters `inbox/` without explicit Executive Authority.
-2. Maintain at least three authorized future work orders in `inbox/` whenever three unmanufactured roadmap packages remain.
-3. Inbox presence does not satisfy dependencies. A work order may activate only after every named predecessor receives Independent Review and Executive Acceptance.
-4. Only one pilot package may be active at a time.
-5. Process packages in canonical dependency and filename order.
-6. The charter and backlog do not independently authorize manufacturing.
-7. Pilot packages consume existing MASS applications, engines, and contracts whenever available.
-8. Platform gaps return to Conveyor A through governed engineering review.
-9. Pilot and platform commits remain clearly distinguishable.
-10. Neither conveyor pauses the other without Executive Authority.
-11. Pilot code must remain reusable MASS capability; disposable CRM implementation is prohibited.
-12. Replenish the inbox before it falls below three authorized future work orders; replenishment does not bypass review or acceptance gates.
+1. Only repository-authorized work enters the inbox.
+2. Maintain at least three authorized future work orders whenever three roadmap packages remain.
+3. Only one Pilot package may be active.
+4. Process eligible work in dependency and filename order.
+5. After a package passes manufacturing validation and enters review, continue to the next eligible authorized package.
+6. Routine Independent Review and Executive Acceptance proceed in parallel and do not idle manufacturing.
+7. A submitted predecessor may be consumed provisionally when its validation passed, its contracts are committed, and no architecture-critical defect is known.
+8. Localized findings become isolated LCO/refinement work and do not stop unrelated production.
+9. An architecture-critical or active-dependency defect pauses only the affected chain.
+10. If no feature package is eligible, select the next authorized correction, refinement, validation, migration, packaging, or readiness work order.
+11. Never invent scope, bypass authority, or manufacture from backlog.
+12. Pilot code remains reusable MASS capability; disposable CRM implementation is prohibited.
 
 ## Current Status
 
-BP-008 — Mobile Technician Workflow and 25-Point Inspection — is submitted for Independent Review.
+BP-008 — Mobile Technician Workflow and 25-Point Inspection — is submitted for Independent Review and may serve as the provisional BP-009 baseline because its complete manufacturing gate passed and no architecture-critical defect is known.
 
-The dependency-gated Pilot Inbox contains:
+The Pilot Inbox contains:
 
 1. BP-009 — Repair and Estimate Execution
 2. BP-010 — Customer Authorization Evidence
 3. BP-011 — Invoice and Square Payment Integration
 
-BP-009 may not activate until BP-008 receives Independent Review and Executive Acceptance. BP-010 and BP-011 remain gated by their respective predecessors.
+Under MPD-002, BP-009 may activate without waiting for routine BP-008 review completion. BP-010 and BP-011 remain eligible only after their manufactured predecessor contracts are committed and no architecture-critical defect is known.
