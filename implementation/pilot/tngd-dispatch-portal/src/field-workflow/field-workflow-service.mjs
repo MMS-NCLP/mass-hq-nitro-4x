@@ -223,6 +223,19 @@ export class FieldWorkflowService {
     return deepFreeze({ filename: `tngd-25-point-${report.id}.json`, mediaType: "application/json", content: JSON.stringify(report) });
   }
 
+  executionHandoffAuthorized({ sessionToken, tenantId, fieldSessionId }) {
+    const principal = this.#secure.requirePermission({ sessionToken, tenantId, permission: "jobs.read", resourceId: `field-session:${fieldSessionId}:execution-handoff` });
+    const session = this.#session(tenantId, fieldSessionId);
+    if (session.status !== "submitted" || !session.reportId) throw new Error("Submitted BP-008 evidence is required.");
+    const report = this.#reports.get(session.reportId);
+    const handoff = deepFreeze({ tenantId, fieldSessionId, serviceCaseId: session.serviceCaseId, customerId: session.customerId,
+      serviceType: session.serviceType, diagnosticReportId: report.id, inspectionPerformed: report.inspectionPerformed,
+      findingItemIds: report.findings.map((item) => item.id), measurementIds: report.measurements.map((item) => item.id),
+      mediaReferenceIds: report.mediaReferences.map((item) => item.id), sourceRevision: session.revision, requestedBy: principal.id });
+    this.#recordEvent(session, principal.id, "ExecutionHandoffRead", { diagnosticReportId: report.id });
+    return handoff;
+  }
+
   addExceptionAuthorized({ sessionToken, tenantId, fieldSessionId, type, detail }) {
     const session = this.#session(tenantId, fieldSessionId); const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
     if (!String(type || "").trim() || !String(detail || "").trim()) throw new Error("Field exception type and detail are required.");

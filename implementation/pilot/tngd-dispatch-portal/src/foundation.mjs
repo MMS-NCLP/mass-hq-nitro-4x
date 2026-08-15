@@ -11,7 +11,8 @@ export const foundation = Object.freeze({
     "TNGD-BP-005",
     "TNGD-BP-006",
     "TNGD-BP-007",
-    "TNGD-BP-008"
+    "TNGD-BP-008",
+    "TNGD-BP-009"
   ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
@@ -94,6 +95,9 @@ export const foundation = Object.freeze({
     "immutable-submission",
     "customer-safe-report",
     "bp009-ready-reference-handoff"
+  ]),
+  bp009FeatureScope: Object.freeze([
+    "repair-service-template","new-door-estimate-template","draft-and-version-lifecycle","diagnostic-reference-lineage","recommendations-options-line-items","outcome-recording","idempotent-estimate-conversion","bp010-ready-authorization-package"
   ])
 });
 

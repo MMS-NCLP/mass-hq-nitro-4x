@@ -7,6 +7,7 @@ const { schedulingManifest } = await import("../src/scheduling/index.mjs");
 const { capacityManifest } = await import("../src/capacity/index.mjs");
 const { dispatchManifest } = await import("../src/dispatch/index.mjs");
 const { fieldWorkflowManifest } = await import("../src/field-workflow/index.mjs");
+const { repairEstimateManifest } = await import("../src/repair-estimate/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -37,7 +38,8 @@ await writeFile(new URL("../dist/scheduling-manifest.json", import.meta.url), `$
 await writeFile(new URL("../dist/capacity-manifest.json", import.meta.url), `${JSON.stringify(capacityManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/dispatch-manifest.json", import.meta.url), `${JSON.stringify(dispatchManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/field-workflow-manifest.json", import.meta.url), `${JSON.stringify(fieldWorkflowManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/repair-estimate-manifest.json", import.meta.url), `${JSON.stringify(repairEstimateManifest, null, 2)}\n`, "utf8");
 
 process.stdout.write(
-  "Built foundation through BP-008 field-workflow manifests\n"
+  "Built foundation through BP-009 repair-estimate manifests\n"
 );

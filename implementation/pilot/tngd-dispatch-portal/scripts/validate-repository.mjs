@@ -8,6 +8,7 @@ import { schedulingManifest } from "../src/scheduling/index.mjs";
 import { capacityManifest } from "../src/capacity/index.mjs";
 import { dispatchManifest } from "../src/dispatch/index.mjs";
 import { fieldWorkflowManifest } from "../src/field-workflow/index.mjs";
+import { repairEstimateManifest } from "../src/repair-estimate/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -27,6 +28,8 @@ const requiredPaths = [
   "docs/bp007/DOMAIN_AND_DATA_MODEL.md","docs/bp007/API_INVENTORY.md","docs/bp007/PERMISSION_MATRIX.md","docs/bp007/ASSIGNMENT_AND_DISPATCH_RULES.md","docs/bp007/ROUTE_RECOMMENDATION_BOUNDARY.md","docs/bp007/AUDIT_AND_EVENT_MODEL.md","docs/bp007/REVISION_LOG.md",
   "tests/field-workflow.test.mjs","src/field-workflow/index.mjs","src/field-workflow/field-workflow-service.mjs","src/field-workflow/manifest.mjs",
   "docs/bp008/DOMAIN_AND_DATA_MODEL.md","docs/bp008/API_INVENTORY.md","docs/bp008/PERMISSION_MATRIX.md","docs/bp008/MOBILE_WORKFLOW_AND_STATE_RULES.md","docs/bp008/INSPECTION_TEMPLATE_AND_VALIDATION_RULES.md","docs/bp008/DIAGNOSTIC_REPORT_AND_MEDIA_CONTRACT.md","docs/bp008/AUDIT_AND_EVENT_MODEL.md","docs/bp008/REVISION_LOG.md",
+  "tests/repair-estimate.test.mjs","src/repair-estimate/index.mjs","src/repair-estimate/repair-estimate-service.mjs","src/repair-estimate/manifest.mjs",
+  "docs/bp009/DOMAIN_AND_DATA_MODEL.md","docs/bp009/API_INVENTORY.md","docs/bp009/PERMISSION_MATRIX.md","docs/bp009/LIFECYCLE_AND_BUSINESS_RULES.md","docs/bp009/AUDIT_AND_EVENT_MODEL.md","docs/bp009/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -67,6 +70,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-006_REFERENCE.md",
   "migrations/TNGD-BP-007_REFERENCE.md",
   "migrations/TNGD-BP-008_REFERENCE.md",
+  "migrations/TNGD-BP-009_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -109,7 +113,7 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
   throw new Error("Test command must target canonical BP-000 through BP-008 tests.");
 }
@@ -131,6 +135,7 @@ if (!buildSource.includes("scheduling-manifest.json")) throw new Error("Build do
 if (!buildSource.includes("capacity-manifest.json")) throw new Error("Build does not generate BP-006 capacity manifest.");
 if (!buildSource.includes("dispatch-manifest.json")) throw new Error("Build does not generate BP-007 dispatch manifest.");
 if (!buildSource.includes("field-workflow-manifest.json")) throw new Error("Build does not generate BP-008 field-workflow manifest.");
+if (!buildSource.includes("repair-estimate-manifest.json")) throw new Error("Build does not generate BP-009 repair-estimate manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -203,6 +208,8 @@ if (capacityManifest.workOrderId !== "TNGD-BP-006" || !capacityManifest.consumer
 if(!foundation.implementedPackages.includes("TNGD-BP-007")||dispatchManifest.workOrderId!=="TNGD-BP-007"||dispatchManifest.humanApprovalRequired!==true)throw new Error("BP-007 manifest authority is incorrect.");
 const exactBp008Scope=["assigned-technician-mobile-workflow","today-current-next-job-views","field-lifecycle-and-exceptions","25-point-inspection","governed-diagnostic-evidence","immutable-submission","customer-safe-report","bp009-ready-reference-handoff"];
 if(!foundation.implementedPackages.includes("TNGD-BP-008")||JSON.stringify(foundation.bp008FeatureScope)!==JSON.stringify(exactBp008Scope)||fieldWorkflowManifest.workOrderId!=="TNGD-BP-008"||fieldWorkflowManifest.componentCount!==19||fieldWorkflowManifest.handoffTarget!=="TNGD-BP-009"||fieldWorkflowManifest.persistence.media!=="references-only")throw new Error("BP-008 manifest authority is incorrect.");
+const exactBp009Scope=["repair-service-template","new-door-estimate-template","draft-and-version-lifecycle","diagnostic-reference-lineage","recommendations-options-line-items","outcome-recording","idempotent-estimate-conversion","bp010-ready-authorization-package"];
+if(!foundation.implementedPackages.includes("TNGD-BP-009")||JSON.stringify(foundation.bp009FeatureScope)!==JSON.stringify(exactBp009Scope)||repairEstimateManifest.workOrderId!=="TNGD-BP-009"||repairEstimateManifest.handoffTarget!=="TNGD-BP-010")throw new Error("BP-009 manifest authority is incorrect.");
 
 if (
   customerCaseManifest.workOrderId !== "TNGD-BP-004" ||
@@ -347,6 +354,11 @@ for(const boundary of ["listJobsAuthorized","openAuthorized","transitionAuthoriz
 for(const forbidden of ["createRepairAuthorized","createEstimateAuthorized","authorizeCustomerAuthorized","createInvoiceAuthorized","processPaymentAuthorized","determineWarrantyAuthorized","garageDoorOrderForm","computerVision","aiDiagnosis"])if(fieldSource.includes(forbidden))throw new Error(`BP-008 forbidden scope: ${forbidden}`);
 const fieldTests=await readFile(new URL("../tests/field-workflow.test.mjs",import.meta.url),"utf8");
 for(const evidence of ["assigned technician receives today, current, and next views","unassigned technicians cannot view, open, or mutate","field lifecycle permits pause and resume","exactly nineteen source components and four governed results","repair submission blocks missing inspection","submits immutable evidence and a BP-009-ready reference handoff","estimate inspection is optional","governed references without binary duplication","exclude internal-only notes","exceptions return to administration","tenant isolation, role enforcement, idempotency, and audit history"])if(!fieldTests.includes(evidence))throw new Error(`Missing BP-008 evidence: ${evidence}`);
+const executionSource=await readFile(new URL("../src/repair-estimate/repair-estimate-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["Garage Door Repair | Service","New Garage Door Estimate","executionHandoffAuthorized","25-Point Inspection","two-year parts warranty","90-day service coverage","finalized","reviseAuthorized","prepareAuthorizationPackageAuthorized","pending-authorization","convertEstimateAuthorized","authorizationEvidenceReferenceId"])if(!executionSource.includes(boundary))throw new Error(`BP-009 boundary missing: ${boundary}`);
+for(const forbidden of ["authorizeCustomerAuthorized","createInvoiceAuthorized","processPaymentAuthorized","determineWarrantyAuthorized","garageDoorOrderForm","aiGeneratedPricing"])if(executionSource.includes(forbidden))throw new Error(`BP-009 forbidden scope: ${forbidden}`);
+const executionTests=await readFile(new URL("../tests/repair-estimate.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["both approved templates and exact standard Service and Warranty line items","repair requires BP-008 inspection while estimate inspection remains optional","draft creation is idempotent and preserves customer Service Case and evidence references","finalized versions are immutable and corrections create a new version","BP-010 package remains pending and does not authorize work","accepted estimate conversion preserves lineage without duplicate customer or Service Case","tenant and role enforcement plus audit history remain intact","no authorization invoice payment warranty decision or detailed order execution is exposed"])if(!executionTests.includes(evidence))throw new Error(`Missing BP-009 evidence: ${evidence}`);
 
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
@@ -482,4 +494,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000 through BP-008 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-009 repository validation passed.\n");
