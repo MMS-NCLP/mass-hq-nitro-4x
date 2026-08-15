@@ -4,7 +4,7 @@
 
 Project: MASS-TNGD-PILOT-001  
 Conveyor: Operational Manufacturing (Conveyor B)  
-Status: Active Manufacturing
+Status: Submitted for Independent Review
 
 ### Authority
 
@@ -151,3 +151,7 @@ Canonical post-activation inspection found that BP-008 artifact commit `2d07a039
 ### Reactivation Record
 
 BP-009 re-entered Active Manufacturing on 2026-08-15 after TNGD-BP-008.1 restored the canonical predecessor at recovery commit `5a07b8fad9e83973b364dc8cc40c04b7bcd0a0c8` and submitted validated correction evidence at commit `3903bf0eebcad23c7ee71c50b2449a608f976526`. Working-tree and clean-tree gates each passed 74 tests and canonical validation through BP-008; no architecture-critical dependency defect remains. Under MPD-002, renewed Independent Review proceeds in parallel. BP-009 scope remains unchanged, and the detailed garage-door order form remains excluded.
+
+### Review Submission Record
+
+BP-009 manufacturing completed at artifact commit `fea8086cabca6ac684221777f8e26f158814f0dd`. The complete gate passed with 85 tests and canonical validation through BP-009. The work order and completion report entered Pilot Review on 2026-08-15. BP-010 behavior and the detailed garage-door order form were not implemented.
