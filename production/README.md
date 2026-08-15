@@ -1,52 +1,61 @@
 # MASS Production Line
 
-This folder is the shared production queue for ChatGPT, Codex, Claude, and Davon.
+This folder is the shared production authority for Executive Authority, the Quarterback, Codex, and Claude.
 
-## Queue
+## Queues
 
-- inbox - approved work orders ready for Codex
-- active - work orders currently being manufactured
-- review - completed work awaiting review or localized revision
-- done - accepted work orders and completion reports
-- backlog - future ideas and deferred work; never manufacture directly
+- `inbox/` — approved Platform work orders
+- `active/` — the sole Platform package currently being manufactured
+- `review/` — completed work, Independent Reviews, and localized refinement evidence
+- `done/` — accepted work orders and completion evidence
+- `backlog/` — deferred ideas; never manufacture directly
+- `pilot/` — isolated Operational Pilot conveyor
 
-## Operating Flow - Version 1.2
+## Governing Production Model
 
-1. Approved work orders are placed in production/inbox.
-2. Codex selects work orders in filename order.
-3. For each work order, Codex records it in active, manufactures it, validates it, commits it, and places its completion report in review.
-4. Codex continues through four work orders in filename order.
-5. After exactly four work orders are completed, Codex submits one consolidated four-work-order report.
-6. Codex pauses for revision approval before processing additional inbox items.
-7. Localized corrections return through review without changing the approved objective.
-8. Accepted work and reports move to done.
+- [MPD-001](../governance/directives/MPD-001_Dual_Conveyor_Manufacturing_Strategy.md) establishes Conveyor A and Conveyor B.
+- [MPD-002](../governance/directives/MPD-002_Continuous_Production_Flywheel.md) requires continuous manufacturing while review and correction proceed in parallel.
 
-## Codex Instruction
+## Conveyor A — Platform Manufacturing
 
-Process production/inbox in filename order in batches of four. Build, validate, commit, and synchronize each item. After the fourth completed work order, move the batch to review, produce one consolidated report, and stop for revision approval. Stop earlier only when the inbox is empty or a concrete dependency blocks manufacturing. Do not manufacture from backlog.
+Conveyor A manufactures permanent reusable MASS capability: applications, plugins, rooms, services, contracts, standards, and authorized platform corrections.
 
-## Claude Instruction
+Operating loop:
 
-At each four-work-order checkpoint, review only the four newly completed builds, log localized revisions, verify the production frontier, and identify the next target. Do not stop active production unless a confirmed defect blocks active work.
+1. Select the first repository-authorized, dependency-ready work order.
+2. Move only that work order to `active/`.
+3. Manufacture, validate, commit, and synchronize it.
+4. Submit the completed package to `review/`.
+5. Continue immediately to the next eligible work order.
+6. Independent Review proceeds in parallel.
+7. Localized findings return as isolated LCO/refinement work orders without stopping unrelated production.
+8. Only an architecture-critical defect, actual dependency failure, missing authority, or Executive pause stops the affected chain.
 
-## Batch Gate
+## Conveyor B — Operational Pilot Manufacturing
 
-The four-work-order review gate is mandatory. Once the consolidated report is submitted, the queue remains paused until revision approval is recorded.
+Conveyor B uses `production/pilot/` and follows the same continuous flywheel while consuming permanent Platform capability.
 
-## Dual Conveyor Authority
+Neither conveyor pauses the other without Executive Authority.
 
-[MPD-001](../governance/directives/MPD-001_Dual_Conveyor_Manufacturing_Strategy.md) governs two coordinated production streams:
+## Queue Continuity
 
-- Conveyor A — Platform Manufacturing uses the existing `production/inbox`, `active`, `review`, and `done` queues.
-- Conveyor B — Operational Pilot Manufacturing uses the isolated `production/pilot/` queue.
-- The pilot charter and backlog are planning authority; individual pilot packages require explicit Executive Authority before entering the pilot inbox.
-- Neither conveyor pauses the other without Executive Authority.
+- No more than one active package per conveyor.
+- Maintain at least three future authorized work orders per inbox whenever three roadmap-authorized packages remain.
+- Replenish before activation would reduce the inbox below three.
+- If no feature package is eligible, manufacture the next authorized correction, refinement, validation, migration, packaging, or readiness work order.
+- Never invent work orders or manufacture directly from backlog.
+
+## Review Rule
+
+A package that passed its complete manufacturing gate and entered review may serve as a provisional successor baseline unless a known architecture-critical defect exists. Routine review and acceptance do not idle production.
+
+Batch checkpoints are reporting events, not automatic production pauses.
 
 ## Repository Messaging and Executive Attention
 
-[ENB-001](../governance/directives/ENB-001_Executive_Notification_Bridge_v1.0.md) governs temporary repository messaging and Executive Attention notification:
+[ENB-001](../governance/directives/ENB-001_Executive_Notification_Bridge_v1.0.md) governs Executive Attention:
 
-- `messages/` carries governed AI-to-AI and production communications.
-- `executive/attention/` contains unresolved items requiring Executive judgment.
-- `executive/completed/` contains resolved attention records after a separate canonical Executive decision.
-- Notifications report attention only; they never grant authority or change repository state.
+- `messages/` carries governed production communication.
+- `executive/attention/` contains unresolved Executive decisions.
+- `executive/completed/` contains resolved attention records.
+- Notifications report attention only; they never grant authority.
