@@ -40,3 +40,7 @@ Live Square payment, refund, and webhook execution and live database migration w
 ## Queue Disposition
 
 BP-011 is submitted to Pilot Review. BP-012 through BP-014 remain in Pilot Inbox. Pilot Active is empty pending the next MPD-002 activation decision and inbox-minimum verification.
+
+## BP-011.1 Canonical Recovery Record
+
+IRO-017 identified that the canonical service blob published with the BP-011 artifact was truncated and invalid UTF-8. TNGD-BP-011.1 restored the exact previously validated 11,187-byte source at artifact commit `8d77f379d22eaccbacfa216856a13c66a6a12ece` with Git blob `12678ad414cc2a2fc8bfddbd53316aa0ffbcc9b3`. The separately assembled BP-011-only gate passed 107 tests and canonical validation through BP-011. This correction changed no business logic or scope and is pending Independent Review.
