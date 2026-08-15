@@ -6,6 +6,7 @@ import { intakeManifest } from "../src/intake/index.mjs";
 import { customerCaseManifest } from "../src/customer/index.mjs";
 import { schedulingManifest } from "../src/scheduling/index.mjs";
 import { capacityManifest } from "../src/capacity/index.mjs";
+import { dispatchManifest } from "../src/dispatch/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -21,6 +22,8 @@ const requiredPaths = [
   "tests/customer-case.test.mjs",
   "tests/scheduling.test.mjs",
   "tests/capacity.test.mjs",
+  "tests/dispatch.test.mjs","src/dispatch/index.mjs","src/dispatch/dispatch-service.mjs","src/dispatch/manifest.mjs",
+  "docs/bp007/DOMAIN_AND_DATA_MODEL.md","docs/bp007/API_INVENTORY.md","docs/bp007/PERMISSION_MATRIX.md","docs/bp007/ASSIGNMENT_AND_DISPATCH_RULES.md","docs/bp007/ROUTE_RECOMMENDATION_BOUNDARY.md","docs/bp007/AUDIT_AND_EVENT_MODEL.md","docs/bp007/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -59,6 +62,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-004_REFERENCE.md",
   "migrations/TNGD-BP-005_REFERENCE.md",
   "migrations/TNGD-BP-006_REFERENCE.md",
+  "migrations/TNGD-BP-007_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -101,7 +105,7 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
   throw new Error("Test command must target canonical BP-000 through BP-006 tests.");
 }
@@ -121,6 +125,7 @@ if (!buildSource.includes("customer-case-manifest.json")) {
 }
 if (!buildSource.includes("scheduling-manifest.json")) throw new Error("Build does not generate BP-005 scheduling manifest.");
 if (!buildSource.includes("capacity-manifest.json")) throw new Error("Build does not generate BP-006 capacity manifest.");
+if (!buildSource.includes("dispatch-manifest.json")) throw new Error("Build does not generate BP-007 dispatch manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -190,6 +195,7 @@ if (JSON.stringify(schedulingManifest.capabilities) !== JSON.stringify(exactBp00
 const exactBp006Scope = ["technician-availability-profiles", "capacity-calculation", "availability-exceptions", "temporary-capacity-overrides", "capability-and-area-filtering", "bp005-bp007-capacity-handoff"];
 if (JSON.stringify(foundation.bp006FeatureScope) !== JSON.stringify(exactBp006Scope) || !foundation.implementedPackages.includes("TNGD-BP-006")) throw new Error("Foundation BP-006 authority is incorrect.");
 if (capacityManifest.workOrderId !== "TNGD-BP-006" || !capacityManifest.consumers.includes("TNGD-BP-007")) throw new Error("BP-006 capacity manifest is incorrect.");
+if(!foundation.implementedPackages.includes("TNGD-BP-007")||dispatchManifest.workOrderId!=="TNGD-BP-007"||dispatchManifest.humanApprovalRequired!==true)throw new Error("BP-007 manifest authority is incorrect.");
 
 if (
   customerCaseManifest.workOrderId !== "TNGD-BP-004" ||
@@ -327,6 +333,8 @@ for (const boundary of ["configureProfileAuthorized", "addExceptionAuthorized", 
 for (const forbidden of ["assignTechnicianAuthorized", "routeOptimization", "dispatchBoard"]) if (capacitySource.includes(forbidden)) throw new Error(`BP-006 improperly implements BP-007: ${forbidden}`);
 const capacityTests = await readFile(new URL("../tests/capacity.test.mjs", import.meta.url), "utf8");
 for (const evidence of ["shift setup exposes service-capable capacity", "PTO and blackout dates block capacity", "capability, service area, equipment, vehicle, and emergency requirements", "same-day limits and overlapping assignments", "authorized reasoned override increases temporary capacity", "tenant and role enforcement prevent technician capacity administration"]) if (!capacityTests.includes(evidence)) throw new Error(`Missing BP-006 evidence: ${evidence}`);
+const dispatchSource=await readFile(new URL("../src/dispatch/dispatch-service.mjs",import.meta.url),"utf8");for(const b of ["createWorkItemAuthorized","recommendAuthorized","assignAuthorized","reassignAuthorized","returnToQueueAuthorized","dispatchAuthorized","handoffAuthorized","Recommendation requester cannot approve"])if(!dispatchSource.includes(b))throw new Error(`BP-007 boundary missing: ${b}`);for(const f of ["executeJobAuthorized","createEstimate","processPayment","liveTrafficProvider"])if(dispatchSource.includes(f))throw new Error(`BP-007 forbidden scope: ${f}`);
+const dispatchTests=await readFile(new URL("../tests/dispatch.test.mjs",import.meta.url),"utf8");for(const e of ["idempotent unassigned work item","capacity-aware recommendation","human approval separation","immutable assignment history","return to queue and dispatch lifecycle","exceptions are opened and resolved","assigned technician receives"])if(!dispatchTests.includes(e))throw new Error(`Missing BP-007 evidence: ${e}`);
 
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
@@ -462,4 +470,4 @@ try {
   }
 }
 
-process.stdout.write("Canonical BP-000/BP-001/BP-002/BP-003/BP-004/BP-005/BP-006 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-007 repository validation passed.\n");

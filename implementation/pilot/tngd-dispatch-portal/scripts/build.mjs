@@ -5,6 +5,7 @@ const { intakeManifest } = await import("../src/intake/index.mjs");
 const { customerCaseManifest } = await import("../src/customer/index.mjs");
 const { schedulingManifest } = await import("../src/scheduling/index.mjs");
 const { capacityManifest } = await import("../src/capacity/index.mjs");
+const { dispatchManifest } = await import("../src/dispatch/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -33,7 +34,8 @@ await writeFile(
 
 await writeFile(new URL("../dist/scheduling-manifest.json", import.meta.url), `${JSON.stringify(schedulingManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/capacity-manifest.json", import.meta.url), `${JSON.stringify(capacityManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/dispatch-manifest.json", import.meta.url), `${JSON.stringify(dispatchManifest, null, 2)}\n`, "utf8");
 
 process.stdout.write(
-  "Built foundation through BP-006 capacity manifests\n"
+  "Built foundation through BP-007 dispatch manifests\n"
 );

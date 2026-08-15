@@ -1,0 +1,46 @@
+import { randomUUID } from "node:crypto";
+const freeze=(v)=>{if(!v||typeof v!=="object"||Object.isFrozen(v))return v;Object.freeze(v);for(const n of Object.values(v))freeze(n);return v;};
+
+export class DispatchService {
+  #items=new Map(); #byAppointment=new Map(); #recommendations=new Map(); #assignments=new Map(); #history=new Map(); #exceptions=new Map();
+  #secure; #scheduling; #capacity; #audit; #now;
+  constructor({secureAccess,schedulingService,capacityService,auditLog,now=()=>new Date()}={}){
+    if(!secureAccess||!schedulingService||!capacityService||!auditLog)throw new Error("Dispatch requires security, scheduling, capacity, and audit contracts.");
+    this.#secure=secureAccess;this.#scheduling=schedulingService;this.#capacity=capacityService;this.#audit=auditLog;this.#now=now;
+  }
+  createWorkItemAuthorized({sessionToken,tenantId,appointmentId,requirements}){
+    const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`appointment:${appointmentId}:queue`);
+    const key=`${tenantId}:${appointmentId}`;const existing=this.#byAppointment.get(key);if(existing)return this.#items.get(existing);
+    const appointment=this.#scheduling.getAuthorized({sessionToken,tenantId,appointmentId});if(!appointment||appointment.status!=="scheduled")throw new Error("A scheduled BP-005 appointment is required.");
+    const item=freeze({id:randomUUID(),tenantId,appointmentId,serviceCaseId:appointment.serviceCaseId,customerId:appointment.customerId,status:"unassigned",requirements:structuredClone(requirements),createdBy:p.id,createdAt:this.#now().toISOString(),revision:1});
+    this.#items.set(item.id,item);this.#byAppointment.set(key,item.id);this.#append(item,p,"DispatchWorkItemCreated");return item;
+  }
+  recommendAuthorized({sessionToken,tenantId,workItemId}){
+    const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:recommend`);const item=this.#item(tenantId,workItemId);if(!["unassigned","recommended"].includes(item.status))throw new Error("Work item is not recommendation-ready.");
+    const appointment=this.#scheduling.getAuthorized({sessionToken,tenantId,appointmentId:item.appointmentId});const r=item.requirements;
+    const capacity=this.#capacity.calculateAuthorized({sessionToken,tenantId,startsAt:appointment.startsAt,endsAt:appointment.endsAt,serviceType:r.serviceType,serviceArea:r.serviceArea,travelDistanceMiles:r.travelDistanceMiles,requiredSkills:r.requiredSkills,requiredEquipment:r.requiredEquipment,requiredVehicle:r.requiredVehicle,emergency:r.emergency});
+    const ranked=capacity.candidates.filter(x=>x.available).sort((a,b)=>b.remainingCapacity-a.remainingCapacity||a.technicianId.localeCompare(b.technicianId)).map((x,index)=>freeze({technicianId:x.technicianId,rank:index+1,remainingCapacity:x.remainingCapacity,explanation:["BP-006 eligible","capacity available",`deterministic rank ${index+1}`]}));
+    const rec=freeze({id:randomUUID(),tenantId,workItemId,requestedBy:p.id,requestedAt:this.#now().toISOString(),candidates:ranked,status:"pending-human-approval"});this.#recommendations.set(rec.id,rec);
+    this.#replace(item,{status:"recommended",recommendationId:rec.id},p,"AssignmentRecommendationCreated");return rec;
+  }
+  assignAuthorized({sessionToken,tenantId,workItemId,recommendationId,technicianId}){
+    const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:assign`);const item=this.#item(tenantId,workItemId);const rec=this.#recommendations.get(recommendationId);
+    if(!rec||rec.workItemId!==workItemId||rec.tenantId!==tenantId)throw new Error("Valid assignment recommendation required.");if(rec.requestedBy===p.id)throw new Error("Recommendation requester cannot approve the assignment.");if(!rec.candidates.some(x=>x.technicianId===technicianId))throw new Error("Technician is not eligible under BP-006 capacity.");
+    const existing=this.#assignments.get(workItemId);if(existing?.technicianId===technicianId&&item.status==="assigned")return existing;
+    const assignment=freeze({id:randomUUID(),tenantId,workItemId,appointmentId:item.appointmentId,technicianId,recommendationId,status:"assigned",approvedBy:p.id,approvedAt:this.#now().toISOString(),revision:(existing?.revision??0)+1});this.#assignments.set(workItemId,assignment);
+    this.#replace(item,{status:"assigned",assignmentId:assignment.id},p,"TechnicianAssignmentApproved",{technicianId});return assignment;
+  }
+  reassignAuthorized({sessionToken,tenantId,workItemId,recommendationId,technicianId,reason}){if(!String(reason||"").trim())throw new Error("Reassignment requires a reason.");const assignment=this.assignAuthorized({sessionToken,tenantId,workItemId,recommendationId,technicianId});const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:reassign`);this.#append(this.#item(tenantId,workItemId),p,"TechnicianReassigned",{technicianId,reason});return assignment;}
+  returnToQueueAuthorized({sessionToken,tenantId,workItemId,reason}){const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:return`);if(!String(reason||"").trim())throw new Error("Return to queue requires a reason.");return this.#replace(this.#item(tenantId,workItemId),{status:"unassigned",assignmentId:null,recommendationId:null},p,"DispatchReturnedToQueue",{reason});}
+  dispatchAuthorized({sessionToken,tenantId,workItemId}){const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:dispatch`);const item=this.#item(tenantId,workItemId);if(item.status!=="assigned")throw new Error("Only an assigned work item may be dispatched.");return this.#replace(item,{status:"dispatched",dispatchedBy:p.id,dispatchedAt:this.#now().toISOString()},p,"WorkDispatched");}
+  cancelAuthorized({sessionToken,tenantId,workItemId,reason}){const p=this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:cancel`);if(!String(reason||"").trim())throw new Error("Cancellation requires a reason.");return this.#replace(this.#item(tenantId,workItemId),{status:"cancelled",cancellationReason:reason},p,"DispatchCancelled",{reason});}
+  addExceptionAuthorized({sessionToken,tenantId,workItemId,type,detail}){const p=this.#permit(sessionToken,tenantId,"operations.exceptions.manage",`dispatch:${workItemId}:exception`);const x=freeze({id:randomUUID(),tenantId,workItemId,type,detail,openedBy:p.id,status:"open",openedAt:this.#now().toISOString()});this.#exceptions.set(x.id,x);this.#append(this.#item(tenantId,workItemId),p,"DispatchExceptionOpened",{exceptionId:x.id,type});return x;}
+  resolveExceptionAuthorized({sessionToken,tenantId,exceptionId,resolution}){const p=this.#permit(sessionToken,tenantId,"operations.exceptions.manage",`dispatch-exception:${exceptionId}:resolve`);const x=this.#exceptions.get(exceptionId);if(!x||x.tenantId!==tenantId)throw new Error("Dispatch exception not found.");const done=freeze({...x,status:"resolved",resolution,resolvedBy:p.id,resolvedAt:this.#now().toISOString()});this.#exceptions.set(exceptionId,done);this.#append(this.#item(tenantId,x.workItemId),p,"DispatchExceptionResolved",{exceptionId,resolution});return done;}
+  listAuthorized({sessionToken,tenantId}){this.#permit(sessionToken,tenantId,"dispatch.manage","dispatch:queue");return freeze([...this.#items.values()].filter(x=>x.tenantId===tenantId));}
+  historyAuthorized({sessionToken,tenantId,workItemId}){this.#permit(sessionToken,tenantId,"dispatch.manage",`dispatch:${workItemId}:history`);this.#item(tenantId,workItemId);return freeze([...(this.#history.get(workItemId)??[])]);}
+  handoffAuthorized({sessionToken,tenantId,workItemId}){const p=this.#permit(sessionToken,tenantId,"jobs.assigned.read",`dispatch:${workItemId}:handoff`);const item=this.#item(tenantId,workItemId),a=this.#assignments.get(workItemId);if(item.status!=="dispatched"||!a||!p.roles.includes("technician")||a.technicianId!==p.id)throw new Error("Technician handoff is not authorized.");return freeze({workItemId,appointmentId:item.appointmentId,serviceCaseId:item.serviceCaseId,customerId:item.customerId,technicianId:a.technicianId,requirements:item.requirements,status:"ready-for-field-execution"});}
+  #item(t,id){const x=this.#items.get(id);if(!x||x.tenantId!==t)throw new Error("Dispatch work item not found for tenant.");return x;}
+  #permit(token,tenant,permission,resourceId){return this.#secure.requirePermission({sessionToken:token,tenantId:tenant,permission,resourceId});}
+  #replace(item,changes,p,type,metadata={}){const next=freeze({...item,...changes,revision:item.revision+1,updatedAt:this.#now().toISOString()});this.#items.set(item.id,next);this.#append(next,p,type,metadata);return next;}
+  #append(item,p,type,metadata={}){const e=freeze({id:randomUUID(),type,occurredAt:this.#now().toISOString(),actorId:p.id,status:item.status,metadata:structuredClone(metadata)});this.#history.set(item.id,[...(this.#history.get(item.id)??[]),e]);this.#audit.append({tenantId:item.tenantId,principalId:p.id,type,resource:`dispatch:${item.id}`,action:"dispatch.manage",outcome:"granted",metadata:e.metadata});return e;}
+}

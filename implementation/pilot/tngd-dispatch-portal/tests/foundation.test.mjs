@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007"]
   );
   assert.equal(
     foundation.implementationRoot,
@@ -73,6 +73,7 @@ test("foundation records only exact BP-005 work-order responsibilities", () => {
 test("foundation records only exact BP-006 work-order responsibilities", () => {
   assert.deepEqual(foundation.bp006FeatureScope, ["technician-availability-profiles", "capacity-calculation", "availability-exceptions", "temporary-capacity-overrides", "capability-and-area-filtering", "bp005-bp007-capacity-handoff"]);
 });
+test("foundation records only exact BP-007 work-order responsibilities",()=>{assert.deepEqual(foundation.bp007FeatureScope,["dispatcher-work-queue","capacity-aware-recommendations","human-approved-assignment","reassignment-and-return","dispatch-lifecycle","exception-handling","immutable-assignment-history","technician-handoff"]);});
 
 test("foundation preserves persistence and deployment seams", () => {
   assert.equal(foundation.paths.migrations, "migrations");
