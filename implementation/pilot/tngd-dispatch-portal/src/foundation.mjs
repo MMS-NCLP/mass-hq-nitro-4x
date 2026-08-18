@@ -73,7 +73,8 @@ export const foundation = Object.freeze({
     "intake-evidence-preservation",
     "bp005-ready-handoff",
     "hcp-template-schema-expansion",
-    "customer-record-enrichment"
+    "customer-record-enrichment",
+    "direct-customer-creation"
   ]),
   bp005FeatureScope: Object.freeze([
     "appointment-creation",

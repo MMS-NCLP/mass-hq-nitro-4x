@@ -245,6 +245,74 @@ export class CustomerCaseService {
     return timeline?.tenantId === tenantId ? timeline : null;
   }
 
+  createCustomerAuthorized({ sessionToken, tenantId, record }) {
+    const principal = this.#authorize({
+      sessionToken, tenantId,
+      permission: "customers.write",
+      resourceId: "customer:direct-create"
+    });
+    const displayName = text(record.displayName || `${record.firstName || ""} ${record.lastName || ""}`.trim());
+    if (!displayName) throw new Error("Customer name is required.");
+    const contact = {
+      email: text(record.email || ""),
+      phone: text(record.mobileNumber || record.phone || "")
+    };
+    const keys = identityKeys(tenantId, contact);
+    const matchedIds = new Set(keys.map(k => this.#customerIdentityIndex.get(k)).filter(Boolean));
+    if (matchedIds.size > 1) {
+      throw new Error("Customer identity conflict requires governed stewardship.");
+    }
+    const existingCustomerId = [...matchedIds][0] ?? null;
+    if (existingCustomerId) {
+      return { customer: this.#customers.get(existingCustomerId), created: false };
+    }
+    const now = this.#now().toISOString();
+    const customer = deepFreeze({
+      id: randomUUID(),
+      tenantId,
+      firstName: text(record.firstName || ""),
+      lastName: text(record.lastName || ""),
+      displayName,
+      name: displayName,
+      email: text(record.email || "").toLowerCase() || null,
+      mobileNumber: digits(record.mobileNumber || "") || null,
+      homeNumber: record.homeNumber || null,
+      workNumber: record.workNumber || null,
+      phone: text(record.mobileNumber || record.phone || ""),
+      additionalEmails: record.additionalEmails || [],
+      preferredContact: record.preferredContact || "phone",
+      company: record.company || null,
+      role: record.role || null,
+      customerType: record.customerType || "homeowner",
+      isContractor: record.isContractor === true,
+      addresses: record.addresses || [],
+      billsTo: record.billsTo || null,
+      acceptsBillsFrom: record.acceptsBillsFrom || null,
+      leadSource: record.leadSource || null,
+      tags: record.tags || [],
+      notes: record.notes || null,
+      doNotService: record.doNotService === true,
+      notificationsEnabled: record.notificationsEnabled !== false,
+      customerCreatedAt: record.customerCreatedAt || now,
+      lastServiceDate: record.lastServiceDate || null,
+      lifetimeValue: typeof record.lifetimeValue === "number" ? record.lifetimeValue : 0,
+      createdFromIntakeRecordId: null,
+      createdAt: now
+    });
+    this.#customers.set(customer.id, customer);
+    for (const key of keys) this.#customerIdentityIndex.set(key, customer.id);
+    this.#audit.append({
+      tenantId,
+      principalId: principal.id,
+      type: "CustomerRecordCreated",
+      resource: `customer:${customer.id}`,
+      action: "customers.write",
+      outcome: "granted",
+      metadata: { displayName }
+    });
+    return { customer, created: true };
+  }
+
   updateCustomerAuthorized({ sessionToken, tenantId, customerId, updates }) {
     const principal = this.#authorize({
       sessionToken, tenantId,

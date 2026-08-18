@@ -265,3 +265,57 @@ test("tenant isolation preserved through customer update operations", async () =
     /not found/
   );
 });
+
+test("direct customer creation populates full HCP schema without intake", async () => {
+  const { customerCases, admin } = await setup();
+  const result = customerCases.createCustomerAuthorized({
+    sessionToken: admin.token,
+    tenantId: TENANT_A,
+    record: {
+      firstName: "Alice",
+      lastName: "Johnson",
+      email: "alice@example.com",
+      mobileNumber: "9195551234",
+      company: "TNGD",
+      customerType: "business",
+      addresses: [{ streetLine1: "200 Oak St", city: "Durham", state: "NC", postalCode: "27701" }],
+      tags: ["hcp:12345"],
+      lifetimeValue: 500.00,
+      customerCreatedAt: "2024-07-02T19:26:38Z"
+    }
+  });
+  assert.equal(result.created, true);
+  assert.equal(result.customer.firstName, "Alice");
+  assert.equal(result.customer.lastName, "Johnson");
+  assert.equal(result.customer.displayName, "Alice Johnson");
+  assert.equal(result.customer.company, "TNGD");
+  assert.equal(result.customer.customerType, "business");
+  assert.equal(result.customer.lifetimeValue, 500);
+  assert.deepEqual(result.customer.tags, ["hcp:12345"]);
+  assert.equal(result.customer.customerCreatedAt, "2024-07-02T19:26:38Z");
+  assert.equal(result.customer.createdFromIntakeRecordId, null);
+  assert.equal(result.customer.addresses[0].city, "Durham");
+  const fetched = customerCases.getCustomerAuthorized({
+    sessionToken: admin.token, tenantId: TENANT_A,
+    customerId: result.customer.id
+  });
+  assert.equal(fetched.firstName, "Alice");
+});
+
+test("batch import deduplicates by email and phone within tenant", async () => {
+  const { customerCases, admin } = await setup();
+  const first = customerCases.createCustomerAuthorized({
+    sessionToken: admin.token,
+    tenantId: TENANT_A,
+    record: { firstName: "Bob", lastName: "Smith", email: "bob@example.com", mobileNumber: "9195559999" }
+  });
+  assert.equal(first.created, true);
+  const duplicate = customerCases.createCustomerAuthorized({
+    sessionToken: admin.token,
+    tenantId: TENANT_A,
+    record: { firstName: "Robert", lastName: "Smith", email: "bob@example.com", mobileNumber: "5555555555" }
+  });
+  assert.equal(duplicate.created, false);
+  assert.equal(duplicate.customer.id, first.customer.id);
+  assert.equal(duplicate.customer.firstName, "Bob");
+});

@@ -223,7 +223,8 @@ const exactBp004Scope = [
   "intake-evidence-preservation",
   "bp005-ready-handoff",
   "hcp-template-schema-expansion",
-  "customer-record-enrichment"
+  "customer-record-enrichment",
+  "direct-customer-creation"
 ];
 if (JSON.stringify(foundation.bp004FeatureScope) !== JSON.stringify(exactBp004Scope)) {
   throw new Error("Foundation metadata expands or omits BP-004 authority.");
@@ -393,7 +394,9 @@ for (const lcoBoundary of [
   "lastServiceDate",
   "lifetimeValue",
   "immutableFields",
-  "CustomerRecordUpdated"
+  "CustomerRecordUpdated",
+  "createCustomerAuthorized",
+  "CustomerRecordCreated"
 ]) {
   if (!customerCaseSource.includes(lcoBoundary)) {
     throw new Error(`BP-004.1 LCO boundary missing: ${lcoBoundary}`);
@@ -405,7 +408,9 @@ for (const lcoEvidence of [
   "identity matching still works with expanded customer records",
   "doNotService flag is preserved and queryable after update",
   "backward-compatible intake customers have valid defaults for all expanded fields",
-  "tenant isolation preserved through customer update operations"
+  "tenant isolation preserved through customer update operations",
+  "direct customer creation populates full HCP schema without intake",
+  "batch import deduplicates by email and phone within tenant"
 ]) {
   if (!customerCaseTestSource.includes(lcoEvidence)) {
     throw new Error(`Missing BP-004.1 LCO evidence: ${lcoEvidence}`);

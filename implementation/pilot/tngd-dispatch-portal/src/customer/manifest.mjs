@@ -9,7 +9,8 @@ export const customerCaseManifest = Object.freeze({
     "intake-evidence-preservation",
     "bp005-ready-handoff",
     "hcp-template-schema-expansion",
-    "customer-record-enrichment"
+    "customer-record-enrichment",
+    "direct-customer-creation"
   ]),
   entities: Object.freeze(["CustomerRecord", "ServiceCase", "CustomerTimeline"]),
   serviceCaseStatus: "ready-for-scheduling",
