@@ -62,7 +62,9 @@ test("foundation records only exact BP-004 work-order responsibilities", () => {
     "initial-service-case-creation",
     "initial-customer-timeline",
     "intake-evidence-preservation",
-    "bp005-ready-handoff"
+    "bp005-ready-handoff",
+    "hcp-template-schema-expansion",
+    "customer-record-enrichment"
   ]);
 });
 

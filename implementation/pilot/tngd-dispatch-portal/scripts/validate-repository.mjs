@@ -221,7 +221,9 @@ const exactBp004Scope = [
   "initial-service-case-creation",
   "initial-customer-timeline",
   "intake-evidence-preservation",
-  "bp005-ready-handoff"
+  "bp005-ready-handoff",
+  "hcp-template-schema-expansion",
+  "customer-record-enrichment"
 ];
 if (JSON.stringify(foundation.bp004FeatureScope) !== JSON.stringify(exactBp004Scope)) {
   throw new Error("Foundation metadata expands or omits BP-004 authority.");
@@ -366,6 +368,47 @@ for (const evidenceName of [
 ]) {
   if (!customerCaseTestSource.includes(evidenceName)) {
     throw new Error(`Missing BP-004 evidence: ${evidenceName}`);
+  }
+}
+for (const lcoBoundary of [
+  "updateCustomerAuthorized",
+  "parseName",
+  "firstName",
+  "lastName",
+  "displayName",
+  "mobileNumber",
+  "homeNumber",
+  "workNumber",
+  "additionalEmails",
+  "customerType",
+  "isContractor",
+  "addresses",
+  "streetLine1",
+  "billsTo",
+  "acceptsBillsFrom",
+  "leadSource",
+  "doNotService",
+  "notificationsEnabled",
+  "customerCreatedAt",
+  "lastServiceDate",
+  "lifetimeValue",
+  "immutableFields",
+  "CustomerRecordUpdated"
+]) {
+  if (!customerCaseSource.includes(lcoBoundary)) {
+    throw new Error(`BP-004.1 LCO boundary missing: ${lcoBoundary}`);
+  }
+}
+for (const lcoEvidence of [
+  "customer record contains all HCP-template fields after intake conversion",
+  "update enriches existing customer without overwriting intake evidence",
+  "identity matching still works with expanded customer records",
+  "doNotService flag is preserved and queryable after update",
+  "backward-compatible intake customers have valid defaults for all expanded fields",
+  "tenant isolation preserved through customer update operations"
+]) {
+  if (!customerCaseTestSource.includes(lcoEvidence)) {
+    throw new Error(`Missing BP-004.1 LCO evidence: ${lcoEvidence}`);
   }
 }
 

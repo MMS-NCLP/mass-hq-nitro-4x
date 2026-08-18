@@ -114,3 +114,154 @@ test("intake evidence remains immutable and scheduling behavior is not implement
   assert.equal("appointmentId" in result.serviceCase, false);
   assert.equal("scheduledAt" in result.serviceCase, false);
 });
+
+test("customer record contains all HCP-template fields after intake conversion", async () => {
+  const { guidedIntake, customerCases, admin } = await setup();
+  const intake = completedIntake({ guidedIntake, token: admin.token });
+  const result = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: intake.id });
+  const c = result.customer;
+  assert.equal(c.firstName, "Taylor");
+  assert.equal(c.lastName, "Customer");
+  assert.equal(c.displayName, "Taylor Customer");
+  assert.equal(c.name, "Taylor Customer");
+  assert.equal(c.email, "taylor@example.com");
+  assert.equal(c.mobileNumber, "9195550100");
+  assert.equal(c.homeNumber, null);
+  assert.equal(c.workNumber, null);
+  assert.equal(c.phone, "919-555-0100");
+  assert.deepEqual(c.additionalEmails, []);
+  assert.equal(c.preferredContact, "phone");
+  assert.equal(c.company, null);
+  assert.equal(c.role, null);
+  assert.equal(c.customerType, "homeowner");
+  assert.equal(c.isContractor, false);
+  assert.equal(c.addresses.length, 1);
+  assert.equal(c.addresses[0].streetLine1, "100 Main Street, Raleigh, NC");
+  assert.equal(c.addresses[0].city, null);
+  assert.equal(c.billsTo, null);
+  assert.equal(c.acceptsBillsFrom, null);
+  assert.equal(c.leadSource, "phone");
+  assert.deepEqual(c.tags, []);
+  assert.equal(c.notes, null);
+  assert.equal(c.doNotService, false);
+  assert.equal(c.notificationsEnabled, true);
+  assert.ok(c.customerCreatedAt);
+  assert.equal(c.lastServiceDate, null);
+  assert.equal(c.lifetimeValue, 0);
+  assert.ok(c.createdFromIntakeRecordId);
+});
+
+test("update enriches existing customer without overwriting intake evidence", async () => {
+  const { guidedIntake, customerCases, admin } = await setup();
+  const intake = completedIntake({ guidedIntake, token: admin.token });
+  const result = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: intake.id });
+  const updated = customerCases.updateCustomerAuthorized({
+    sessionToken: admin.token,
+    tenantId: TENANT_A,
+    customerId: result.customer.id,
+    updates: {
+      company: "Top Notch Garage Doors",
+      role: "Manager",
+      customerType: "business",
+      homeNumber: "919-555-0200",
+      notes: "Preferred customer"
+    }
+  });
+  assert.equal(updated.company, "Top Notch Garage Doors");
+  assert.equal(updated.role, "Manager");
+  assert.equal(updated.customerType, "business");
+  assert.equal(updated.homeNumber, "919-555-0200");
+  assert.equal(updated.notes, "Preferred customer");
+  assert.equal(updated.firstName, "Taylor");
+  assert.equal(updated.email, "taylor@example.com");
+  assert.equal(updated.createdFromIntakeRecordId, intake.id);
+  assert.throws(
+    () => customerCases.updateCustomerAuthorized({
+      sessionToken: admin.token, tenantId: TENANT_A,
+      customerId: result.customer.id,
+      updates: { id: "fake-id" }
+    }),
+    /immutable/
+  );
+});
+
+test("identity matching still works with expanded customer records", async () => {
+  const { guidedIntake, customerCases, admin } = await setup();
+  const firstIntake = completedIntake({ guidedIntake, token: admin.token });
+  const first = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: firstIntake.id });
+  assert.ok(first.customer.firstName);
+  assert.ok(first.customer.addresses.length > 0);
+  const secondIntake = completedIntake({
+    guidedIntake, token: admin.token,
+    overrides: { email: "taylor@example.com", phone: "919-555-9999" }
+  });
+  const second = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: secondIntake.id });
+  assert.equal(second.customer.id, first.customer.id);
+  assert.equal(second.customerMatched, true);
+});
+
+test("doNotService flag is preserved and queryable after update", async () => {
+  const { guidedIntake, customerCases, admin } = await setup();
+  const intake = completedIntake({ guidedIntake, token: admin.token });
+  const result = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: intake.id });
+  assert.equal(result.customer.doNotService, false);
+  const flagged = customerCases.updateCustomerAuthorized({
+    sessionToken: admin.token, tenantId: TENANT_A,
+    customerId: result.customer.id,
+    updates: { doNotService: true }
+  });
+  assert.equal(flagged.doNotService, true);
+  const fetched = customerCases.getCustomerAuthorized({
+    sessionToken: admin.token, tenantId: TENANT_A,
+    customerId: result.customer.id
+  });
+  assert.equal(fetched.doNotService, true);
+});
+
+test("backward-compatible intake customers have valid defaults for all expanded fields", async () => {
+  const { guidedIntake, customerCases, admin } = await setup();
+  const intake = completedIntake({ guidedIntake, token: admin.token });
+  const result = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: intake.id });
+  const c = result.customer;
+  const requiredFields = [
+    "id", "tenantId", "firstName", "lastName", "displayName", "name",
+    "email", "mobileNumber", "homeNumber", "workNumber", "phone",
+    "additionalEmails", "preferredContact", "company", "role",
+    "customerType", "isContractor", "addresses", "billsTo", "acceptsBillsFrom",
+    "leadSource", "tags", "notes", "doNotService", "notificationsEnabled",
+    "customerCreatedAt", "lastServiceDate", "lifetimeValue",
+    "createdFromIntakeRecordId", "createdAt"
+  ];
+  for (const field of requiredFields) {
+    assert.ok(field in c, `Missing field: ${field}`);
+  }
+  assert.equal(typeof c.doNotService, "boolean");
+  assert.equal(typeof c.notificationsEnabled, "boolean");
+  assert.equal(typeof c.isContractor, "boolean");
+  assert.equal(typeof c.lifetimeValue, "number");
+  assert.ok(Array.isArray(c.addresses));
+  assert.ok(Array.isArray(c.tags));
+  assert.ok(Array.isArray(c.additionalEmails));
+});
+
+test("tenant isolation preserved through customer update operations", async () => {
+  const { guidedIntake, customerCases, admin, other } = await setup();
+  const intake = completedIntake({ guidedIntake, token: admin.token });
+  const result = customerCases.convertAuthorized({ sessionToken: admin.token, tenantId: TENANT_A, intakeRecordId: intake.id });
+  assert.throws(
+    () => customerCases.updateCustomerAuthorized({
+      sessionToken: other.token, tenantId: TENANT_B,
+      customerId: result.customer.id,
+      updates: { company: "Hijacked" }
+    }),
+    /not found/
+  );
+  assert.throws(
+    () => customerCases.updateCustomerAuthorized({
+      sessionToken: admin.token, tenantId: TENANT_A,
+      customerId: "nonexistent-id",
+      updates: { company: "No one" }
+    }),
+    /not found/
+  );
+});

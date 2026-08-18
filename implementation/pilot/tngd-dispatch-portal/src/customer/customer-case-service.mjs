@@ -23,6 +23,13 @@ function answer(record, questionId) {
   return value;
 }
 
+function parseName(fullName) {
+  const trimmed = text(fullName);
+  const parts = trimmed.split(/\s+/);
+  if (parts.length >= 2) return { firstName: parts[0], lastName: parts.slice(1).join(" ") };
+  return { firstName: trimmed, lastName: "" };
+}
+
 function identityKeys(tenantId, contact) {
   const keys = [];
   const email = text(contact.email).toLowerCase();
@@ -97,15 +104,46 @@ export class CustomerCaseService {
 
     const now = this.#now().toISOString();
     const existingCustomerId = [...matchedIds][0] ?? null;
+    const { firstName, lastName } = parseName(identity.name);
     const customer = existingCustomerId
       ? this.#customers.get(existingCustomerId)
       : deepFreeze({
           id: randomUUID(),
           tenantId,
+          firstName,
+          lastName,
+          displayName: text(identity.name),
           name: text(identity.name),
           email: text(contact.email).toLowerCase(),
+          mobileNumber: digits(contact.phone) || null,
+          homeNumber: null,
+          workNumber: null,
           phone: text(contact.phone),
+          additionalEmails: [],
           preferredContact: text(contact.preferredContact),
+          company: null,
+          role: null,
+          customerType: "homeowner",
+          isContractor: false,
+          addresses: [{
+            streetLine1: text(address.address),
+            streetLine2: null,
+            city: null,
+            state: null,
+            postalCode: null,
+            isBilling: false,
+            notes: null
+          }],
+          billsTo: null,
+          acceptsBillsFrom: null,
+          leadSource: intakeRecord.source || null,
+          tags: [],
+          notes: null,
+          doNotService: false,
+          notificationsEnabled: true,
+          customerCreatedAt: now,
+          lastServiceDate: null,
+          lifetimeValue: 0,
           createdFromIntakeRecordId: intakeRecord.id,
           createdAt: now
         });
@@ -205,6 +243,44 @@ export class CustomerCaseService {
     this.#authorize({ sessionToken, tenantId, permission: "customers.read", resourceId: `customer-timeline:${serviceCaseId}` });
     const timeline = this.#timelines.get(serviceCaseId);
     return timeline?.tenantId === tenantId ? timeline : null;
+  }
+
+  updateCustomerAuthorized({ sessionToken, tenantId, customerId, updates }) {
+    const principal = this.#authorize({
+      sessionToken, tenantId,
+      permission: "customers.write",
+      resourceId: `customer:${customerId}:update`
+    });
+    const existing = this.#customers.get(customerId);
+    if (!existing || existing.tenantId !== tenantId) {
+      throw new Error("Customer not found in this tenant.");
+    }
+    const immutableFields = ["id", "tenantId", "createdFromIntakeRecordId", "createdAt"];
+    for (const field of immutableFields) {
+      if (field in updates && updates[field] !== existing[field]) {
+        throw new Error(`Cannot modify immutable field: ${field}`);
+      }
+    }
+    const updated = deepFreeze({ ...existing, ...updates });
+    this.#customers.set(customerId, updated);
+    if (updates.email || updates.phone || updates.mobileNumber) {
+      const contact = {
+        email: updated.email || "",
+        phone: updated.mobileNumber || updated.phone || ""
+      };
+      const keys = identityKeys(tenantId, contact);
+      for (const key of keys) this.#customerIdentityIndex.set(key, customerId);
+    }
+    this.#audit.append({
+      tenantId,
+      principalId: principal.id,
+      type: "CustomerRecordUpdated",
+      resource: `customer:${customerId}`,
+      action: "customers.write",
+      outcome: "granted",
+      metadata: { updatedFields: Object.keys(updates) }
+    });
+    return updated;
   }
 
   #authorize({ sessionToken, tenantId, permission, resourceId }) {
