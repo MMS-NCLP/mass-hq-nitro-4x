@@ -15,7 +15,8 @@ export const foundation = Object.freeze({
     "TNGD-BP-009",
     "TNGD-BP-010",
     "TNGD-BP-011",
-    "TNGD-BP-012"
+    "TNGD-BP-012",
+    "TNGD-BP-013"
   ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
@@ -106,7 +107,8 @@ export const foundation = Object.freeze({
     "authorization-request-and-presentation","adult-acknowledgment","immutable-content-snapshot","signature-or-equivalent-evidence","decision-lifecycle","amendment-and-reauthorization","customer-safe-receipt","bp011-ready-financial-handoff"
   ]),
   bp011FeatureScope: Object.freeze(["invoice-draft-and-finalization","authorized-scope-consumption","immutable-invoice-versions","square-payment-gateway","idempotent-payment-webhooks","transaction-scoped-customer-access","refund-and-exception-evidence","bp012-ready-reconciliation-handoff"]),
-  bp012FeatureScope: Object.freeze(["administrative-completion-review","evidence-completeness-checks","exception-categorization-and-ownership","self-approval-prevention","escalation-and-resolution-lifecycle","reconciliation-difference-tracking","immutable-review-and-resolution-history","bp013-bp014-ready-handoffs"])
+  bp012FeatureScope: Object.freeze(["administrative-completion-review","evidence-completeness-checks","exception-categorization-and-ownership","self-approval-prevention","escalation-and-resolution-lifecycle","reconciliation-difference-tracking","immutable-review-and-resolution-history","bp013-bp014-ready-handoffs"]),
+  bp013FeatureScope: Object.freeze(["warranty-policy-and-registration","warranty-claim-intake","eligibility-and-coverage-assessment","findings-decision-and-resolution","warranty-lifecycle-governance","self-approval-prevention","superseding-corrections","bp014-ready-handoff"])
 });
 
 const invokedDirectly =

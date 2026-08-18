@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012", "TNGD-BP-013"]
   );
   assert.equal(
     foundation.implementationRoot,
@@ -78,6 +78,8 @@ test("foundation records only exact BP-008 work-order responsibilities",()=>{ass
 test("foundation records only exact BP-009 work-order responsibilities",()=>{assert.deepEqual(foundation.bp009FeatureScope,["repair-service-template","new-door-estimate-template","draft-and-version-lifecycle","diagnostic-reference-lineage","recommendations-options-line-items","outcome-recording","idempotent-estimate-conversion","bp010-ready-authorization-package"]);});
 test("foundation records only exact BP-010 work-order responsibilities",()=>{assert.deepEqual(foundation.bp010FeatureScope,["authorization-request-and-presentation","adult-acknowledgment","immutable-content-snapshot","signature-or-equivalent-evidence","decision-lifecycle","amendment-and-reauthorization","customer-safe-receipt","bp011-ready-financial-handoff"]);});
 test("foundation records only exact BP-011 work-order responsibilities",()=>{assert.deepEqual(foundation.bp011FeatureScope,["invoice-draft-and-finalization","authorized-scope-consumption","immutable-invoice-versions","square-payment-gateway","idempotent-payment-webhooks","transaction-scoped-customer-access","refund-and-exception-evidence","bp012-ready-reconciliation-handoff"]);});
+test("foundation records only exact BP-012 work-order responsibilities",()=>{assert.deepEqual(foundation.bp012FeatureScope,["administrative-completion-review","evidence-completeness-checks","exception-categorization-and-ownership","self-approval-prevention","escalation-and-resolution-lifecycle","reconciliation-difference-tracking","immutable-review-and-resolution-history","bp013-bp014-ready-handoffs"]);});
+test("foundation records only exact BP-013 work-order responsibilities",()=>{assert.deepEqual(foundation.bp013FeatureScope,["warranty-policy-and-registration","warranty-claim-intake","eligibility-and-coverage-assessment","findings-decision-and-resolution","warranty-lifecycle-governance","self-approval-prevention","superseding-corrections","bp014-ready-handoff"]);});
 
 test("foundation preserves persistence and deployment seams", () => {
   assert.equal(foundation.paths.migrations, "migrations");

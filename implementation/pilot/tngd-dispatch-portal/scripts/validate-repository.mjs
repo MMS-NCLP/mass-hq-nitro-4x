@@ -12,6 +12,7 @@ import { repairEstimateManifest } from "../src/repair-estimate/index.mjs";
 import { customerAuthorizationManifest } from "../src/customer-authorization/index.mjs";
 import { invoicePaymentManifest } from "../src/invoicing/index.mjs";
 import { reconciliationManifest } from "../src/administration/index.mjs";
+import { warrantyManifest } from "../src/warranty/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -39,6 +40,8 @@ const requiredPaths = [
   "docs/bp011/DOMAIN_AND_DATA_MODEL.md","docs/bp011/API_INVENTORY.md","docs/bp011/PERMISSION_MATRIX.md","docs/bp011/LIFECYCLE_AND_BUSINESS_RULES.md","docs/bp011/AUDIT_AND_EVENT_MODEL.md","docs/bp011/REVISION_LOG.md",
   "tests/reconciliation.test.mjs","src/administration/index.mjs","src/administration/reconciliation-service.mjs","src/administration/manifest.mjs",
   "docs/bp012/DOMAIN_AND_DATA_MODEL.md","docs/bp012/API_INVENTORY.md","docs/bp012/PERMISSION_MATRIX.md","docs/bp012/RECONCILIATION_AND_EXCEPTION_RULES.md","docs/bp012/AUDIT_AND_EVENT_MODEL.md","docs/bp012/REVISION_LOG.md",
+  "tests/warranty.test.mjs","src/warranty/index.mjs","src/warranty/warranty-service.mjs","src/warranty/manifest.mjs",
+  "docs/bp013/DOMAIN_AND_DATA_MODEL.md","docs/bp013/API_INVENTORY.md","docs/bp013/PERMISSION_MATRIX.md","docs/bp013/WARRANTY_LIFECYCLE_AND_COVERAGE_RULES.md","docs/bp013/AUDIT_AND_EVENT_MODEL.md","docs/bp013/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -83,6 +86,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-010_REFERENCE.md",
   "migrations/TNGD-BP-011_REFERENCE.md",
   "migrations/TNGD-BP-012_REFERENCE.md",
+  "migrations/TNGD-BP-013_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -125,9 +129,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-012 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-013 tests.");
 }
 
 const buildSource = await readFile(
@@ -151,6 +155,7 @@ if (!buildSource.includes("repair-estimate-manifest.json")) throw new Error("Bui
 if (!buildSource.includes("customer-authorization-manifest.json")) throw new Error("Build does not generate BP-010 customer-authorization manifest.");
 if (!buildSource.includes("invoice-payment-manifest.json")) throw new Error("Build does not generate BP-011 invoice-payment manifest.");
 if (!buildSource.includes("reconciliation-manifest.json")) throw new Error("Build does not generate BP-012 reconciliation manifest.");
+if (!buildSource.includes("warranty-manifest.json")) throw new Error("Build does not generate BP-013 warranty manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -396,6 +401,14 @@ for(const forbidden of ["processPaymentAuthorized","adjudicateWarrantyAuthorized
 const reconciliationTests=await readFile(new URL("../tests/reconciliation.test.mjs",import.meta.url),"utf8");
 for(const evidence of ["tenant-safe completion review queues work and deduplicates","evidence checks track verification status","exception creation requires category","self-approval prevention blocks exception creator","escalation records are immutable","resolution requires evidence and reason","reopen creates a new immutable decision","completion blocked while blocking exceptions","outstanding view shows unresolved reviews","BP-013 and BP-014 handoffs distinguish warranty","reconciliation differences and immutable history","tenant isolation and role boundaries remain intact"])if(!reconciliationTests.includes(evidence))throw new Error(`Missing BP-012 evidence: ${evidence}`);
 
+const exactBp013Scope=["warranty-policy-and-registration","warranty-claim-intake","eligibility-and-coverage-assessment","findings-decision-and-resolution","warranty-lifecycle-governance","self-approval-prevention","superseding-corrections","bp014-ready-handoff"];
+if(!foundation.implementedPackages.includes("TNGD-BP-013")||JSON.stringify(foundation.bp013FeatureScope)!==JSON.stringify(exactBp013Scope)||warrantyManifest.workOrderId!=="TNGD-BP-013"||warrantyManifest.selfApprovalPrevention!==true||JSON.stringify(warrantyManifest.handoffTargets)!==JSON.stringify(["TNGD-BP-014"]))throw new Error("BP-013 manifest authority is incorrect.");
+const warrantySource=await readFile(new URL("../src/warranty/warranty-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["createPolicyAuthorized","registerWorkAuthorized","createClaimAuthorized","assessEligibilityAuthorized","recordFindingAuthorized","submitDecisionAuthorized","supersedeDecisionAuthorized","beginResolutionAuthorized","completeResolutionAuthorized","closeClaimAuthorized","createHandoffAuthorized","creator cannot approve","TNGD-BP-014","partsCoverageDays","serviceCoverageDays","advisory: true"])if(!warrantySource.includes(boundary))throw new Error(`BP-013 boundary missing: ${boundary}`);
+for(const forbidden of ["processPaymentAuthorized","deliverCommunicationAuthorized","generateAiFindings","automateFollowUpAuthorized"]){const pattern=new RegExp(`${forbidden}\\s*\\([^)]*\\)\\s*\\{[^}]*does not`);if(warrantySource.includes(forbidden)&&!pattern.test(warrantySource))throw new Error(`BP-013 forbidden scope implemented: ${forbidden}`);}
+const warrantyTests=await readFile(new URL("../tests/warranty.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["standard policy distinguishes two-year parts and 90-day service coverage","registration preserves exact policy and source-work lineage with idempotency","duplicate claim prevention returns existing claim","parts expiration blocks eligibility after two years","eligibility derived from authoritative dates within coverage period","covered, partially-covered, and denied decisions require human authorization","self-approval prevention blocks claim creator from deciding","missing evidence and invalid transitions are rejected","immutable finalized decisions and superseding corrections","resolution lifecycle from approval through closure","source-record non-mutation and BP-014 handoff","tenant isolation and role boundaries remain intact through BP-012","findings require description and are recorded against claim"])if(!warrantyTests.includes(evidence))throw new Error(`Missing BP-013 evidence: ${evidence}`);
+
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
   'governedDistance(travelDistanceMiles, "Travel distance")',
@@ -531,4 +544,4 @@ try {
 }
 
 
-process.stdout.write("Canonical BP-000 through BP-012 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-013 repository validation passed.\n");
