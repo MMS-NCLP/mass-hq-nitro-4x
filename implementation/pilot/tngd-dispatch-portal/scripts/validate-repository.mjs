@@ -14,6 +14,7 @@ import { invoicePaymentManifest } from "../src/invoicing/index.mjs";
 import { reconciliationManifest } from "../src/administration/index.mjs";
 import { warrantyManifest } from "../src/warranty/index.mjs";
 import { followUpManifest } from "../src/follow-up/index.mjs";
+import { reportingManifest } from "../src/reporting/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -45,6 +46,8 @@ const requiredPaths = [
   "docs/bp013/DOMAIN_AND_DATA_MODEL.md","docs/bp013/API_INVENTORY.md","docs/bp013/PERMISSION_MATRIX.md","docs/bp013/WARRANTY_LIFECYCLE_AND_COVERAGE_RULES.md","docs/bp013/AUDIT_AND_EVENT_MODEL.md","docs/bp013/REVISION_LOG.md",
   "tests/follow-up.test.mjs","src/follow-up/index.mjs","src/follow-up/follow-up-service.mjs","src/follow-up/manifest.mjs",
   "docs/bp014/DOMAIN_AND_DATA_MODEL.md","docs/bp014/API_INVENTORY.md","docs/bp014/PERMISSION_MATRIX.md","docs/bp014/FOLLOW_UP_CADENCE_AND_CONSENT_RULES.md","docs/bp014/AUDIT_AND_EVENT_MODEL.md","docs/bp014/REVISION_LOG.md",
+  "tests/reporting.test.mjs","src/reporting/index.mjs","src/reporting/reporting-service.mjs","src/reporting/manifest.mjs",
+  "docs/bp015/DOMAIN_AND_DATA_MODEL.md","docs/bp015/API_INVENTORY.md","docs/bp015/PERMISSION_MATRIX.md","docs/bp015/METRIC_AND_REPORT_INVENTORY.md","docs/bp015/SOURCE_AND_CALCULATION_MAP.md","docs/bp015/AUDIT_AND_EVENT_MODEL.md","docs/bp015/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -91,6 +94,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-012_REFERENCE.md",
   "migrations/TNGD-BP-013_REFERENCE.md",
   "migrations/TNGD-BP-014_REFERENCE.md",
+  "migrations/TNGD-BP-015_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -133,9 +137,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-014 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-015 tests.");
 }
 
 const buildSource = await readFile(
@@ -161,6 +165,7 @@ if (!buildSource.includes("invoice-payment-manifest.json")) throw new Error("Bui
 if (!buildSource.includes("reconciliation-manifest.json")) throw new Error("Build does not generate BP-012 reconciliation manifest.");
 if (!buildSource.includes("warranty-manifest.json")) throw new Error("Build does not generate BP-013 warranty manifest.");
 if (!buildSource.includes("follow-up-manifest.json")) throw new Error("Build does not generate BP-014 follow-up manifest.");
+if (!buildSource.includes("reporting-manifest.json")) throw new Error("Build does not generate BP-015 reporting manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -422,6 +427,14 @@ for(const forbidden of ["deliverEmailAuthorized","deliverSmsAuthorized","createC
 const followUpTests=await readFile(new URL("../tests/follow-up.test.mjs",import.meta.url),"utf8");
 for(const evidence of ["all five roadmap cadences are scheduled with correct due-date offsets","authoritative eligibility evaluates consent and policy state","current-consent recheck suppresses activity when consent withdrawn","opt-out suppression with explicit reason and immutable evidence","follow-up survives after service case and job closure","duplicate-handoff prevention returns existing handoff","Communications-only delivery through governed handoff boundary","handoff requires consent verification","reasoned rescheduling supersedes original and creates new activity","source-record non-mutation and immutable finalized evidence","tenant isolation and role boundaries remain intact through BP-013","policy versioning preserves history and updates current version","handoff outcome records completed and failed states"])if(!followUpTests.includes(evidence))throw new Error(`Missing BP-014 evidence: ${evidence}`);
 
+const exactBp015Scope=["report-and-metric-definitions","governed-report-generation","tenant-safe-operational-views","deterministic-metric-calculations","point-in-time-snapshots","authorized-export-definitions","source-reference-traceability","data-quality-exception-representation"];
+if(!foundation.implementedPackages.includes("TNGD-BP-015")||JSON.stringify(foundation.bp015FeatureScope)!==JSON.stringify(exactBp015Scope)||reportingManifest.workOrderId!=="TNGD-BP-015"||JSON.stringify(reportingManifest.calculationMethods)!==JSON.stringify(["count","rate","sum","status-distribution"])||JSON.stringify(reportingManifest.exportFormats)!==JSON.stringify(["csv","json"]))throw new Error("BP-015 manifest authority is incorrect.");
+const reportingSource=await readFile(new URL("../src/reporting/reporting-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["defineMetricAuthorized","createDefinitionAuthorized","generateReportAuthorized","finalizeSnapshotAuthorized","recordExceptionAuthorized","requestExportAuthorized","listDefinitionsAuthorized","getResultsAuthorized","getSnapshotHistoryAuthorized","inspectSourceReferencesAuthorized","getExportStatusAuthorized","businessMeaning","authoritativeSource","calculationMethod","unavailableDataBehavior","sourceReferences"])if(!reportingSource.includes(boundary))throw new Error(`BP-015 boundary missing: ${boundary}`);
+for(const forbidden of ["predictiveModelAuthorized","aiConclusionAuthorized","automateDecisionAuthorized","crossTenantBenchmarkAuthorized","mutateSourceAuthorized","autonomousResolutionAuthorized","deliverCommunicationAuthorized","externalBiAuthorized"]){const pat=new RegExp(`${forbidden}\\s*\\([^)]*\\)\\s*\\{[^}]*does not`);if(reportingSource.includes(forbidden)&&!pat.test(reportingSource))throw new Error(`BP-015 forbidden scope implemented: ${forbidden}`);}
+const reportingTests=await readFile(new URL("../tests/reporting.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["deterministic metric calculations produce consistent results from governed source data","metric definitions require complete business specification","source-reference traceability links each result to its origin package","missing and stale source data are represented as explicit exceptions","timezone and date-boundary filtering respects governed timestamps","filter validation rejects invalid criteria","finalized snapshot is immutable and reproducible","idempotent report generation returns existing report","export authorization restricts to administrative roles","unresolved exceptions remain visible in report results","role-limited access prevents unauthorized report generation and export","reporting does not mutate source records from BP-002 through BP-014","tenant isolation and role boundaries remain intact through BP-014","operational views cover the complete accepted pilot loop"])if(!reportingTests.includes(evidence))throw new Error(`Missing BP-015 evidence: ${evidence}`);
+
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
   'governedDistance(travelDistanceMiles, "Travel distance")',
@@ -557,4 +570,4 @@ try {
 }
 
 
-process.stdout.write("Canonical BP-000 through BP-014 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-015 repository validation passed.\n");
