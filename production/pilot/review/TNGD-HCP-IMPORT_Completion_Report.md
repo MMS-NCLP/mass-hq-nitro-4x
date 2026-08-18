@@ -9,7 +9,7 @@
 
 ## Import Validation Results
 
-Executed against `TopNotchGarageDoorsLLC_customer_export.csv` (256 data rows):
+### Primary Export — `TopNotchGarageDoorsLLC_customer_export.csv` (256 data rows)
 
 | Outcome | Count |
 |---|---|
@@ -18,7 +18,7 @@ Executed against `TopNotchGarageDoorsLLC_customer_export.csv` (256 data rows):
 | Skipped (no contact) | 3 |
 | **Total processed** | **253** |
 
-### Skipped Records (no email or phone)
+#### Skipped Records (no email or phone)
 
 | Row | Name | Reason |
 |---|---|---|
@@ -26,9 +26,20 @@ Executed against `TopNotchGarageDoorsLLC_customer_export.csv` (256 data rows):
 | 14 | Alvis Williams | No email or phone |
 | 27 | Penny Yarbro | No email or phone |
 
-### Deduplication
+#### Deduplication
 
 35 rows matched existing customers by email or phone. This is expected — the HCP export contains test entries (Bart Simpson, multiple John Doe records) sharing the same office email/phone, and real customers with multiple service records.
+
+### Secondary Export — `square_corrected.csv` (105 data rows)
+
+| Outcome | Count |
+|---|---|
+| Created | 104 |
+| Matched (deduplicated) | 1 |
+| Skipped | 0 |
+| **Total processed** | **105** |
+
+Initial run skipped 1 record (Penny Yarbro — homeNumber only, no mobileNumber or email). Fixed `createCustomerAuthorized` identity matching to include homeNumber/workNumber in the phone fallback chain. Re-run: 0 skipped.
 
 ## Deliverables
 
@@ -56,13 +67,16 @@ Executed against `TopNotchGarageDoorsLLC_customer_export.csv` (256 data rows):
 - `tests/foundation.test.mjs` — Updated scope assertion
 - `scripts/validate-repository.mjs` — Added boundary and evidence checks
 
+## Post-Manufacturing Fix
+
+**Identity matching phone fallback** — `createCustomerAuthorized` contact phone construction expanded from `mobileNumber || phone` to `mobileNumber || homeNumber || workNumber || phone`. This ensures customers with only a home or work number (no mobile) are indexed and matched rather than skipped.
+
 ## Limitations
 
 - V1 in-memory persistence — import validates parsing but records don't persist across process restarts
-- 3 HCP records skipped due to missing contact information — requires manual entry or data correction in HCP
+- 3 HCP primary-export records skipped due to missing contact information — requires manual entry or data correction in HCP
 - Production import against Supabase deferred until deployment
 
 ## Next Steps
 
-- Square manual entry (~7 customers)
 - Dispatch pilot launch readiness gate

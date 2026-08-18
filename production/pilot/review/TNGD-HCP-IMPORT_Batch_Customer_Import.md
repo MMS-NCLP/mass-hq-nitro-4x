@@ -12,7 +12,9 @@
 - **Gate result:** 174/174 tests passed (build + test + validate)
 - **New tests:** 2 (direct customer creation, batch deduplication)
 - **Prior tests preserved:** 172 (foundation through BP-015 + BP-004.1 LCO)
-- **Import validation:** 218 created, 35 deduplicated, 3 skipped from 256 CSV rows
+- **Primary import (HCP export):** 218 created, 35 deduplicated, 3 skipped from 256 CSV rows
+- **Secondary import (Square corrected):** 104 created, 1 matched, 0 skipped from 105 CSV rows
+- **Post-manufacturing fix:** Identity matching phone fallback expanded to include homeNumber/workNumber
 - **HCP ID traceability:** Preserved as `hcp:{id}` tags
 
 ## Files Changed (8)
@@ -32,6 +34,7 @@
 ## Review Notes
 
 - Import script is a V1 validation tool — production Supabase import deferred until deployment
-- 3 records skipped due to missing contact info (Ashley Crump, Alvis Williams, Penny Yarbro)
+- 3 records skipped from primary export due to missing contact info (Ashley Crump, Alvis Williams, Penny Yarbro)
 - 35 deduplication matches include test entries (Bart Simpson, John Doe) and legitimate multi-record customers
+- Square corrected CSV validated with 0 skipped after phone fallback fix
 - Independent review deferred until Codex returns

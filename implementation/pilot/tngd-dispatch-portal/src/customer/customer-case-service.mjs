@@ -255,7 +255,7 @@ export class CustomerCaseService {
     if (!displayName) throw new Error("Customer name is required.");
     const contact = {
       email: text(record.email || ""),
-      phone: text(record.mobileNumber || record.phone || "")
+      phone: text(record.mobileNumber || record.homeNumber || record.workNumber || record.phone || "")
     };
     const keys = identityKeys(tenantId, contact);
     const matchedIds = new Set(keys.map(k => this.#customerIdentityIndex.get(k)).filter(Boolean));
