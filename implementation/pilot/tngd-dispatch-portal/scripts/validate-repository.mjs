@@ -13,6 +13,7 @@ import { customerAuthorizationManifest } from "../src/customer-authorization/ind
 import { invoicePaymentManifest } from "../src/invoicing/index.mjs";
 import { reconciliationManifest } from "../src/administration/index.mjs";
 import { warrantyManifest } from "../src/warranty/index.mjs";
+import { followUpManifest } from "../src/follow-up/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -42,6 +43,8 @@ const requiredPaths = [
   "docs/bp012/DOMAIN_AND_DATA_MODEL.md","docs/bp012/API_INVENTORY.md","docs/bp012/PERMISSION_MATRIX.md","docs/bp012/RECONCILIATION_AND_EXCEPTION_RULES.md","docs/bp012/AUDIT_AND_EVENT_MODEL.md","docs/bp012/REVISION_LOG.md",
   "tests/warranty.test.mjs","src/warranty/index.mjs","src/warranty/warranty-service.mjs","src/warranty/manifest.mjs",
   "docs/bp013/DOMAIN_AND_DATA_MODEL.md","docs/bp013/API_INVENTORY.md","docs/bp013/PERMISSION_MATRIX.md","docs/bp013/WARRANTY_LIFECYCLE_AND_COVERAGE_RULES.md","docs/bp013/AUDIT_AND_EVENT_MODEL.md","docs/bp013/REVISION_LOG.md",
+  "tests/follow-up.test.mjs","src/follow-up/index.mjs","src/follow-up/follow-up-service.mjs","src/follow-up/manifest.mjs",
+  "docs/bp014/DOMAIN_AND_DATA_MODEL.md","docs/bp014/API_INVENTORY.md","docs/bp014/PERMISSION_MATRIX.md","docs/bp014/FOLLOW_UP_CADENCE_AND_CONSENT_RULES.md","docs/bp014/AUDIT_AND_EVENT_MODEL.md","docs/bp014/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -87,6 +90,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-011_REFERENCE.md",
   "migrations/TNGD-BP-012_REFERENCE.md",
   "migrations/TNGD-BP-013_REFERENCE.md",
+  "migrations/TNGD-BP-014_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -129,9 +133,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-013 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-014 tests.");
 }
 
 const buildSource = await readFile(
@@ -156,6 +160,7 @@ if (!buildSource.includes("customer-authorization-manifest.json")) throw new Err
 if (!buildSource.includes("invoice-payment-manifest.json")) throw new Error("Build does not generate BP-011 invoice-payment manifest.");
 if (!buildSource.includes("reconciliation-manifest.json")) throw new Error("Build does not generate BP-012 reconciliation manifest.");
 if (!buildSource.includes("warranty-manifest.json")) throw new Error("Build does not generate BP-013 warranty manifest.");
+if (!buildSource.includes("follow-up-manifest.json")) throw new Error("Build does not generate BP-014 follow-up manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -409,6 +414,14 @@ for(const forbidden of ["processPaymentAuthorized","deliverCommunicationAuthoriz
 const warrantyTests=await readFile(new URL("../tests/warranty.test.mjs",import.meta.url),"utf8");
 for(const evidence of ["standard policy distinguishes two-year parts and 90-day service coverage","registration preserves exact policy and source-work lineage with idempotency","duplicate claim prevention returns existing claim","parts expiration blocks eligibility after two years","eligibility derived from authoritative dates within coverage period","covered, partially-covered, and denied decisions require human authorization","self-approval prevention blocks claim creator from deciding","missing evidence and invalid transitions are rejected","immutable finalized decisions and superseding corrections","resolution lifecycle from approval through closure","source-record non-mutation and BP-014 handoff","tenant isolation and role boundaries remain intact through BP-012","findings require description and are recorded against claim"])if(!warrantyTests.includes(evidence))throw new Error(`Missing BP-013 evidence: ${evidence}`);
 
+const exactBp014Scope=["follow-up-policy-and-versioning","five-cadence-scheduling","authoritative-eligibility","consent-recheck-and-opt-out","task-and-communication-handoffs","immutable-suppression-evidence","reasoned-rescheduling-and-supersession","communications-only-delivery"];
+if(!foundation.implementedPackages.includes("TNGD-BP-014")||JSON.stringify(foundation.bp014FeatureScope)!==JSON.stringify(exactBp014Scope)||followUpManifest.workOrderId!=="TNGD-BP-014"||followUpManifest.communicationBoundary!=="APP-006"||JSON.stringify(followUpManifest.cadences)!==JSON.stringify(["immediate","short-term","two-month","six-month","annual"]))throw new Error("BP-014 manifest authority is incorrect.");
+const followUpSource=await readFile(new URL("../src/follow-up/follow-up-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["createPolicyAuthorized","evaluateEligibilityAuthorized","scheduleActivityAuthorized","recheckConsentAuthorized","suppressActivityAuthorized","rescheduleActivityAuthorized","createTaskHandoffAuthorized","createCommunicationHandoffAuthorized","recordHandoffOutcomeAuthorized","APP-006","APP-012","consentGranted","Consent must be verified"])if(!followUpSource.includes(boundary))throw new Error(`BP-014 boundary missing: ${boundary}`);
+for(const forbidden of ["deliverEmailAuthorized","deliverSmsAuthorized","createConsentAuthorized","publishReviewAuthorized","generateReportAuthorized"]){const pat=new RegExp(`${forbidden}\\s*\\([^)]*\\)\\s*\\{[^}]*does not`);if(followUpSource.includes(forbidden)&&!pat.test(followUpSource))throw new Error(`BP-014 forbidden scope implemented: ${forbidden}`);}
+const followUpTests=await readFile(new URL("../tests/follow-up.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["all five roadmap cadences are scheduled with correct due-date offsets","authoritative eligibility evaluates consent and policy state","current-consent recheck suppresses activity when consent withdrawn","opt-out suppression with explicit reason and immutable evidence","follow-up survives after service case and job closure","duplicate-handoff prevention returns existing handoff","Communications-only delivery through governed handoff boundary","handoff requires consent verification","reasoned rescheduling supersedes original and creates new activity","source-record non-mutation and immutable finalized evidence","tenant isolation and role boundaries remain intact through BP-013","policy versioning preserves history and updates current version","handoff outcome records completed and failed states"])if(!followUpTests.includes(evidence))throw new Error(`Missing BP-014 evidence: ${evidence}`);
+
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
   'governedDistance(travelDistanceMiles, "Travel distance")',
@@ -544,4 +557,4 @@ try {
 }
 
 
-process.stdout.write("Canonical BP-000 through BP-013 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-014 repository validation passed.\n");

@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012", "TNGD-BP-013"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012", "TNGD-BP-013", "TNGD-BP-014"]
   );
   assert.equal(
     foundation.implementationRoot,
@@ -80,6 +80,7 @@ test("foundation records only exact BP-010 work-order responsibilities",()=>{ass
 test("foundation records only exact BP-011 work-order responsibilities",()=>{assert.deepEqual(foundation.bp011FeatureScope,["invoice-draft-and-finalization","authorized-scope-consumption","immutable-invoice-versions","square-payment-gateway","idempotent-payment-webhooks","transaction-scoped-customer-access","refund-and-exception-evidence","bp012-ready-reconciliation-handoff"]);});
 test("foundation records only exact BP-012 work-order responsibilities",()=>{assert.deepEqual(foundation.bp012FeatureScope,["administrative-completion-review","evidence-completeness-checks","exception-categorization-and-ownership","self-approval-prevention","escalation-and-resolution-lifecycle","reconciliation-difference-tracking","immutable-review-and-resolution-history","bp013-bp014-ready-handoffs"]);});
 test("foundation records only exact BP-013 work-order responsibilities",()=>{assert.deepEqual(foundation.bp013FeatureScope,["warranty-policy-and-registration","warranty-claim-intake","eligibility-and-coverage-assessment","findings-decision-and-resolution","warranty-lifecycle-governance","self-approval-prevention","superseding-corrections","bp014-ready-handoff"]);});
+test("foundation records only exact BP-014 work-order responsibilities",()=>{assert.deepEqual(foundation.bp014FeatureScope,["follow-up-policy-and-versioning","five-cadence-scheduling","authoritative-eligibility","consent-recheck-and-opt-out","task-and-communication-handoffs","immutable-suppression-evidence","reasoned-rescheduling-and-supersession","communications-only-delivery"]);});
 
 test("foundation preserves persistence and deployment seams", () => {
   assert.equal(foundation.paths.migrations, "migrations");
