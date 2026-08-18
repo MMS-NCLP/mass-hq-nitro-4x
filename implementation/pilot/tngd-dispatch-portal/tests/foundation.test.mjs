@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012"]
   );
   assert.equal(
     foundation.implementationRoot,

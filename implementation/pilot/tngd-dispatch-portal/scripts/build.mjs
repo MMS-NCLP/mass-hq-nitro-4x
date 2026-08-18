@@ -10,6 +10,7 @@ const { fieldWorkflowManifest } = await import("../src/field-workflow/index.mjs"
 const { repairEstimateManifest } = await import("../src/repair-estimate/index.mjs");
 const { customerAuthorizationManifest } = await import("../src/customer-authorization/index.mjs");
 const { invoicePaymentManifest } = await import("../src/invoicing/index.mjs");
+const { reconciliationManifest } = await import("../src/administration/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -43,7 +44,8 @@ await writeFile(new URL("../dist/field-workflow-manifest.json", import.meta.url)
 await writeFile(new URL("../dist/repair-estimate-manifest.json", import.meta.url), `${JSON.stringify(repairEstimateManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/customer-authorization-manifest.json", import.meta.url), `${JSON.stringify(customerAuthorizationManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/invoice-payment-manifest.json", import.meta.url), `${JSON.stringify(invoicePaymentManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/reconciliation-manifest.json", import.meta.url), `${JSON.stringify(reconciliationManifest, null, 2)}\n`, "utf8");
 
 process.stdout.write(
-  "Built foundation through BP-011 invoice-payment manifests\n"
+  "Built foundation through BP-012 reconciliation manifests\n"
 );

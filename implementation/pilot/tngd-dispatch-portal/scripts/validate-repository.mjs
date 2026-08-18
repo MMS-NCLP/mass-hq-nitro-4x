@@ -11,6 +11,7 @@ import { fieldWorkflowManifest } from "../src/field-workflow/index.mjs";
 import { repairEstimateManifest } from "../src/repair-estimate/index.mjs";
 import { customerAuthorizationManifest } from "../src/customer-authorization/index.mjs";
 import { invoicePaymentManifest } from "../src/invoicing/index.mjs";
+import { reconciliationManifest } from "../src/administration/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -36,6 +37,8 @@ const requiredPaths = [
   "docs/bp010/DOMAIN_AND_DATA_MODEL.md","docs/bp010/API_INVENTORY.md","docs/bp010/PERMISSION_MATRIX.md","docs/bp010/LIFECYCLE_AND_BUSINESS_RULES.md","docs/bp010/AUDIT_AND_EVENT_MODEL.md","docs/bp010/REVISION_LOG.md",
   "tests/invoice-payment.test.mjs","src/invoicing/index.mjs","src/invoicing/invoice-payment-service.mjs","src/invoicing/manifest.mjs",
   "docs/bp011/DOMAIN_AND_DATA_MODEL.md","docs/bp011/API_INVENTORY.md","docs/bp011/PERMISSION_MATRIX.md","docs/bp011/LIFECYCLE_AND_BUSINESS_RULES.md","docs/bp011/AUDIT_AND_EVENT_MODEL.md","docs/bp011/REVISION_LOG.md",
+  "tests/reconciliation.test.mjs","src/administration/index.mjs","src/administration/reconciliation-service.mjs","src/administration/manifest.mjs",
+  "docs/bp012/DOMAIN_AND_DATA_MODEL.md","docs/bp012/API_INVENTORY.md","docs/bp012/PERMISSION_MATRIX.md","docs/bp012/RECONCILIATION_AND_EXCEPTION_RULES.md","docs/bp012/AUDIT_AND_EVENT_MODEL.md","docs/bp012/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -79,6 +82,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-009_REFERENCE.md",
   "migrations/TNGD-BP-010_REFERENCE.md",
   "migrations/TNGD-BP-011_REFERENCE.md",
+  "migrations/TNGD-BP-012_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -121,9 +125,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-008 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-012 tests.");
 }
 
 const buildSource = await readFile(
@@ -146,6 +150,7 @@ if (!buildSource.includes("field-workflow-manifest.json")) throw new Error("Buil
 if (!buildSource.includes("repair-estimate-manifest.json")) throw new Error("Build does not generate BP-009 repair-estimate manifest.");
 if (!buildSource.includes("customer-authorization-manifest.json")) throw new Error("Build does not generate BP-010 customer-authorization manifest.");
 if (!buildSource.includes("invoice-payment-manifest.json")) throw new Error("Build does not generate BP-011 invoice-payment manifest.");
+if (!buildSource.includes("reconciliation-manifest.json")) throw new Error("Build does not generate BP-012 reconciliation manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -383,7 +388,13 @@ for(const boundary of ["createDraftAuthorized","finalizeAuthorized","createPayme
 for(const forbidden of ["resolveReconciliationAuthorized","determineWarrantyAuthorized","followUpAuthorized","garageDoorOrderForm"])if(invoiceSource.includes(forbidden))throw new Error(`BP-011 forbidden scope: ${forbidden}`);
 const invoiceTests=await readFile(new URL("../tests/invoice-payment.test.mjs",import.meta.url),"utf8");
 for(const evidence of ["authorized BP-010 scope produces one tenant-safe invoice","diagnostic report attaches by default","finalized invoice versions are immutable and content-hashed","Square payment links are retry-safe","webhook authenticity and idempotency govern payment state","prohibited card data is rejected","customer invoice access is transaction-scoped","refund requires authorized human reason","failures and disputes produce a BP-012 reference-only exception handoff","tenant role audit and later-package boundaries remain intact"])if(!invoiceTests.includes(evidence))throw new Error(`Missing BP-011 evidence: ${evidence}`);
-
+const exactBp012Scope=["administrative-completion-review","evidence-completeness-checks","exception-categorization-and-ownership","self-approval-prevention","escalation-and-resolution-lifecycle","reconciliation-difference-tracking","immutable-review-and-resolution-history","bp013-bp014-ready-handoffs"];
+if(!foundation.implementedPackages.includes("TNGD-BP-012")||JSON.stringify(foundation.bp012FeatureScope)!==JSON.stringify(exactBp012Scope)||reconciliationManifest.workOrderId!=="TNGD-BP-012"||reconciliationManifest.selfApprovalPrevention!==true||JSON.stringify(reconciliationManifest.handoffTargets)!==JSON.stringify(["TNGD-BP-013","TNGD-BP-014"]))throw new Error("BP-012 manifest authority is incorrect.");
+const reconciliationSource=await readFile(new URL("../src/administration/reconciliation-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["queueForReviewAuthorized","beginReviewAuthorized","checkEvidenceAuthorized","createExceptionAuthorized","assignExceptionAuthorized","returnExceptionAuthorized","escalateExceptionAuthorized","resolveExceptionAuthorized","reopenExceptionAuthorized","completeReviewAuthorized","outstandingAuthorized","createHandoffAuthorized","creator cannot approve","TNGD-BP-013","TNGD-BP-014"])if(!reconciliationSource.includes(boundary))throw new Error(`BP-012 boundary missing: ${boundary}`);
+for(const forbidden of ["processPaymentAuthorized","adjudicateWarrantyAuthorized","deliverFollowUpAuthorized","autonomousResolveAuthorized"])if(reconciliationSource.includes(forbidden))throw new Error(`BP-012 forbidden scope: ${forbidden}`);
+const reconciliationTests=await readFile(new URL("../tests/reconciliation.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["tenant-safe completion review queues work and deduplicates","evidence checks track verification status","exception creation requires category","self-approval prevention blocks exception creator","escalation records are immutable","resolution requires evidence and reason","reopen creates a new immutable decision","completion blocked while blocking exceptions","outstanding view shows unresolved reviews","BP-013 and BP-014 handoffs distinguish warranty","reconciliation differences and immutable history","tenant isolation and role boundaries remain intact"])if(!reconciliationTests.includes(evidence))throw new Error(`Missing BP-012 evidence: ${evidence}`);
 
 for (const correctedBoundary of [
   "this.#scheduling.listAuthorized({ sessionToken, tenantId })",
@@ -520,4 +531,4 @@ try {
 }
 
 
-process.stdout.write("Canonical BP-000 through BP-011 repository validation passed.\n");
+process.stdout.write("Canonical BP-000 through BP-012 repository validation passed.\n");
