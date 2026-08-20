@@ -27,3 +27,9 @@ BP-003 guided-intake drafts, autosaved answers, media references, and completed 
 BP-011 requires deployment-managed Square credentials and webhook-verification secrets. These enter only the governed gateway environment and must never be persisted in invoice, transaction, audit, or customer-access records. Live Square and database validation remains deferred until those runtimes are explicitly configured.
 
 Commerce Operations configuration and commercial snapshots currently share the process-local persistence boundary. Deployment must not advertise durable catalog administration until the provider-neutral Commerce Operations migration reference is implemented and validated against the selected database.
+
+## Product Realization Boundary
+
+The V1 browser delivery adapter is started with `npm start` and binds to loopback by default. This manufacturing phase does not authorize public hosting, TLS termination, a production session provider, or a live database connection.
+
+`MASS_MEDIA_SOURCE_ROOT` selects the governed media provider root at deployment. UI components consume stable asset IDs and provider-relative source keys; deployment must not embed Google Drive, user-profile, drive-letter, or future external-drive paths. The bundled approved marks and visual references are available for presentation. The six governed TNGD media collections remain in explicit provider-unavailable fallback state until their manifest is connected and rights classifications are verified.

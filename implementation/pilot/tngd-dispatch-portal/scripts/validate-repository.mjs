@@ -16,6 +16,8 @@ import { warrantyManifest } from "../src/warranty/index.mjs";
 import { followUpManifest } from "../src/follow-up/index.mjs";
 import { reportingManifest } from "../src/reporting/index.mjs";
 import { commerceOperationsManifest } from "../src/commerce/index.mjs";
+import { mediaManifest } from "../src/media/index.mjs";
+import { productRealizationManifest } from "../src/product-realization/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -24,6 +26,7 @@ const requiredPaths = [
   "src/foundation.mjs",
   "scripts/build.mjs",
   "scripts/validate-repository.mjs",
+  "scripts/validate-ui.mjs",
   "tests/foundation.test.mjs",
   "tests/security.test.mjs",
   "tests/intake.test.mjs",
@@ -51,6 +54,10 @@ const requiredPaths = [
   "docs/bp015/DOMAIN_AND_DATA_MODEL.md","docs/bp015/API_INVENTORY.md","docs/bp015/PERMISSION_MATRIX.md","docs/bp015/METRIC_AND_REPORT_INVENTORY.md","docs/bp015/SOURCE_AND_CALCULATION_MAP.md","docs/bp015/AUDIT_AND_EVENT_MODEL.md","docs/bp015/REVISION_LOG.md",
   "tests/commerce-operations.test.mjs","src/commerce/index.mjs","src/commerce/commerce-operations-service.mjs","src/commerce/manifest.mjs",
   "docs/commerce-operations/DOMAIN_AND_DATA_MODEL.md","docs/commerce-operations/API_INVENTORY.md","docs/commerce-operations/PERMISSION_AND_AUDIT_MODEL.md","docs/commerce-operations/REVISION_LOG.md",
+  "tests/media-manifest.test.mjs","src/media/index.mjs","src/media/media-manifest.mjs","src/media/manifest.mjs",
+  "tests/product-realization.test.mjs","src/product-realization/index.mjs","src/product-realization/presentation.mjs","src/product-realization/server.mjs","src/product-realization/manifest.mjs",
+  "public/index.html","public/app.css","public/app.js","public/media/manifest.json","public/assets/brands/mass-hq.png","public/assets/brands/tngd-primary.png","public/assets/reference/dispatch-system.png","public/assets/reference/technician-dark.png","public/assets/reference/technician-light.png",
+  "docs/product-realization/PRODUCT_REALIZATION_BOUNDARY.md","docs/product-realization/MEDIA_SOURCE_AND_RIGHTS.md","docs/product-realization/RESPONSIVE_AND_ACCESSIBILITY.md","docs/product-realization/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -141,9 +148,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs tests/commerce-operations.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs tests/commerce-operations.test.mjs tests/media-manifest.test.mjs tests/product-realization.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-015 and Commerce Operations tests.");
+  throw new Error("Test command must target canonical BP-000 through Product Realization tests.");
 }
 
 const buildSource = await readFile(
@@ -606,7 +613,8 @@ const environment = await readFile(
 for (const name of [
   "MASS_RUNTIME_ENV",
   "MASS_DATABASE_URL",
-  "MASS_DEPLOYMENT_TARGET"
+  "MASS_DEPLOYMENT_TARGET",
+  "MASS_MEDIA_SOURCE_ROOT"
 ]) {
   if (!environment.includes(`${name}=`)) {
     throw new Error(`Missing environment declaration: ${name}`);
@@ -633,4 +641,16 @@ const commerceInvoiceSource=await readFile(new URL("../src/invoicing/invoice-pay
 if(!commerceInvoiceSource.includes("createFromAuthorizationAuthorized")||!commerceInvoiceSource.includes("handoff.lineItems")||!commerceInvoiceSource.includes("commerce.depositCents"))throw new Error("Commerce Operations does not flow through the canonical BP-011 invoice boundary.");
 for(const forbidden of ["createParallelInvoiceLedger","replaceSquareGateway","advancedTaxEngine","pricingIntelligence","automaticMarketPrice","campaignManager","garageDoorOrderForm"])if(commerceSource.includes(forbidden))throw new Error(`Forbidden Commerce Operations scope implemented: ${forbidden}`);
 
-process.stdout.write("Canonical BP-000 through BP-015 and Commerce Operations repository validation passed.\n");
+const exactProductScope=["media-source-manifest","provider-independent-asset-resolution","responsive-browser-delivery","operational-pulse-v1","technician-mobile-flow","dark-light-presentation","accepted-capability-surface-mapping","provider-unavailable-states"];
+if(!foundation.implementedPackages.includes("TNGD-DISPATCH-V1-PRODUCT-REALIZATION")||JSON.stringify(foundation.productRealizationFeatureScope)!==JSON.stringify(exactProductScope)||mediaManifest.physicalPathIndependent!==true||productRealizationManifest.deploymentAuthorized!==false||productRealizationManifest.duplicateDomainLogic!==false)throw new Error("Product Realization manifest authority is incorrect.");
+const mediaSource=await readFile(new URL("../src/media/media-manifest.mjs",import.meta.url),"utf8");
+for(const boundary of ["defineMediaManifest","MediaSourceRegistry","createMediaCatalog","provider-relative","public-use-not-approved","rights-restricted","portfolioEligible","relatedAssetId"])if(!mediaSource.includes(boundary))throw new Error(`Media boundary missing: ${boundary}`);
+const presentationSource=await readFile(new URL("../src/product-realization/presentation.mjs",import.meta.url),"utf8");
+for(const boundary of ["PRODUCT_ROUTES","routesForRoles","operationalPulse","TECHNICIAN_FLYWHEEL","integration-unavailable","media-unavailable","deploymentAuthorized: false"])if(!presentationSource.includes(boundary))throw new Error(`Product Realization boundary missing: ${boundary}`);
+const browserSource=await readFile(new URL("../public/app.js",import.meta.url),"utf8");
+for(const surface of ["Operational Pulse","Technician Today","Customers","Guided Intake","Schedule & Capacity","Dispatch","Jobs","Diagnosis & 25-Point Inspection","Estimate","Customer Authorization","Invoices & Payment","Warranty","Follow-Up","Administrative Pipeline","Reports","Catalog & Commerce","Administration","Settings & Integrations"])if(!browserSource.includes(surface))throw new Error(`Product surface missing: ${surface}`);
+for(const forbidden of ["G:\\\\","C:\\\\Users\\\\","Adaptive Ambient Dynamic Pulse V2","garageDoorOrderForm","MASS Life"])if(mediaSource.includes(forbidden)||presentationSource.includes(forbidden)||browserSource.includes(forbidden))throw new Error(`Forbidden Product Realization scope or physical path: ${forbidden}`);
+const approvedAssets=JSON.parse(await readFile(new URL("../public/media/manifest.json",import.meta.url),"utf8"));
+for(const [assetId,checksum] of [["brand:mass-hq-nitro-4x","0DF4E0FA2FB9C30F90A5C9F3500397395E109551F88C5518195E4418B049A660"],["brand:tngd-primary","EDBC777484EFA980C2D938332F06F7F4E867EAE15CD90172FA1191402122F30D"]]){const asset=approvedAssets.assets.find(item=>item.assetId===assetId);if(!asset||asset.checksum!==checksum||asset.approvalState!=="public-approved")throw new Error(`Approved brand asset evidence missing: ${assetId}`);}
+
+process.stdout.write("Canonical BP-000 through BP-015, Commerce Operations, and Product Realization repository validation passed.\n");

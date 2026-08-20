@@ -6,7 +6,7 @@ test("foundation identifies the authorized project, packages, and location", () 
   assert.equal(foundation.projectId, "MASS-TNGD-PILOT-001");
   assert.deepEqual(
     foundation.implementedPackages,
-    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012", "TNGD-BP-013", "TNGD-BP-014", "TNGD-BP-015", "TNGD-DISPATCH-V1-COMMERCE-OPS"]
+    ["TNGD-BP-000", "TNGD-BP-001", "TNGD-BP-002", "TNGD-BP-003", "TNGD-BP-004", "TNGD-BP-005", "TNGD-BP-006", "TNGD-BP-007", "TNGD-BP-008", "TNGD-BP-009", "TNGD-BP-010", "TNGD-BP-011", "TNGD-BP-012", "TNGD-BP-013", "TNGD-BP-014", "TNGD-BP-015", "TNGD-DISPATCH-V1-COMMERCE-OPS", "TNGD-DISPATCH-V1-PRODUCT-REALIZATION"]
   );
   assert.equal(
     foundation.implementationRoot,
@@ -86,10 +86,12 @@ test("foundation records only exact BP-013 work-order responsibilities",()=>{ass
 test("foundation records only exact BP-014 work-order responsibilities",()=>{assert.deepEqual(foundation.bp014FeatureScope,["follow-up-policy-and-versioning","five-cadence-scheduling","authoritative-eligibility","consent-recheck-and-opt-out","task-and-communication-handoffs","immutable-suppression-evidence","reasoned-rescheduling-and-supersession","communications-only-delivery"]);});
 test("foundation records only exact BP-015 work-order responsibilities",()=>{assert.deepEqual(foundation.bp015FeatureScope,["report-and-metric-definitions","governed-report-generation","tenant-safe-operational-views","deterministic-metric-calculations","point-in-time-snapshots","authorized-export-definitions","source-reference-traceability","data-quality-exception-representation"]);});
 test("foundation records only exact Commerce Operations responsibilities",()=>{assert.deepEqual(foundation.commerceOperationsFeatureScope,["catalog-administration","governed-categories","tax-treatment","modifier-sets","controlled-discounts","deposit-configuration","authorized-ad-hoc-lines","bp009-bp012-commerce-integration"]);});
+test("foundation records only exact Product Realization responsibilities",()=>{assert.deepEqual(foundation.productRealizationFeatureScope,["media-source-manifest","provider-independent-asset-resolution","responsive-browser-delivery","operational-pulse-v1","technician-mobile-flow","dark-light-presentation","accepted-capability-surface-mapping","provider-unavailable-states"]);});
 
 test("foundation preserves persistence and deployment seams", () => {
   assert.equal(foundation.paths.migrations, "migrations");
   assert.equal(foundation.paths.deployment, "deployment");
   assert.ok(foundation.environment.includes("MASS_DATABASE_URL"));
   assert.ok(foundation.environment.includes("MASS_DEPLOYMENT_TARGET"));
+  assert.ok(foundation.environment.includes("MASS_MEDIA_SOURCE_ROOT"));
 });

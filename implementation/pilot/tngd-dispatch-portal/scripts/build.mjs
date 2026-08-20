@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { cp, mkdir, writeFile } from "node:fs/promises";
 import { foundation } from "../src/foundation.mjs";
 const { securityManifest } = await import("../src/security/index.mjs");
 const { intakeManifest } = await import("../src/intake/index.mjs");
@@ -15,6 +15,8 @@ const { warrantyManifest } = await import("../src/warranty/index.mjs");
 const { followUpManifest } = await import("../src/follow-up/index.mjs");
 const { reportingManifest } = await import("../src/reporting/index.mjs");
 const { commerceOperationsManifest } = await import("../src/commerce/index.mjs");
+const { mediaManifest } = await import("../src/media/index.mjs");
+const { productRealizationManifest } = await import("../src/product-realization/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -53,7 +55,10 @@ await writeFile(new URL("../dist/warranty-manifest.json", import.meta.url), `${J
 await writeFile(new URL("../dist/follow-up-manifest.json", import.meta.url), `${JSON.stringify(followUpManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/reporting-manifest.json", import.meta.url), `${JSON.stringify(reportingManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/commerce-operations-manifest.json", import.meta.url), `${JSON.stringify(commerceOperationsManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/media-manifest.json", import.meta.url), `${JSON.stringify(mediaManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/product-realization-manifest.json", import.meta.url), `${JSON.stringify(productRealizationManifest, null, 2)}\n`, "utf8");
+await cp(new URL("../public/", import.meta.url), new URL("../dist/public/", import.meta.url), { recursive: true, force: true });
 
 process.stdout.write(
-  "Built foundation through BP-015 and Commerce Operations manifests\n"
+  "Built foundation through Product Realization manifests and browser assets\n"
 );
