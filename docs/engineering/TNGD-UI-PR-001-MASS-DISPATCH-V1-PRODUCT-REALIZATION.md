@@ -12,6 +12,26 @@ Transform the functionally complete, pilot-ready MASS Dispatch V1 into the appro
 
 This is not a new architecture phase, feature-expansion phase, backend redesign, roadmap extension, MASS HQ redesign, or open-ended aesthetic exploration. The machine is presumed operational. This pass exists to make the machine reveal its capability, intelligence, hierarchy, state, evidence and available action with the clarity and visual authority established by approved governance, specifications, assets and visual references.
 
+## Phase Classification Clarification
+
+**The current project stage is Product Realization / UI implementation.**
+
+The accepted BP-000 through BP-015 implementation is the functional machine. The fact that canonical implementation may not yet contain a finished browser frontend, production HTTP delivery shell, durable production adapter, or hosting manifest does **not** reclassify the project into a new application-architecture phase and does not invalidate the accepted functional completion state.
+
+Where a minimal delivery layer is required to expose the accepted services through the authorized UI, creating that delivery layer is part of this Product Realization pass. It shall be kept thin, implementation-oriented, and subordinate to the accepted domain/service authority.
+
+Production shall therefore treat the realization task as:
+
+**accepted functional kernel -> thin delivery/adaptation boundary where required -> approved UI/product experience -> deployment candidate**
+
+and not as:
+
+**accepted functional kernel -> reopen architecture -> redesign domains -> invent a second Dispatch system.**
+
+The absence of a pre-existing visual shell is a realization condition, not evidence that the approved product scope was never manufactured.
+
+Likewise, local checkout contamination or stale local state does not alter canonical production status. Manufacturing shall occur from a clean checkout synchronized to canonical `main`; unrelated historical local modifications remain quarantined unless separately authorized for recovery review.
+
 ## Entry Conditions
 
 Do not execute until the existing V1 functional roadmap is complete; launch-critical integrations are dispositioned/implemented; backend/frontend gates are green; security and permissions are validated; White-Glove functional audit is complete; critical dead ends are resolved; and V1 is independently capable of controlled pilot operation.
@@ -39,7 +59,7 @@ Actual approved visual references are implementation authority, not casual inspi
 
 ## Required Surface Conformance
 
-Normalize existing V1 surfaces against the approved system, including Today/Operations Pulse, Technician Today, Customers, Customer Detail/Edit, Intake, Schedule/Calendar, Dispatch, Jobs, Diagnosis, Inspection, Estimates, Authorization, Invoices/Payment, Warranty, Follow-Up, Admin Lifecycle Pipeline, Reports, Administration, Settings/Integrations, and applicable authentication/error/empty surfaces.
+Realize and normalize the V1 product surfaces against the approved system, including Today/Operational Pulse, Technician Today, Customers, Customer Detail/Edit, Intake, Schedule/Calendar, Dispatch, Jobs, Diagnosis, Inspection, Estimates, Authorization, Invoices/Payment, Warranty, Follow-Up, Admin Lifecycle Pipeline, Reports, Administration, Settings/Integrations, and applicable authentication/error/empty surfaces.
 
 Do not add functionality merely to fill visual space. Do not remove working functionality because it complicates composition.
 
@@ -63,7 +83,7 @@ Question: **Does MASS Dispatch remain composed?** Fix presentation failures with
 
 ## Execution Method
 
-**Pass 1 — Realization:** implement the complete approved product specification across V1 surfaces.
+**Pass 1 — Realization:** implement the complete approved product specification across V1 surfaces, including only the thin delivery/adaptation boundary necessary to make the accepted functional services operable through the product UI.
 
 **Pass 2 — Conformance:** compare implementation against approved visual references, design system, UX doctrine, surface specifications and this WO; correct discrepancies.
 
@@ -74,6 +94,8 @@ Then stop.
 ## Prohibited Drift
 
 Do not redesign backend domains; introduce speculative architecture; add roadmap phases; manufacture V2 features; redesign MASS HQ; turn Dispatch into MASS HQ; invent new AI systems; add decorative animation; refactor unrelated working systems; redesign approved brand identity; create functionality merely because space exists; or continue polishing indefinitely.
+
+Do not reinterpret the need for a browser/server/persistence/deployment adapter as authority to reopen the accepted BP-000 through BP-015 capability model. Implement the minimum production-grade delivery boundary required by the approved V1 realization and continue.
 
 Record noncritical out-of-authority improvements for V1.x/V2 and keep moving.
 
