@@ -27,6 +27,9 @@ const requiredPaths = [
   "scripts/build.mjs",
   "scripts/validate-repository.mjs",
   "scripts/validate-ui.mjs",
+  "scripts/package-live-qa.mjs",
+  "scripts/smoke-live-qa.mjs",
+  "deployment/LIVE_QA_CANDIDATE_RUNBOOK.md",
   "tests/foundation.test.mjs",
   "tests/security.test.mjs",
   "tests/intake.test.mjs",
@@ -614,7 +617,10 @@ for (const name of [
   "MASS_RUNTIME_ENV",
   "MASS_DATABASE_URL",
   "MASS_DEPLOYMENT_TARGET",
-  "MASS_MEDIA_SOURCE_ROOT"
+  "MASS_MEDIA_SOURCE_ROOT",
+  "MASS_DEPLOYMENT_MODE",
+  "MASS_BIND_HOST",
+  "MASS_PUBLIC_ORIGIN"
 ]) {
   if (!environment.includes(`${name}=`)) {
     throw new Error(`Missing environment declaration: ${name}`);

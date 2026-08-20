@@ -50,5 +50,8 @@ test("delivery adapter serves secure bootstrap and browser application without l
     const page = await fetch(`http://127.0.0.1:${port}/today`);
     assert.match(await page.text(), /MASS Dispatch/);
     assert.match(page.headers.get("content-security-policy"), /object-src 'none'/);
+    assert.match(page.headers.get("content-security-policy"), /frame-ancestors 'none'/);
+    assert.equal(page.headers.get("x-frame-options"), "DENY");
+    assert.equal(page.headers.get("referrer-policy"), "no-referrer");
   } finally { server.close(); }
 });

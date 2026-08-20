@@ -32,4 +32,6 @@ Commerce Operations configuration and commercial snapshots currently share the p
 
 The V1 browser delivery adapter is started with `npm start` and binds to loopback by default. This manufacturing phase does not authorize public hosting, TLS termination, a production session provider, or a live database connection.
 
+The subsequent pre-launch candidate preparation adds configurable `MASS_BIND_HOST`, a checksum release manifest, security-header smoke validation, and `deployment/LIVE_QA_CANDIDATE_RUNBOOK.md`. It does not select or authorize a hosting provider and does not convert the preview bootstrap into a production session or durable operational boundary.
+
 `MASS_MEDIA_SOURCE_ROOT` selects the governed media provider root at deployment. UI components consume stable asset IDs and provider-relative source keys; deployment must not embed Google Drive, user-profile, drive-letter, or future external-drive paths. The bundled approved marks and visual references are available for presentation. The six governed TNGD media collections remain in explicit provider-unavailable fallback state until their manifest is connected and rights classifications are verified.
