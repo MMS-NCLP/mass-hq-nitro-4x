@@ -1,8 +1,9 @@
 # Dispatch Pilot Launch Prognosis
 
-**Date:** 2026-08-18
+**Date:** 2026-08-20
 **Project:** MASS-TNGD-PILOT-001
 **Goal:** Launch the TNGD dispatch pilot with a seeded, validated MASS HQ control plane and a healthy supporting ecosystem
+**Current posture:** **V1 READY FOR PRE-LAUNCH PRODUCTION**
 
 ---
 
@@ -17,9 +18,12 @@
 | MASS HQ Customer Data | Import tool validated (218+104 records). Production seeding deferred until post-UI |
 | Independent Review | Batch acceptance completed 2026-08-18 |
 | Minor Corrections Opened | 3 (LC-001 through LC-003, none blocking) |
-| Pilot Active | Empty (all work accepted) |
-| Pilot Inbox | Empty |
-| UI/UX Layer | **Not yet implemented** — next authorized phase |
+| Pilot Active | Empty |
+| Pilot Inbox | Commerce Operations completion is the current executable pre-launch delta |
+| UI/UX Layer | Product Realization follows Commerce checkpoint and Media Source Connection / Manifest |
+| Visual Company | **V1 directive established** — real governed company media is production input |
+| Operational Pulse | **V1 baseline authorized**; deeper adaptive health intelligence reserved for V2 |
+| TNGD Media Interoperability | **V1 directive established** for Dispatch/HQ <-> governed media <-> TNGD website reuse |
 | TNGD Live Site | Ecosystem correction prompt prepared |
 | nc-local-pro | Ecosystem correction prompt prepared |
 
@@ -58,9 +62,18 @@ Customer import tool validated against both HCP primary export (218 created, 35 
 
 ---
 
-## Next Phase — UI/UX Implementation
+## Pre-Launch Production Sequence — AUTHORIZED
 
-The dispatch engine is fully manufactured. The next authorized phase is the Pilot Experience Implementation — a focused presentation/integration pass exposing the accepted backend through three operational modes:
+The remaining V1 sequence is intentionally narrow:
+
+1. **Commerce Operations Completion** — finish the bounded real-world commerce delta.
+2. **Checkpoint** — verify the functional surface before visual realization.
+3. **Media Source Connection / Manifest** — connect or identify authoritative TNGD media storage; establish governed references, classification, lineage, and approval boundaries. Do not perform an indiscriminate repository media dump.
+4. **UI / Product Realization** — expose the accepted backend through the three operational modes using the approved reference language, Visual Company directive, and lightweight V1 Operational Pulse baseline.
+5. **Live Deployment** — produce a reachable HTTPS pilot environment suitable for desktop and technician/mobile operation.
+6. **Integration / Configuration Validation** — validate production-facing integrations and identify credential/configuration blockers without manufacturing workarounds that distort architecture.
+7. **Live QA / Acceptance** — perform final independent review against the deployed product.
+8. **Field Pilot** — operate TNGD Dispatch in real work and convert field evidence into controlled V1.x/V2 corrections.
 
 ### Office Mode
 Today dashboard, customers, intake, schedule/dispatch board, jobs, estimates/invoices, reporting.
@@ -71,13 +84,27 @@ Today's jobs, customer/job details, navigation, arrival/status controls, inspect
 ### Admin Mode
 Users/roles, pricing/configuration, service capacity, reporting, import/reconciliation, system settings.
 
-This is NOT another capability conveyor. It is the presentation layer over established services.
+This is NOT another capability conveyor. It is pre-launch completion and presentation over established services.
 
 ---
 
-## Launch Readiness Gate (DEFERRED)
+## Media / Visual Company Gate
 
-The launch readiness gate will execute after UI implementation is complete. The acceptance test is:
+The governing companion artifact is:
+
+`production/coordination/TNGD_MEDIA_INTEROPERABILITY_AND_VISUAL_COMPANY_V1.md`
+
+Core rule: TNGD media is a governed company asset. Dispatch/HQ and the TNGD website should consume approved media through shared references/storage contracts rather than creating isolated media silos.
+
+Real job/project/product media should be used where it improves comprehension. Public website reuse requires an explicit approval/rights boundary; operational media is not automatically marketing media.
+
+The V1 media gate must not expand into a full DAM build. Deeper automatic curation/classification and cross-product intelligence remain post-V1 objectives.
+
+---
+
+## Launch Readiness Gate
+
+The launch readiness gate executes against the **live deployed pilot**, not merely a local repository build. The acceptance test is:
 
 > Davon can open TNGD Dispatch, create or find a customer, schedule a call, dispatch it, operate the technician experience, produce an estimate, obtain authorization, invoice/collect payment, close the job, and see the resulting reporting — without touching code or a terminal.
 
@@ -86,9 +113,12 @@ The launch readiness gate will execute after UI implementation is complete. The 
 | Gate | Criterion |
 |---|---|
 | Pilot Complete | All 16 packages accepted — **DONE** |
-| UI Operable | All three modes functional — **PENDING** |
+| Commerce Delta | Operational commerce completion — **PRE-LAUNCH** |
+| Media Gate | Source/manifest + governed reuse path — **PRE-LAUNCH** |
+| UI Operable | All three modes functional — **PRE-LAUNCH** |
+| Live Pilot | HTTPS deployment reachable — **PRE-LAUNCH** |
 | Customer Data | Production import executed — **PENDING** |
-| Test Suite | All tests passing — **DONE** (174/174) |
+| Test Suite | All tests passing — **DONE** (174/174 baseline) |
 | Validator | Canonical validation passes — **DONE** |
 | TNGD Site | Build clean, 0 high vulns — **PENDING** (ecosystem) |
 | nc-local-pro | Build passes, 0 critical vulns — **PENDING** (ecosystem) |
@@ -101,6 +131,8 @@ The launch readiness gate will execute after UI implementation is complete. The 
 | Item | Deferred To | Reason |
 |---|---|---|
 | RingCentral integration | V2 | Executive decision — not a pilot requirement |
+| Full intelligent media/DAM layer | V2 | V1 uses governed source/manifest and existing assets |
+| Adaptive Ambient Dynamic Pulse health engine | V2 | V1 receives lightweight dynamic baseline only |
 | Production customer import | Post-UI | Import tool validated; data seeding follows UI |
 | Ecosystem corrections (TNGD, nc-local-pro) | Parallel | Independent of MASS manufacturing |
 | Minor corrections (LC-001–003) | Post-launch or parallel | None compromise pilot safety |
@@ -111,4 +143,4 @@ The launch readiness gate will execute after UI implementation is complete. The 
 
 Build what we approved. Improve what we learn. Defer what we imagine.
 
-No constitutional, Engineering Library, or manufacturing process modifications are authorized by this prognosis. This document is a coordination artifact, not a work order.
+**V1 is ready for pre-launch production.** No new speculative capability package is authorized by this prognosis. Remaining work is bounded completion, media connection, product realization, deployment, live validation, and field proof.
