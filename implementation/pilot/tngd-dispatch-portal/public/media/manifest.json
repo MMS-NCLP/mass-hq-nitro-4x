@@ -1,0 +1,13 @@
+{
+  "schema": "mass.media-manifest.v1",
+  "version": 1,
+  "provider": { "id": "bundled-approved", "root": "/assets", "configurableEnvironment": "MASS_MEDIA_SOURCE_ROOT" },
+  "assets": [
+    { "assetId": "brand:mass-hq-nitro-4x", "tenantId": "mass", "sourceCollection": "approved-brand", "sourceKey": "brands/mass-hq.png", "checksum": "0DF4E0FA2FB9C30F90A5C9F3500397395E109551F88C5518195E4418B049A660", "mimeType": "image/png", "classification": "company-brand", "grade": "company", "approvalState": "public-approved", "internalEligible": true, "publicEligible": true, "lineage": "executive-supplied-2026-08-20" },
+    { "assetId": "brand:tngd-primary", "tenantId": "tngd-preview", "sourceCollection": "approved-brand", "sourceKey": "brands/tngd-primary.png", "checksum": "EDBC777484EFA980C2D938332F06F7F4E867EAE15CD90172FA1191402122F30D", "mimeType": "image/png", "classification": "company-brand", "grade": "company", "approvalState": "public-approved", "internalEligible": true, "publicEligible": true, "lineage": "executive-supplied-2026-08-20" },
+    { "assetId": "reference:dispatch-system", "tenantId": "mass", "sourceCollection": "approved-product-reference", "sourceKey": "reference/dispatch-system.png", "checksum": "E8AA87A3CE92909EE194CDC81EC8300C6DE274C8CA1ABEC5BE23221D2E746877", "mimeType": "image/png", "classification": "archive", "grade": "company", "approvalState": "internal-approved", "internalEligible": true, "publicEligible": false, "lineage": "executive-supplied-2026-08-20" },
+    { "assetId": "reference:technician-dark", "tenantId": "mass", "sourceCollection": "approved-product-reference", "sourceKey": "reference/technician-dark.png", "checksum": "C1E2526C79C756CF1F57212E9466CB895F9DD03AA504D44810C3F1A9FD1E50E1", "mimeType": "image/png", "classification": "archive", "grade": "company", "approvalState": "internal-approved", "internalEligible": true, "publicEligible": false, "lineage": "executive-supplied-2026-08-20" },
+    { "assetId": "reference:technician-light", "tenantId": "mass", "sourceCollection": "approved-product-reference", "sourceKey": "reference/technician-light.png", "checksum": "6428E79194322B1E1E4E78B20700E6D9D8D179363EDC6D88A0304C25F7FEC9C5", "mimeType": "image/png", "classification": "archive", "grade": "company", "approvalState": "internal-approved", "internalEligible": true, "publicEligible": false, "lineage": "executive-supplied-2026-08-20" }
+  ],
+  "deferredCollections": ["hq-garage-door-media", "hq-parts-media", "hq-motor-media", "hq-backgrounds", "customer-portfolio", "repair-images"]
+}
