@@ -223,6 +223,12 @@ export class FieldWorkflowService {
     return deepFreeze({ filename: `tngd-25-point-${report.id}.json`, mediaType: "application/json", content: JSON.stringify(report) });
   }
 
+  assertAssignedFieldSessionAuthorized({ sessionToken, tenantId, fieldSessionId }) {
+    const session = this.#session(tenantId, fieldSessionId);
+    const handoff = this.#assigned(sessionToken, tenantId, session.workItemId);
+    return deepFreeze({ fieldSessionId: session.id, workItemId: session.workItemId, technicianId: handoff.technicianId, assigned: true });
+  }
+
   executionHandoffAuthorized({ sessionToken, tenantId, fieldSessionId }) {
     const principal = this.#secure.requirePermission({ sessionToken, tenantId, permission: "jobs.read", resourceId: `field-session:${fieldSessionId}:execution-handoff` });
     const session = this.#session(tenantId, fieldSessionId);

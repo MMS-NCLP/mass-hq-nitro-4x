@@ -15,6 +15,7 @@ import { reconciliationManifest } from "../src/administration/index.mjs";
 import { warrantyManifest } from "../src/warranty/index.mjs";
 import { followUpManifest } from "../src/follow-up/index.mjs";
 import { reportingManifest } from "../src/reporting/index.mjs";
+import { commerceOperationsManifest } from "../src/commerce/index.mjs";
 
 const requiredPaths = [
   ".env.example",
@@ -48,6 +49,8 @@ const requiredPaths = [
   "docs/bp014/DOMAIN_AND_DATA_MODEL.md","docs/bp014/API_INVENTORY.md","docs/bp014/PERMISSION_MATRIX.md","docs/bp014/FOLLOW_UP_CADENCE_AND_CONSENT_RULES.md","docs/bp014/AUDIT_AND_EVENT_MODEL.md","docs/bp014/REVISION_LOG.md",
   "tests/reporting.test.mjs","src/reporting/index.mjs","src/reporting/reporting-service.mjs","src/reporting/manifest.mjs",
   "docs/bp015/DOMAIN_AND_DATA_MODEL.md","docs/bp015/API_INVENTORY.md","docs/bp015/PERMISSION_MATRIX.md","docs/bp015/METRIC_AND_REPORT_INVENTORY.md","docs/bp015/SOURCE_AND_CALCULATION_MAP.md","docs/bp015/AUDIT_AND_EVENT_MODEL.md","docs/bp015/REVISION_LOG.md",
+  "tests/commerce-operations.test.mjs","src/commerce/index.mjs","src/commerce/commerce-operations-service.mjs","src/commerce/manifest.mjs",
+  "docs/commerce-operations/DOMAIN_AND_DATA_MODEL.md","docs/commerce-operations/API_INVENTORY.md","docs/commerce-operations/PERMISSION_AND_AUDIT_MODEL.md","docs/commerce-operations/REVISION_LOG.md",
   "src/intake/index.mjs",
   "src/intake/guided-intake.mjs",
   "src/intake/intake-service.mjs",
@@ -95,6 +98,7 @@ const requiredPaths = [
   "migrations/TNGD-BP-013_REFERENCE.md",
   "migrations/TNGD-BP-014_REFERENCE.md",
   "migrations/TNGD-BP-015_REFERENCE.md",
+  "migrations/TNGD-COMMERCE-OPS_REFERENCE.md",
   "deployment/README.md"
 ];
 
@@ -137,9 +141,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs tests/commerce-operations.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through BP-015 tests.");
+  throw new Error("Test command must target canonical BP-000 through BP-015 and Commerce Operations tests.");
 }
 
 const buildSource = await readFile(
@@ -166,6 +170,7 @@ if (!buildSource.includes("reconciliation-manifest.json")) throw new Error("Buil
 if (!buildSource.includes("warranty-manifest.json")) throw new Error("Build does not generate BP-013 warranty manifest.");
 if (!buildSource.includes("follow-up-manifest.json")) throw new Error("Build does not generate BP-014 follow-up manifest.");
 if (!buildSource.includes("reporting-manifest.json")) throw new Error("Build does not generate BP-015 reporting manifest.");
+if (!buildSource.includes("commerce-operations-manifest.json")) throw new Error("Build does not generate Commerce Operations manifest.");
 
 const requiredBp001Scope = [
   "authentication",
@@ -618,4 +623,14 @@ try {
 }
 
 
-process.stdout.write("Canonical BP-000 through BP-015 repository validation passed.\n");
+const exactCommerceScope=["catalog-administration","governed-categories","tax-treatment","modifier-sets","controlled-discounts","deposit-configuration","authorized-ad-hoc-lines","bp009-bp012-commerce-integration"];
+if(!foundation.implementedPackages.includes("TNGD-DISPATCH-V1-COMMERCE-OPS")||JSON.stringify(foundation.commerceOperationsFeatureScope)!==JSON.stringify(exactCommerceScope)||commerceOperationsManifest.workOrderId!=="TNGD-DISPATCH-V1-COMMERCE-OPS"||commerceOperationsManifest.paymentAuthority!=="TNGD-BP-011")throw new Error("Commerce Operations manifest authority is incorrect.");
+const commerceSource=await readFile(new URL("../src/commerce/commerce-operations-service.mjs",import.meta.url),"utf8");
+for(const boundary of ["createCategoryAuthorized","createModifierSetAuthorized","createItemAuthorized","updateItemAuthorized","deactivateItemAuthorized","createDiscountAuthorized","addCatalogLineAuthorized","addAdHocLineAuthorized","applyDiscountAuthorized","setDepositAuthorized","catalogRevision","taxable","approvalReason","operations.commerce.manage"])if(!commerceSource.includes(boundary))throw new Error(`Commerce Operations boundary missing: ${boundary}`);
+const commerceTests=await readFile(new URL("../tests/commerce-operations.test.mjs",import.meta.url),"utf8");
+for(const evidence of ["administrator creates governed categories services tax treatment and reusable modifiers without code changes","catalog line snapshots preserve price tax modifier provenance after catalog edits and deactivation","assigned technician adds an attributed ad-hoc line without polluting the permanent catalog","fixed and percentage discounts enforce authority and retain attributable evidence","none fixed percentage and governed custom deposits calculate one existing payment balance","approved commercial snapshot reaches BP-011 invoice and Square handoff without a duplicate ledger","tenant isolation and malformed commercial values remain rejected"])if(!commerceTests.includes(evidence))throw new Error(`Missing Commerce Operations evidence: ${evidence}`);
+const commerceInvoiceSource=await readFile(new URL("../src/invoicing/invoice-payment-service.mjs",import.meta.url),"utf8");
+if(!commerceInvoiceSource.includes("createFromAuthorizationAuthorized")||!commerceInvoiceSource.includes("handoff.lineItems")||!commerceInvoiceSource.includes("commerce.depositCents"))throw new Error("Commerce Operations does not flow through the canonical BP-011 invoice boundary.");
+for(const forbidden of ["createParallelInvoiceLedger","replaceSquareGateway","advancedTaxEngine","pricingIntelligence","automaticMarketPrice","campaignManager","garageDoorOrderForm"])if(commerceSource.includes(forbidden))throw new Error(`Forbidden Commerce Operations scope implemented: ${forbidden}`);
+
+process.stdout.write("Canonical BP-000 through BP-015 and Commerce Operations repository validation passed.\n");

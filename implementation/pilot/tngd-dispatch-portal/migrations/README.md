@@ -13,3 +13,5 @@ BP-002 creates tenant-keyed customer and service-request records through the pac
 BP-003 adds the provider-neutral logical reference in `TNGD-BP-003_REFERENCE.md`. It does not select a provider or represent the current process-local autosave boundary as durable.
 
 BP-011 adds the provider-neutral invoice and Square payment-reference contract in `TNGD-BP-011_REFERENCE.md`. It does not select a database provider.
+
+Commerce Operations adds the provider-neutral catalog, modifiers, tax, discount, deposit, and immutable commercial-snapshot contract in `TNGD-COMMERCE-OPS_REFERENCE.md`. It does not select a database provider.

@@ -18,7 +18,8 @@ export const foundation = Object.freeze({
     "TNGD-BP-012",
     "TNGD-BP-013",
     "TNGD-BP-014",
-    "TNGD-BP-015"
+    "TNGD-BP-015",
+    "TNGD-DISPATCH-V1-COMMERCE-OPS"
   ]),
   implementationRoot: "implementation/pilot/tngd-dispatch-portal",
   runtime: Object.freeze({
@@ -115,7 +116,8 @@ export const foundation = Object.freeze({
   bp012FeatureScope: Object.freeze(["administrative-completion-review","evidence-completeness-checks","exception-categorization-and-ownership","self-approval-prevention","escalation-and-resolution-lifecycle","reconciliation-difference-tracking","immutable-review-and-resolution-history","bp013-bp014-ready-handoffs"]),
   bp013FeatureScope: Object.freeze(["warranty-policy-and-registration","warranty-claim-intake","eligibility-and-coverage-assessment","findings-decision-and-resolution","warranty-lifecycle-governance","self-approval-prevention","superseding-corrections","bp014-ready-handoff"]),
   bp014FeatureScope: Object.freeze(["follow-up-policy-and-versioning","five-cadence-scheduling","authoritative-eligibility","consent-recheck-and-opt-out","task-and-communication-handoffs","immutable-suppression-evidence","reasoned-rescheduling-and-supersession","communications-only-delivery"]),
-  bp015FeatureScope: Object.freeze(["report-and-metric-definitions","governed-report-generation","tenant-safe-operational-views","deterministic-metric-calculations","point-in-time-snapshots","authorized-export-definitions","source-reference-traceability","data-quality-exception-representation"])
+  bp015FeatureScope: Object.freeze(["report-and-metric-definitions","governed-report-generation","tenant-safe-operational-views","deterministic-metric-calculations","point-in-time-snapshots","authorized-export-definitions","source-reference-traceability","data-quality-exception-representation"]),
+  commerceOperationsFeatureScope: Object.freeze(["catalog-administration","governed-categories","tax-treatment","modifier-sets","controlled-discounts","deposit-configuration","authorized-ad-hoc-lines","bp009-bp012-commerce-integration"])
 });
 
 const invokedDirectly =

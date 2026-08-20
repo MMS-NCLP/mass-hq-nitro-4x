@@ -14,6 +14,7 @@ const { reconciliationManifest } = await import("../src/administration/index.mjs
 const { warrantyManifest } = await import("../src/warranty/index.mjs");
 const { followUpManifest } = await import("../src/follow-up/index.mjs");
 const { reportingManifest } = await import("../src/reporting/index.mjs");
+const { commerceOperationsManifest } = await import("../src/commerce/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -51,7 +52,8 @@ await writeFile(new URL("../dist/reconciliation-manifest.json", import.meta.url)
 await writeFile(new URL("../dist/warranty-manifest.json", import.meta.url), `${JSON.stringify(warrantyManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/follow-up-manifest.json", import.meta.url), `${JSON.stringify(followUpManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/reporting-manifest.json", import.meta.url), `${JSON.stringify(reportingManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/commerce-operations-manifest.json", import.meta.url), `${JSON.stringify(commerceOperationsManifest, null, 2)}\n`, "utf8");
 
 process.stdout.write(
-  "Built foundation through BP-015 reporting manifests\n"
+  "Built foundation through BP-015 and Commerce Operations manifests\n"
 );
