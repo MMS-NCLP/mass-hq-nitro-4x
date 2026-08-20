@@ -34,4 +34,10 @@ The V1 browser delivery adapter is started with `npm start` and binds to loopbac
 
 The subsequent pre-launch candidate preparation adds configurable `MASS_BIND_HOST`, a checksum release manifest, security-header smoke validation, and `deployment/LIVE_QA_CANDIDATE_RUNBOOK.md`. It does not select or authorize a hosting provider and does not convert the preview bootstrap into a production session or durable operational boundary.
 
+## Authorized Vercel + Supabase Adapter
+
+The deployment-adapter authorization selects GitHub → Vercel → existing Dispatch Node/domain kernel → Supabase for V1. `vercel.json` and `api/index.mjs` provide the minimum static/SPA and Node-function boundary. Supabase Auth verification, authoritative tenant membership, Postgres/RLS persistence, and private governed Storage are implemented in `src/deployment` and the ordered executable migration.
+
+The adapter remains PRE-LAUNCH / LIVE QA. External project configuration, migration execution, credential injection, HTTPS deployment, and independent live QA remain required. See `deployment/VERCEL_SUPABASE_RUNBOOK.md`.
+
 `MASS_MEDIA_SOURCE_ROOT` selects the governed media provider root at deployment. UI components consume stable asset IDs and provider-relative source keys; deployment must not embed Google Drive, user-profile, drive-letter, or future external-drive paths. The bundled approved marks and visual references are available for presentation. The six governed TNGD media collections remain in explicit provider-unavailable fallback state until their manifest is connected and rights classifications are verified.

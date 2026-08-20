@@ -17,6 +17,7 @@ const { reportingManifest } = await import("../src/reporting/index.mjs");
 const { commerceOperationsManifest } = await import("../src/commerce/index.mjs");
 const { mediaManifest } = await import("../src/media/index.mjs");
 const { productRealizationManifest } = await import("../src/product-realization/index.mjs");
+const { deploymentAdapterManifest } = await import("../src/deployment/index.mjs");
 
 await mkdir(new URL("../dist/", import.meta.url), { recursive: true });
 await writeFile(
@@ -57,8 +58,9 @@ await writeFile(new URL("../dist/reporting-manifest.json", import.meta.url), `${
 await writeFile(new URL("../dist/commerce-operations-manifest.json", import.meta.url), `${JSON.stringify(commerceOperationsManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/media-manifest.json", import.meta.url), `${JSON.stringify(mediaManifest, null, 2)}\n`, "utf8");
 await writeFile(new URL("../dist/product-realization-manifest.json", import.meta.url), `${JSON.stringify(productRealizationManifest, null, 2)}\n`, "utf8");
+await writeFile(new URL("../dist/deployment-adapter-manifest.json", import.meta.url), `${JSON.stringify(deploymentAdapterManifest, null, 2)}\n`, "utf8");
 await cp(new URL("../public/", import.meta.url), new URL("../dist/public/", import.meta.url), { recursive: true, force: true });
 
 process.stdout.write(
-  "Built foundation through Product Realization manifests and browser assets\n"
+  "Built foundation through the Vercel and Supabase deployment adapter\n"
 );

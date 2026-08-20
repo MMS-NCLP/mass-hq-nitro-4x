@@ -151,9 +151,9 @@ for (const script of ["build", "test", "validate", "check", "start"]) {
 }
 
 const canonicalTestCommand =
-  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs tests/commerce-operations.test.mjs tests/media-manifest.test.mjs tests/product-realization.test.mjs";
+  "node --test tests/foundation.test.mjs tests/security.test.mjs tests/intake.test.mjs tests/guided-intake.test.mjs tests/customer-case.test.mjs tests/scheduling.test.mjs tests/capacity.test.mjs tests/dispatch.test.mjs tests/field-workflow.test.mjs tests/repair-estimate.test.mjs tests/customer-authorization.test.mjs tests/invoice-payment.test.mjs tests/reconciliation.test.mjs tests/warranty.test.mjs tests/follow-up.test.mjs tests/reporting.test.mjs tests/commerce-operations.test.mjs tests/media-manifest.test.mjs tests/product-realization.test.mjs tests/deployment-adapter.test.mjs";
 if (packageJson.scripts.test !== canonicalTestCommand) {
-  throw new Error("Test command must target canonical BP-000 through Product Realization tests.");
+  throw new Error("Test command must target canonical BP-000 through Deployment Adapter tests.");
 }
 
 const buildSource = await readFile(
@@ -659,4 +659,18 @@ for(const forbidden of ["G:\\\\","C:\\\\Users\\\\","Adaptive Ambient Dynamic Pul
 const approvedAssets=JSON.parse(await readFile(new URL("../public/media/manifest.json",import.meta.url),"utf8"));
 for(const [assetId,checksum] of [["brand:mass-hq-nitro-4x","0DF4E0FA2FB9C30F90A5C9F3500397395E109551F88C5518195E4418B049A660"],["brand:tngd-primary","EDBC777484EFA980C2D938332F06F7F4E867EAE15CD90172FA1191402122F30D"]]){const asset=approvedAssets.assets.find(item=>item.assetId===assetId);if(!asset||asset.checksum!==checksum||asset.approvalState!=="public-approved")throw new Error(`Approved brand asset evidence missing: ${assetId}`);}
 
-process.stdout.write("Canonical BP-000 through BP-015, Commerce Operations, and Product Realization repository validation passed.\n");
+const deploymentManifest = (await import("../src/deployment/index.mjs")).deploymentAdapterManifest;
+if (!foundation.implementedPackages.includes("TNGD-DISPATCH-V1-DEPLOYMENT-ADAPTER") || deploymentManifest.domainKernelPreserved !== true || deploymentManifest.productionAccepted !== false || deploymentManifest.delivery !== "github-vercel-node-supabase") {
+  throw new Error("Deployment adapter manifest authority is incorrect.");
+}
+for (const path of [
+  "../api/index.mjs", "../api/[...path].mjs", "../vercel.json", "../src/deployment/config.mjs", "../src/deployment/supabase-client.mjs",
+  "../src/deployment/supabase-storage.mjs", "../supabase/config.toml",
+  "../supabase/migrations/202608200001_dispatch_v1_adapter.sql", "../deployment/VERCEL_SUPABASE_RUNBOOK.md",
+  "../tests/deployment-adapter.test.mjs", "../scripts/validate-deployment.mjs"
+]) await access(new URL(path, import.meta.url), constants.F_OK);
+for (const name of ["SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_DB_URL", "SUPABASE_STORAGE_BUCKET"]) {
+  if (!environment.includes(`${name}=`)) throw new Error(`Missing Supabase environment declaration: ${name}`);
+}
+
+process.stdout.write("Canonical BP-000 through BP-015, Commerce Operations, Product Realization, and Deployment Adapter repository validation passed.\n");
