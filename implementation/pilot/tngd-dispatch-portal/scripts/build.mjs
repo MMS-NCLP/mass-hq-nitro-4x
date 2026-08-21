@@ -62,5 +62,5 @@ await writeFile(new URL("../dist/deployment-adapter-manifest.json", import.meta.
 await cp(new URL("../public/", import.meta.url), new URL("../dist/public/", import.meta.url), { recursive: true, force: true });
 
 process.stdout.write(
-  "Built foundation through the Vercel and Supabase deployment adapter\n"
+  "Built foundation through the provider-neutral Railway/Vercel and Supabase deployment adapters\n"
 );

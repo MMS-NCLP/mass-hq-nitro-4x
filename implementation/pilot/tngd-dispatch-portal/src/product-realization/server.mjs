@@ -56,15 +56,15 @@ const clearedSessionCookies = () => [
 
 const accessTokenFor = (request) => bearer(request) || (cookie(request, "__Host-mass_access") ? decodeURIComponent(cookie(request, "__Host-mass_access")) : null);
 
-const requireSameOrigin = (request) => {
+const requireSameOrigin = (request, configuredOrigin = null) => {
   const origin = request.headers?.origin;
   if (!origin) return;
   const forwardedProtocol = String(request.headers?.["x-forwarded-proto"] || "https").split(",")[0].trim();
-  const expected = `${forwardedProtocol}://${request.headers?.host}`;
+  const expected = configuredOrigin || `${forwardedProtocol}://${request.headers?.host}`;
   if (origin !== expected) throw Object.assign(new Error("cross-origin-session-request-denied"), { statusCode: 403 });
 };
 
-export function createProductRealizationHandler({ root = publicRoot, authBoundary = null, serveStatic = true } = {}) {
+export function createProductRealizationHandler({ root = publicRoot, authBoundary = null, serveStatic = true, adapterName = null, allowedOrigin = null } = {}) {
   return async (request, response) => {
     try {
       const url = new URL(request.url || "/", "http://dispatch.local");
@@ -72,14 +72,14 @@ export function createProductRealizationHandler({ root = publicRoot, authBoundar
         return json(response, 200, {
           status: "ready",
           phase: "pre-launch-live-qa-candidate",
-          adapter: authBoundary ? "vercel-supabase" : "local-preview",
+          adapter: adapterName || (authBoundary ? "vercel-supabase" : "local-preview"),
           deploymentValidated: false,
           productionAccepted: false
         });
       }
       if (url.pathname === "/api/session" && request.method === "POST") {
         if (!authBoundary) return json(response, 503, { error: "authentication-provider-unavailable" });
-        requireSameOrigin(request);
+        requireSameOrigin(request, allowedOrigin);
         const body = await readJson(request);
         const session = await authBoundary.signInWithPassword({ email: body.email, password: body.password });
         response.setHeader("set-cookie", sessionCookies(session));
@@ -87,7 +87,7 @@ export function createProductRealizationHandler({ root = publicRoot, authBoundar
       }
       if (url.pathname === "/api/session" && request.method === "PUT") {
         if (!authBoundary) return json(response, 503, { error: "authentication-provider-unavailable" });
-        requireSameOrigin(request);
+        requireSameOrigin(request, allowedOrigin);
         const refreshToken = cookie(request, "__Secure-mass_refresh");
         if (!refreshToken) return json(response, 401, { error: "refresh-session-required" });
         const session = await authBoundary.refreshSession({ refreshToken: decodeURIComponent(refreshToken) });
@@ -95,7 +95,7 @@ export function createProductRealizationHandler({ root = publicRoot, authBoundar
         return json(response, 200, { authenticated: true, expiresIn: session.maxAge });
       }
       if (url.pathname === "/api/session" && request.method === "DELETE") {
-        requireSameOrigin(request);
+        requireSameOrigin(request, allowedOrigin);
         response.setHeader("set-cookie", clearedSessionCookies());
         return json(response, 200, { authenticated: false });
       }

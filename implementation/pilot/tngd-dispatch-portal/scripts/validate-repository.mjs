@@ -660,14 +660,14 @@ const approvedAssets=JSON.parse(await readFile(new URL("../public/media/manifest
 for(const [assetId,checksum] of [["brand:mass-hq-nitro-4x","0DF4E0FA2FB9C30F90A5C9F3500397395E109551F88C5518195E4418B049A660"],["brand:tngd-primary","EDBC777484EFA980C2D938332F06F7F4E867EAE15CD90172FA1191402122F30D"]]){const asset=approvedAssets.assets.find(item=>item.assetId===assetId);if(!asset||asset.checksum!==checksum||asset.approvalState!=="public-approved")throw new Error(`Approved brand asset evidence missing: ${assetId}`);}
 
 const deploymentManifest = (await import("../src/deployment/index.mjs")).deploymentAdapterManifest;
-if (!foundation.implementedPackages.includes("TNGD-DISPATCH-V1-DEPLOYMENT-ADAPTER") || deploymentManifest.domainKernelPreserved !== true || deploymentManifest.productionAccepted !== false || deploymentManifest.delivery !== "github-vercel-node-supabase") {
+if (!foundation.implementedPackages.includes("TNGD-DISPATCH-V1-DEPLOYMENT-ADAPTER") || deploymentManifest.domainKernelPreserved !== true || deploymentManifest.productionAccepted !== false || deploymentManifest.delivery !== "github-provider-neutral-node-supabase" || deploymentManifest.selectedHostingProvider !== "railway") {
   throw new Error("Deployment adapter manifest authority is incorrect.");
 }
 for (const path of [
-  "../api/index.mjs", "../api/[...path].mjs", "../vercel.json", "../src/deployment/config.mjs", "../src/deployment/supabase-client.mjs",
+  "../api/index.mjs", "../api/[...path].mjs", "../vercel.json", "../railway.json", "../src/deployment/config.mjs", "../src/deployment/supabase-client.mjs", "../src/deployment/railway-server.mjs",
   "../src/deployment/supabase-storage.mjs", "../supabase/config.toml",
   "../supabase/migrations/202608200001_dispatch_v1_adapter.sql", "../deployment/VERCEL_SUPABASE_RUNBOOK.md",
-  "../tests/deployment-adapter.test.mjs", "../scripts/validate-deployment.mjs"
+  "../tests/deployment-adapter.test.mjs", "../scripts/validate-deployment.mjs", "../scripts/validate-railway.mjs", "../deployment/RAILWAY_RUNBOOK.md"
 ]) await access(new URL(path, import.meta.url), constants.F_OK);
 for (const name of ["SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_DB_URL", "SUPABASE_STORAGE_BUCKET"]) {
   if (!environment.includes(`${name}=`)) throw new Error(`Missing Supabase environment declaration: ${name}`);

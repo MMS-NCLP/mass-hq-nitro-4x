@@ -6,6 +6,7 @@ import { loadDeploymentConfig } from "../src/deployment/config.mjs";
 import { SupabaseAuthBoundary, SupabaseHttpClient, SupabasePersistenceAdapter } from "../src/deployment/supabase-client.mjs";
 import { SupabaseStorageAdapter } from "../src/deployment/supabase-storage.mjs";
 import { createProductRealizationHandler } from "../src/product-realization/server.mjs";
+import { createRailwayServer } from "../src/deployment/railway-server.mjs";
 
 const userId = "11111111-1111-4111-8111-111111111111";
 const tenantA = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
@@ -113,5 +114,18 @@ test("session boundary issues hardened cookies refreshes and rejects cross-origi
     const refreshed = await fetch(`${origin}/api/session`, { method: "PUT", headers: { origin, "x-forwarded-proto": "http", cookie: "__Secure-mass_refresh=refresh" } });
     assert.equal(refreshed.status, 200);
     assert.match(refreshed.headers.get("set-cookie"), /new-refresh/);
+  } finally { server.close(); }
+});
+
+test("Railway server binds the existing static and authenticated API boundaries", async () => {
+  const server = createRailwayServer({ environment: { SUPABASE_URL: "https://example.supabase.co", SUPABASE_PUBLISHABLE_KEY: "publishable-test-key", RAILWAY_PUBLIC_DOMAIN: "dispatch.example.test" }, fetchImpl: async () => jsonResponse({}) });
+  server.listen(0, "127.0.0.1"); await once(server, "listening");
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`;
+    const health = await (await fetch(`${origin}/api/health`)).json();
+    assert.equal(health.adapter, "railway-supabase");
+    assert.equal(health.productionAccepted, false);
+    assert.equal((await fetch(`${origin}/today`)).status, 200);
+    assert.equal((await fetch(`${origin}/api/bootstrap`)).status, 401);
   } finally { server.close(); }
 });

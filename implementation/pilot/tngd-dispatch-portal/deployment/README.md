@@ -40,4 +40,8 @@ The deployment-adapter authorization selects GitHub → Vercel → existing Disp
 
 The adapter remains PRE-LAUNCH / LIVE QA. External project configuration, migration execution, credential injection, HTTPS deployment, and independent live QA remain required. See `deployment/VERCEL_SUPABASE_RUNBOOK.md`.
 
+## Railway Hosting Acceleration
+
+Railway is the selected hosting provider for the accelerated PRE-LAUNCH / LIVE QA deployment. `railway.json` and `src/deployment/railway-server.mjs` reuse the same Supabase Auth/membership boundary and serve the existing static browser application and API from one native Node process. The Vercel files remain preserved and valid; no accepted domain or Product Realization behavior was remanufactured. See `deployment/RAILWAY_RUNBOOK.md`.
+
 `MASS_MEDIA_SOURCE_ROOT` selects the governed media provider root at deployment. UI components consume stable asset IDs and provider-relative source keys; deployment must not embed Google Drive, user-profile, drive-letter, or future external-drive paths. The bundled approved marks and visual references are available for presentation. The six governed TNGD media collections remain in explicit provider-unavailable fallback state until their manifest is connected and rights classifications are verified.

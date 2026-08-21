@@ -15,10 +15,11 @@ const httpsUrl = (value, name) => {
 
 export function loadDeploymentConfig(environment = process.env, { requireSupabase = true } = {}) {
   const mode = String(environment.MASS_DEPLOYMENT_MODE || "pre-launch-live-qa");
+  const inferredOrigin = environment.MASS_PUBLIC_ORIGIN || (environment.RAILWAY_PUBLIC_DOMAIN ? `https://${environment.RAILWAY_PUBLIC_DOMAIN}` : null);
   const base = {
     mode,
     productionAccepted: false,
-    publicOrigin: environment.MASS_PUBLIC_ORIGIN ? httpsUrl(environment.MASS_PUBLIC_ORIGIN, "MASS_PUBLIC_ORIGIN") : null,
+    publicOrigin: inferredOrigin ? httpsUrl(inferredOrigin, "MASS_PUBLIC_ORIGIN") : null,
     square: Object.freeze({
       environment: environment.SQUARE_ENVIRONMENT || "sandbox",
       configured: Boolean(environment.SQUARE_ACCESS_TOKEN && environment.SQUARE_WEBHOOK_SIGNATURE_KEY)

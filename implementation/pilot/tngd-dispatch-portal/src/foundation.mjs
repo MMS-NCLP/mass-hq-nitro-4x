@@ -44,7 +44,8 @@ export const foundation = Object.freeze({
     "MASS_MEDIA_SOURCE_ROOT",
     "SUPABASE_URL",
     "SUPABASE_PUBLISHABLE_KEY",
-    "SUPABASE_STORAGE_BUCKET"
+    "SUPABASE_STORAGE_BUCKET",
+    "RAILWAY_PUBLIC_DOMAIN"
   ]),
   authorizedFeatureScope: Object.freeze([
     "authentication",
@@ -125,7 +126,7 @@ export const foundation = Object.freeze({
   bp015FeatureScope: Object.freeze(["report-and-metric-definitions","governed-report-generation","tenant-safe-operational-views","deterministic-metric-calculations","point-in-time-snapshots","authorized-export-definitions","source-reference-traceability","data-quality-exception-representation"]),
   commerceOperationsFeatureScope: Object.freeze(["catalog-administration","governed-categories","tax-treatment","modifier-sets","controlled-discounts","deposit-configuration","authorized-ad-hoc-lines","bp009-bp012-commerce-integration"]),
   productRealizationFeatureScope: Object.freeze(["media-source-manifest","provider-independent-asset-resolution","responsive-browser-delivery","operational-pulse-v1","technician-mobile-flow","dark-light-presentation","accepted-capability-surface-mapping","provider-unavailable-states"]),
-  deploymentAdapterFeatureScope: Object.freeze(["vercel-static-spa-delivery","thin-node-function-adapter","supabase-auth-session-boundary","authoritative-tenant-membership","supabase-postgres-persistence","tenant-row-level-security","governed-supabase-storage","fresh-qa-bootstrap","provider-secret-seams"])
+  deploymentAdapterFeatureScope: Object.freeze(["vercel-static-spa-delivery","thin-node-function-adapter","railway-native-node-delivery","supabase-auth-session-boundary","authoritative-tenant-membership","supabase-postgres-persistence","tenant-row-level-security","governed-supabase-storage","fresh-qa-bootstrap","provider-secret-seams"])
 });
 
 const invokedDirectly =

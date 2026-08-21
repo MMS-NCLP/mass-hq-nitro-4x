@@ -1,12 +1,13 @@
 export const deploymentAdapterManifest = Object.freeze({
   phaseId: "TNGD-DISPATCH-V1-DEPLOYMENT-ADAPTER",
   startingCanonical: "3b006458e7bc1840abf9cf8c913fc3d211b3e05f",
-  delivery: "github-vercel-node-supabase",
+  delivery: "github-provider-neutral-node-supabase",
+  selectedHostingProvider: "railway",
   domainKernelPreserved: true,
   productionAccepted: false,
   liveDeploymentValidated: false,
   providers: Object.freeze({
-    web: "vercel",
+    web: Object.freeze(["railway", "vercel-preserved"]),
     persistence: "supabase-postgres",
     authentication: "supabase-auth",
     storage: "supabase-storage"

@@ -10,6 +10,7 @@ export default async function dispatchVercelFunction(request, response) {
     const client = new SupabaseHttpClient(config.supabase);
     handler = createProductRealizationHandler({
       authBoundary: new SupabaseAuthBoundary({ client }),
+      allowedOrigin: config.publicOrigin,
       serveStatic: false
     });
   }
