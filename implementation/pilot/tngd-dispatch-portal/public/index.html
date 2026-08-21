@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#06111f">
+  <meta name="theme-color" content="#030A12">
   <title>MASS Dispatch — Top-Notch Garage Doors</title>
   <link rel="stylesheet" href="/app.css">
 </head>
@@ -18,17 +18,18 @@
       <nav id="primary-nav"></nav>
       <div class="tenant-lockup">
         <img src="/assets/brands/tngd-primary.png" alt="Top-Notch Garage Doors">
-        <span>Together, not going down</span>
+        <div><b>NITRO 4X <i>|</i> DISPATCH</b><span>Together, not going down</span></div>
       </div>
     </aside>
 
     <section class="product">
       <header class="topbar">
         <div>
-          <div class="eyebrow"><span class="preview-dot"></span> Product realization preview</div>
+          <div class="eyebrow"><span class="preview-dot"></span> PRE-LAUNCH / LIVE QA</div>
           <h1 id="page-title">Operational Pulse</h1>
           <p id="page-date"></p>
         </div>
+        <label class="command-search"><span>⌕</span><input type="search" placeholder="Search customers, jobs, technicians, invoices…" aria-label="Search Dispatch"><kbd>⌘K</kbd></label>
         <div class="top-actions">
           <label class="role-control">View as
             <select id="role-select" aria-label="Preview role">
@@ -37,8 +38,10 @@
               <option value="administrator">Administrator</option>
             </select>
           </label>
+          <button class="icon-button" type="button" aria-label="Messages">▱<i>3</i></button>
+          <button class="icon-button" type="button" aria-label="Notifications">♧<i>2</i></button>
           <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle light and dark mode">◐</button>
-          <button class="profile" type="button"><span class="avatar">MD</span><span><b>Marcus D.</b><small id="role-label">Technician</small></span></button>
+          <button class="profile" type="button"><span class="avatar" id="profile-avatar">QA</span><span><b id="profile-name">Authorized user</b><small id="role-label">Loading role</small></span></button>
         </div>
       </header>
 
@@ -47,9 +50,9 @@
       </main>
 
       <footer class="statusbar">
-        <span><i class="status-dot"></i> Presentation ready</span>
-        <span>Preview data · providers not connected</span>
-        <span>V1 Product Realization</span>
+        <span><i class="status-dot"></i> Application boundary ready</span>
+        <span id="provider-status">Provider status loading</span>
+        <span>Dispatch V1 · Nitro 4X</span>
       </footer>
     </section>
   </div>

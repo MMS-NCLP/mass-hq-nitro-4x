@@ -12,7 +12,7 @@ const securityHeaders = Object.freeze({
   "referrer-policy": "no-referrer",
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "cross-origin-opener-policy": "same-origin",
-  "content-security-policy": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+  "content-security-policy": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-src https://www.openstreetmap.org; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
 });
 
 const json = (response, status, body) => {
@@ -117,7 +117,9 @@ export function createProductRealizationHandler({ root = publicRoot, authBoundar
               roles: principal.roles,
               preview: false,
               tenantId: principal.tenantId,
-              principalId: principal.id
+              principalId: principal.id,
+              email: principal.email,
+              displayName: principal.displayName || null
             },
             permittedRoutes: routesForRoles([principal.uiRole]),
             pulse: operationalPulse({}),
@@ -127,7 +129,7 @@ export function createProductRealizationHandler({ root = publicRoot, authBoundar
         const role = ["technician", "dispatcher", "administrator"].includes(url.searchParams.get("role")) ? url.searchParams.get("role") : "technician";
         return json(response, 200, {
           ...productRealizationContract(),
-          session: { authenticated: true, role, preview: true, tenantId: "tngd-preview", principalId: `${role}-preview` },
+          session: { authenticated: true, role, preview: true, tenantId: "tngd-preview", principalId: `${role}-preview`, displayName: `Preview ${role}` },
           permittedRoutes: routesForRoles([role]),
           pulse: operationalPulse({ active: 2, attention: 1 })
         });

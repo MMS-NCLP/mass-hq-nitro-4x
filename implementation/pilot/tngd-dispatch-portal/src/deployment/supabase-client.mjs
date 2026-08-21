@@ -90,7 +90,7 @@ export class SupabaseAuthBoundary {
     const query = new URLSearchParams({
       user_id: `eq.${userId}`,
       active: "is.true",
-      select: "tenant_id,ui_role,roles,permissions"
+      select: "tenant_id,email,ui_role,roles,permissions"
     });
     if (requestedTenantId) query.set("tenant_id", `eq.${uuid(requestedTenantId, "Requested tenant")}`);
     const memberships = await this.client.request(`/rest/v1/dispatch_tenant_memberships?${query}`, { accessToken });
@@ -104,6 +104,7 @@ export class SupabaseAuthBoundary {
       uiRole: membership.ui_role,
       roles: Object.freeze([...(membership.roles || [])]),
       permissions: Object.freeze([...(membership.permissions || [])]),
+      email: requiredText(membership.email || identity.email, "Authoritative identity email"),
       accessToken
     });
   }

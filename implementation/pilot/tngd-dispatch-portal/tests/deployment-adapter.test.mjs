@@ -29,12 +29,14 @@ test("verified identity resolves tenant and role only from authoritative members
   const calls = [];
   const boundary = new SupabaseAuthBoundary({ client: mockedClient(async (url, options) => {
     calls.push({ url: String(url), options });
-    if (String(url).endsWith("/auth/v1/user")) return jsonResponse({ id: userId, user_metadata: { tenant_id: tenantB, role: "administrator" } });
-    return jsonResponse([{ tenant_id: tenantA, ui_role: "technician", roles: ["technician"], permissions: ["jobs.assigned.read"] }]);
+    if (String(url).endsWith("/auth/v1/user")) return jsonResponse({ id: userId, email: "field@tngd.example", user_metadata: { tenant_id: tenantB, role: "administrator" } });
+    return jsonResponse([{ tenant_id: tenantA, email: "field@tngd.example", ui_role: "technician", roles: ["technician"], permissions: ["jobs.assigned.read"] }]);
   }) });
   const principal = await boundary.resolvePrincipal({ accessToken: "verified-jwt", requestedTenantId: tenantA });
   assert.equal(principal.tenantId, tenantA);
   assert.equal(principal.uiRole, "technician");
+  assert.equal(principal.email, "field@tngd.example");
+  assert.match(calls[1].url, /select=tenant_id%2Cemail%2Cui_role%2Croles%2Cpermissions/);
   assert.match(calls[1].url, new RegExp(`tenant_id=eq\\.${tenantA}`));
   assert.equal(calls.every((call) => call.options.headers.apikey === "publishable-test-key"), true);
 });
@@ -77,7 +79,7 @@ test("storage adapter enforces tenant and media-rights boundaries before provide
 });
 
 test("Vercel-compatible handler requires verified session and never accepts role query authority", async () => {
-  const authBoundary = { resolvePrincipal: async () => ({ id: userId, tenantId: tenantA, uiRole: "technician", roles: ["technician"], permissions: [], accessToken: "jwt" }) };
+  const authBoundary = { resolvePrincipal: async () => ({ id: userId, tenantId: tenantA, email: "field@tngd.example", uiRole: "technician", roles: ["technician"], permissions: [], accessToken: "jwt" }) };
   const server = createServer(createProductRealizationHandler({ authBoundary, serveStatic: false }));
   server.listen(0, "127.0.0.1"); await once(server, "listening");
   try {
@@ -87,6 +89,7 @@ test("Vercel-compatible handler requires verified session and never accepts role
     const body = await response.json();
     assert.equal(body.session.role, "technician");
     assert.equal(body.session.tenantId, tenantA);
+    assert.equal(body.session.email, "field@tngd.example");
     assert.equal(body.session.preview, false);
     assert.equal(body.permittedRoutes.some(({ id }) => id === "administration"), false);
   } finally { server.close(); }
