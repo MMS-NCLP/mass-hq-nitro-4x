@@ -15,33 +15,42 @@ This queue is Conveyor B under:
 ## Queue
 
 - `inbox/` — Executive-authorized feature, correction, refinement, validation, or readiness work orders
-- `active/` — the sole Pilot package currently being manufactured
+- `active/` — primary Pilot packages currently being manufactured or held at a bounded owner/review checkpoint
 - `review/` — completed packages and review evidence
 - `done/` — accepted packages and completion evidence
 
 ## Continuous Operating Rules
 
-1. Only repository-authorized work enters the inbox.
+1. Only repository-authorized work is manufactured; a clear Executive directive may be materialized into a repository-native work order under MPD-002 Section 6A.
 2. Maintain at least three authorized future work orders whenever three roadmap packages remain.
-3. Only one Pilot package may be active.
-4. Process eligible work in dependency and filename order.
-5. After a package passes manufacturing validation and enters review, continue to the next eligible authorized package.
+3. Maintain one primary active manufacturing package per dependency chain. An unrelated or checkpointed active package is not a global production lock.
+4. Process eligible work in dependency and filename order unless Executive Authority establishes a newer bounded sequence.
+5. After a package or bounded slice passes manufacturing validation and its state is version-preserved, continue to the next eligible authorized package without waiting on unrelated review.
 6. Routine Independent Review and Executive Acceptance proceed in parallel and do not idle manufacturing.
-7. A submitted predecessor may be consumed provisionally when its validation passed, its contracts are committed, and no architecture-critical defect is known.
+7. A submitted predecessor may be consumed provisionally when its validation passed, its contracts are committed or version-preserved, and no architecture-critical defect is known.
 8. Localized findings become isolated LCO/refinement work and do not stop unrelated production.
 9. An architecture-critical or active-dependency defect pauses only the affected chain.
 10. If no feature package is eligible, select the next authorized correction, refinement, validation, migration, packaging, or readiness work order.
-11. Never invent scope, bypass authority, or manufacture from backlog.
+11. Never invent scope or bypass authority. When Executive Authority has already approved a clear bounded scope, materialize the missing WO instead of stopping for paperwork.
 12. Pilot code remains reusable MASS capability; disposable CRM implementation is prohibited.
+13. An empty `inbox/`, a routine visual-review checkpoint, or the mere existence of another `active/` package is not by itself a production blocker.
+14. Surface/page prohibitions inside an older work order bind that work order only; they do not override a later explicit Executive authorization for a successor surface once the predecessor dependency is safely version-preserved.
+
+## No-Hold / Baton Continuity Rule
+
+When Executive Authority explicitly approves the next bounded surface, feature, correction, or slice and no architecture-critical dependency conflict exists, the production system shall:
+
+1. capture that approval in the repository's established work-order format;
+2. stamp predecessor SHA, scope, acceptance gate, and prohibitions;
+3. place/activate the work order according to queue conventions; and
+4. continue manufacturing.
+
+Do **not** return a governance hold solely because the inbox was empty or because an earlier package still exists in `active/` for owner review.
+
+A hold is appropriate only for a real blocker: explicit Executive pause, architecture-critical dependency defect, applicable failed validation, genuinely ambiguous scope that would require material invention, or unavailable credentials/providers/decisions required for safe execution.
 
 ## Current Status
 
-BP-008 — Mobile Technician Workflow and 25-Point Inspection — is submitted for Independent Review and may serve as the provisional BP-009 baseline because its complete manufacturing gate passed and no architecture-critical defect is known.
+The production frontier is governed by the repository's current committed packages, reconciliations, and latest Executive-authorized bounded work. This README intentionally does not hard-code a stale package number as the perpetual frontier.
 
-The Pilot Inbox contains:
-
-1. BP-009 — Repair and Estimate Execution
-2. BP-010 — Customer Authorization Evidence
-3. BP-011 — Invoice and Square Payment Integration
-
-Under MPD-002, BP-009 may activate without waiting for routine BP-008 review completion. BP-010 and BP-011 remain eligible only after their manufactured predecessor contracts are committed and no architecture-critical defect is known.
+Manufacturing must determine the current frontier from repository state and applicable Executive authority, then continue under MPD-002 without administrative idle.
