@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mass.local/governance/nitro4x-production-state.schema.json",
+  "title": "Nitro 4X Production State",
+  "description": "Machine-readable production baton for MASS Nitro 4X governed work.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "stream",
+    "sequence",
+    "pass",
+    "coordinates",
+    "state",
+    "stampedAt",
+    "producer",
+    "quarterback",
+    "authority",
+    "evidence",
+    "expectedSuccessor"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "stream": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9-]{2,63}$" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "correction": { "type": ["integer", "null"], "minimum": 1 },
+    "pass": { "type": "integer", "minimum": 1, "maximum": 4 },
+    "coordinates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "reason", "proof", "qa"],
+      "properties": {
+        "execution": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "reason": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "proof": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "qa": { "type": "integer", "minimum": 1, "maximum": 4 }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": ["DRAFT", "REALIZED", "RECONCILED", "PROVEN", "CORRECTION", "ACCEPTED", "RELEASED", "BLOCKED", "DEFERRED", "SUPERSEDED"]
+    },
+    "stampedAt": { "type": "string", "format": "date-time" },
+    "producer": { "type": "string", "minLength": 1 },
+    "quarterback": { "type": "string", "minLength": 1 },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "governingArtifacts"],
+      "properties": {
+        "repository": { "type": "string", "minLength": 1 },
+        "branch": { "type": ["string", "null"] },
+        "commit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,40}$" },
+        "governingArtifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "workOrder": { "type": ["string", "null"] }
+      }
+    },
+    "runtime": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "applicationPath": { "type": ["string", "null"] },
+        "entrypoint": { "type": ["string", "null"] },
+        "deploymentTarget": { "type": ["string", "null"] }
+      }
+    },
+    "presentation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "implementationPath": { "type": ["string", "null"] },
+        "baselineCommit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,40}$" },
+        "referenceSet": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "intentionalDivergence": { "type": ["string", "null"] }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verified", "unverified", "regressionFloor"],
+      "properties": {
+        "verified": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "unverified": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "invalidated": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "regressionFloor": { "type": ["integer", "null"], "minimum": 0 },
+        "buildEvidence": { "type": ["string", "null"] },
+        "runtimeEvidence": { "type": ["string", "null"] }
+      }
+    },
+    "predecessor": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "stream": { "type": "string" },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "pass": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "stamp": { "type": "string" }
+      }
+    },
+    "expectedSuccessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "pass", "producer", "objective"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "pass": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "producer": { "type": "string", "minLength": 1 },
+        "objective": { "type": "string", "minLength": 1 },
+        "expectedStamp": { "type": ["string", "null"] }
+      }
+    },
+    "decision": { "type": ["string", "null"] },
+    "notes": { "type": ["string", "null"] }
+  }
+}

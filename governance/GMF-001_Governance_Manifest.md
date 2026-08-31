@@ -65,6 +65,15 @@ Every new governing artifact shall register itself here as part of its completio
 | ENB-001 | Executive Notification Bridge v1.0 | Active | `governance/directives/ENB-001_Executive_Notification_Bridge_v1.0.md` |
 | MPD-001 | Dual Conveyor Manufacturing Strategy | Active | `governance/directives/MPD-001_Dual_Conveyor_Manufacturing_Strategy.md` |
 
+## Nitro 4X Production Governance
+
+| ID | Title | Version | Status | Governing Parent | Location |
+|---|---|---|---|---|---|
+| NITRO-4X-001 | Nitro 4X Core 4 Production Kernel Doctrine | 1.0.0 | Proposed Governing Doctrine | MASS-MISSION-001 | `governance/nitro4x/NITRO-4X-001_Core_4_Production_Kernel_Doctrine.md` |
+| NITRO-4X-002 | Nitro 4X Sequential Authority and Handoff Standard | 1.0.0 | Proposed Governing Standard | NITRO-4X-001 | `governance/nitro4x/NITRO-4X-002_Sequential_Authority_and_Handoff_Standard.md` |
+| — | Nitro 4X Sequence Register | Initial Adoption | Operational Register | NITRO-4X-002 | `governance/nitro4x/NITRO-4X_SEQUENCE_REGISTER.md` |
+| — | Nitro 4X Production State JSON Schema | 1.0.0 | Supporting Machine Contract | NITRO-4X-002 | `governance/nitro4x/nitro4x-production-state.schema.json` |
+
 ## Engineering Work Orders
 
 | ID | Title | Version | Status | Governing Parent | Location |
